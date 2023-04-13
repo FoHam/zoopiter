@@ -44,7 +44,7 @@ public class MemberSVCImpl implements MemberSVC {
    */
   @Override
   public void update(String userId, Member member) {
-
+    memberDAO.update(userId,member);
   }
 
   /**
@@ -55,7 +55,7 @@ public class MemberSVCImpl implements MemberSVC {
    */
   @Override
   public Optional<Member> findbyEmail(String userEmail) {
-    return Optional.empty();
+    return memberDAO.findbyEmail(userEmail);
   }
 
   /**
@@ -66,7 +66,7 @@ public class MemberSVCImpl implements MemberSVC {
    */
   @Override
   public Optional<Member> findById(String userId) {
-    return Optional.empty();
+    return memberDAO.findById(userId);
   }
 
   /**
@@ -76,7 +76,7 @@ public class MemberSVCImpl implements MemberSVC {
    */
   @Override
   public List<Member> findAll() {
-    return null;
+    return memberDAO.findAll();
   }
 
   /**
@@ -86,7 +86,7 @@ public class MemberSVCImpl implements MemberSVC {
    */
   @Override
   public void delete(String userId) {
-
+    memberDAO.delete(userId);
   }
 
   /**
@@ -136,6 +136,6 @@ public class MemberSVCImpl implements MemberSVC {
    */
   @Override
   public Optional<String> findIdByEmail(String userEmail) {
-    return Optional.empty();
+    return memberDAO.findIdByEmail(userEmail);
   }
 }

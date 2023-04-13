@@ -9,6 +9,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Optional;
 import java.util.Random;
 
 @Slf4j
@@ -129,6 +130,20 @@ public class RestMemverController {
         //회원기입
         Member member2 = memberSVC.save2(member);
         res = RestResponse.createRestResponse("00","성공",member2);
+
+        return res;
+    }
+
+    //아이디 찾기
+    @ResponseBody
+    @GetMapping("/findIdByEmail")
+    public RestResponse<Object> findIdByEmail(@RequestParam("email") String email){
+        log.info("email={}",email);
+        RestResponse<Object> res = null;
+
+        //이메일 검증
+        Optional<String> exist = memberSVC.findIdByEmail(email);
+        res = RestResponse.createRestResponse("00","성공", exist);
 
         return res;
     }

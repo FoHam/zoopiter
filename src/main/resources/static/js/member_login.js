@@ -1,5 +1,8 @@
+import { ajax } from '/js/ajax.js';
+
 const $id = document.getElementById('id');
 const $pw = document.getElementById('pw');
+
 const $errId = document.querySelector('.err.id');
 const $errPw = document.querySelector('.err.pw');
 
@@ -149,8 +152,12 @@ $pw.addEventListener('input', e => {
   }
 });
 
+const $findIdEmail = document.getElementById('findIdEmail');
+const $errEmail = document.querySelector('.err.findIdEmail');
+
 const $findId = document.getElementById('findId');
 const $checkId = document.getElementById('checkId');
+const $resId = document.getElementById('resId');
 const $loginGo = document.getElementById('loginGo');
 const $checkPw = document.getElementById('checkPw');
 
@@ -168,10 +175,10 @@ $findId.addEventListener('click', e => {
   $findIdPopup.showModal();
 });
 
-$checkId.addEventListener('click', e => {
-  $findIdPopup.close();
-  $findIdPopup2.showModal();
+$findPw.addEventListener('click', e => {
+  $findPwPopup.showModal();
 });
+
 
 $loginGo.addEventListener('click', e => {
   $findIdPopup2.close();
@@ -182,10 +189,6 @@ $checkPw.addEventListener('click', e => {
   $findPwPopup.showModal();
 });
 
-$findPw.addEventListener('click', e => {
-  $findPwPopup.showModal();
-});
-
 $checkPassword.addEventListener('click', e => {
   $findPwPopup.close();
   $findPwPopup2.showModal();
@@ -193,4 +196,121 @@ $checkPassword.addEventListener('click', e => {
 
 $loginGo2.addEventListener('click', e => {
   $findPwPopup2.close();
+});
+
+//이메일 중복체크
+const chkEmail = res => {
+  if (res.header.rtcd == '00') {
+    if (res.data) {
+      $errEmail.style = 'color : green';
+      $errEmail.textContent = '가입된 계정이 있습니다.';
+    } else {
+      $errEmail.style = 'color : red';
+      $errEmail.textContent = '가입된 계정이 없습니다.';
+    }
+  } else {
+    $errEmail.textContent = `${res.header.rtmsg}`;
+  };
+  return;
+};
+
+const chkEmail_h = () => {
+  const url = `/api/members/email?email=${$findIdEmail.value}`;
+  ajax
+    .get(url)
+    .then(res => res.json())
+    .then(chkEmail) //res=>chkEmail(res)
+    .catch(console.error); //err=>console.error(err)
+};
+
+//이메일
+$findIdEmail.addEventListener('keydown', e => {
+  const input = $findIdEmail.value;
+  const lenOfInput = input.length;
+  const emailRegex = /^[_a-z0-9-]+(\.[_a-z0-9-]+)*@(?:\w+\.)+\w+$/;
+
+  if (e.key == 'Enter'){
+    e.preventDefault();
+  }
+
+  if (e.key === ' ') {
+    e.preventDefault();
+  }
+
+  if (e.key != 'Enter') {
+    return;
+  }
+  if (e.key == 'Enter') {
+    if (lenOfInput == 0) {
+      $errEmail.classList.remove('hidden');
+      $errEmail.style = 'color : red';
+      $errEmail.textContent = '* 이메일를 입력해 주세요.';
+      $findIdEmail.focus();
+      $findIdEmail.value = '';
+    } else if (!emailRegex.test(input)) {
+      $errEmail.classList.remove('hidden');
+      $errEmail.style = 'color : red';
+      $errEmail.textContent = '* 이메일 양식에 맞게 입력해 주세요.';
+      $findIdEmail.focus();
+    } else {
+      chkEmail_h();
+      if ($errEmail.style.color === 'green') {
+//        $emailCheck.focus();
+      }
+    }
+    return;
+  };
+  return;
+});
+
+$findIdEmail.addEventListener('blur', e => {
+  const input = $findIdEmail.value;
+  const lenOfInput = input.length;
+  const emailRegex = /^[_a-z0-9-]+(\.[_a-z0-9-]+)*@(?:\w+\.)+\w+$/;
+
+  if (lenOfInput == 0) {
+    $errEmail.classList.remove('hidden');
+    $errEmail.style = 'color : red';
+    $errEmail.textContent = '* 이메일를 입력해 주세요.';
+    $findIdEmail.value = '';
+  } else if (!emailRegex.test(input)) {
+    $errEmail.classList.remove('hidden');
+    $errEmail.style = 'color : red';
+    $errEmail.textContent = '* 이메일 양식에 맞게 입력해 주세요.';
+  } else {
+    chkEmail_h();
+  }
+  return;
+});
+
+// 아이디 찾기 및 결과 보여주기
+const findIdByEmail = res => {
+  if (res.header.rtcd == '00') {
+    if (res.data) {
+      $resId.textContent = res.data;
+    } else {
+      $resId.style = 'color : red';
+      $resId.textContent = '오류';
+    }
+  } else {
+    $resId.textContent = `${res.header.rtmsg}`;
+  };
+  return;
+};
+
+const findIdByEmail_h = () => {
+  const url = `/api/members/findIdByEmail?email=${$findIdEmail.value}`;
+  ajax
+    .get(url)
+    .then(res => res.json())
+    .then(findIdByEmail) //res=>chkEmail(res)
+    .catch(console.error); //err=>console.error(err)
+};
+
+$checkId.addEventListener('click', e => {
+    if($errEmail.style.color === 'green'){
+          findIdByEmail_h();
+          $findIdPopup.close();
+          $findIdPopup2.showModal();
+    };
 });
