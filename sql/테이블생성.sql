@@ -61,7 +61,15 @@ insert into code (code_id,decode,pcode_id,useyn) values ('B0102','커뮤니티','B01
 insert into code (code_id,decode,pcode_id,useyn) values ('F01','게시판',null,'Y');
 insert into code (code_id,decode,pcode_id,useyn) values ('F0101','병원후기','B01','Y');
 insert into code (code_id,decode,pcode_id,useyn) values ('F0102','커뮤니티','B01','Y');
+--insert into code (code_id,decode,pcode_id,useyn) values ('F01','첨부파일',null,'Y');
+--insert into code (code_id,decode,pcode_id,useyn) values ('F0101','커뮤니티','F01','Y');
+--insert into code (code_id,decode,pcode_id,useyn) values ('F0102','병원후기','F01','Y');
+--insert into code (code_id,decode,pcode_id,useyn) values ('F0103','회원프로필','F01','Y');
+
+--이건 은아님이 추가
 insert into code (code_id,decode,pcode_id,useyn) values ('F0103','회원프로필','M01','Y');
+insert into code (code_id,decode,pcode_id,useyn) values ('F010201','병원후기일반','F01','Y');
+insert into code (code_id,decode,pcode_id,useyn) values ('F010202','병원후기이미지','F01','Y');
 commit;
 
 ------------
@@ -465,7 +473,7 @@ alter table BBSH add constraint  BBSH_BH_GUBUN_fk
 alter table BBSH modify BH_TITLE constraint BBSH_BH_TITLE_nn not null;
 alter table BBSH modify BH_CONTENT constraint BBSH_BH_CONTENT_nn not null;
 --alter table BBSH modify USER_NICK constraint BBSH_USER_NICK_nn not null;
---alter table BBSH modify BH_HIT constraint BBSH_BH_HIT_nn not null;
+alter table BBSH modify BH_HIT constraint BBSH_BH_HIT_nn not null;
 -- not null 제약조건은 add 대신 modify 명령문 사용
 
 
