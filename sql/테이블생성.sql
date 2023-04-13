@@ -58,9 +58,13 @@ insert into code (code_id,decode,pcode_id,useyn) values ('P0104','접종 완료','P0
 insert into code (code_id,decode,pcode_id,useyn) values ('B01','게시판',null,'Y');
 insert into code (code_id,decode,pcode_id,useyn) values ('B0101','병원후기','B01','Y');
 insert into code (code_id,decode,pcode_id,useyn) values ('B0102','커뮤니티','B01','Y');
+
+--영훈이가 넣은거
 insert into code (code_id,decode,pcode_id,useyn) values ('F01','게시판',null,'Y');
 insert into code (code_id,decode,pcode_id,useyn) values ('F0101','병원후기','B01','Y');
 insert into code (code_id,decode,pcode_id,useyn) values ('F0102','커뮤니티','B01','Y');
+
+--팀장님이 넣어둔거
 --insert into code (code_id,decode,pcode_id,useyn) values ('F01','첨부파일',null,'Y');
 --insert into code (code_id,decode,pcode_id,useyn) values ('F0101','커뮤니티','F01','Y');
 --insert into code (code_id,decode,pcode_id,useyn) values ('F0102','병원후기','F01','Y');
@@ -68,6 +72,8 @@ insert into code (code_id,decode,pcode_id,useyn) values ('F0102','커뮤니티','B01
 
 --이건 은아님이 추가
 insert into code (code_id,decode,pcode_id,useyn) values ('F0103','회원프로필','M01','Y');
+
+--영훈이가 넣은거
 insert into code (code_id,decode,pcode_id,useyn) values ('F010201','병원후기일반','F01','Y');
 insert into code (code_id,decode,pcode_id,useyn) values ('F010202','병원후기이미지','F01','Y');
 commit;
