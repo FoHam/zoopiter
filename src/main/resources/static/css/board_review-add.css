@@ -1,0 +1,483 @@
+@charset "utf-8";
+@import 'theme/layout.css';
+* {
+  /* outline: 1px solid green; */
+}
+
+.hd-r {
+  border-bottom: 2px solid var(--color-grey1);
+}
+
+.container {
+  background-color: var(--color-background);
+  padding: 30px;
+}
+
+p {
+  margin: 0;
+}
+
+/* 메인 컨텐츠 */
+.main-list {
+  /* grid-area: main-list; */
+  width: 100%;
+}
+.main-list div {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+}
+.main-list .list .main {
+  font-size: 1.6rem;
+  font-weight: bold;
+  margin-bottom: 20px 0;
+}
+.main-list .list .selectBox {
+  position: relative;
+  width: 150px;
+  height: 35px;
+  border-radius: 4px;
+  border: 2px solid #f29a2e;
+  font-size: 16px;
+}
+.main-list .list .selectBox .select {
+  width: inherit;
+  height: inherit;
+  background: transparent;
+  border: 0 none;
+  outline: 0 none;
+  padding: 0 5px;
+  position: relative;
+  z-index: 3;
+  appearance: none; /* 기록 */
+}
+
+.main-list .list .selectBox .select option {
+  background: #ffd65f;
+  color: #fff;
+  padding: 3px 0;
+  font-size: 16px;
+}
+.main-list .list .selectBox .icoArrow {
+  position: absolute;
+  top: 0;
+  right: 0;
+  z-index: 1;
+  width: 35px;
+  height: inherit;
+  border-left: 2px solid #ffd65f;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.selectBox .icoArrow i {
+  transition: 0.3s;
+}
+
+.selectBox .select:focus-visible + .icoArrow i {
+  transform: rotate(180deg);
+}
+
+/* 동물태그선택 */
+.sort {
+  grid-area: sort;
+  width: 100%;
+  height: 80px;
+}
+
+.sort .search {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+}
+
+.sort .search .left .tag {
+  margin: 0 20px;
+}
+
+/* 선택한 펫태그가 추가될 영역 */
+.tag-list {
+  display: flex;
+  justify-content: center;
+  margin: 0 20px;
+}
+.tag-list .tag {
+  display: flex;
+  color: var(--color-main-point2);
+}
+/* 추가된 펫태그 */
+.tag-list .tag p {
+  margin: 0 10px;
+}
+
+.sort .left .tag {
+  margin-right: 1.2rem;
+}
+
+.sort .left .tag input[type='checkbox'] {
+  font-size: 0.8rem;
+}
+
+@media screen and (width <=800px) {
+  .sort .left .tag {
+    margin-right: 0.5rem;
+  }
+}
+
+.sort .left {
+  width: auto;
+  border-radius: 4px;
+  outline: 3px solid #f29a2e;
+  display: flex;
+  height: 50px;
+}
+.sort .search .left .selectBox select:nth-of-type(1) {
+  margin-right: 30px;
+}
+
+.sort div {
+  align-items: center;
+  font-weight: bold;
+  font-size: 1rem;
+}
+
+.sort .search .input input {
+  height: 20px;
+  font-size: 15px;
+  border-radius: 4px;
+  border: 2px solid var(--color-main-point);
+  background-color: var(--color-background2);
+}
+.sort .search .input {
+  display: flex;
+}
+.sort .search .input button {
+  margin-left: 10px;
+  width: 4rem;
+  padding: 3px;
+  border: none;
+  border-radius: 2rem;
+  box-shadow: 2px 2px 2px rgba(39, 27, 27, 0.5);
+  font-weight: 400;
+}
+
+.sort .search .left .selectBox {
+  margin-right: 20px;
+}
+
+/* select option */
+
+.sort .search .left .selectBox {
+  position: relative;
+  font-size: 0.9rem;
+}
+
+.sort .search .left .selectBox .select {
+  width: inherit;
+  height: inherit;
+  background: transparent;
+  border: 0 none;
+  outline: 0 none;
+  padding: 0 5px;
+  position: relative;
+  z-index: 3;
+  appearance: none; /* 기록 */
+}
+
+.sort .search .left .selectBox .select option {
+  background: #ffd65f;
+  color: #fff;
+  padding: 3px 0;
+  font-size: 16px;
+}
+.sort .search .left .selectBox .icoArrow {
+  position: absolute;
+  top: 0;
+  right: 0;
+  z-index: 1;
+  width: 35px;
+  height: inherit;
+  border-left: 2px solid #ffd65f;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#checkBtn {
+  width: 4rem;
+  border: 1px solid #ffd65f;
+  border-radius: 2rem;
+  background-color: #ffd65f;
+  margin-left: 1.2rem;
+}
+
+.sort .search .left .selectBox .icoArrow i {
+  width: 50%;
+  transition: 0.3s;
+}
+
+.sort .search .left .selectBox .select:focus + .icoArrow img {
+  transform: rotate(180deg);
+}
+
+/* 메인제목 */
+.title {
+  grid-area: title;
+  width: 100%;
+}
+.title .title__name {
+  display: flex;
+  align-items: center;
+  margin-bottom: 3rem;
+}
+.title .title__name .main {
+  font-weight: bold;
+  font-size: 25px;
+  margin-right: 50px;
+}
+.title .title__name .chk {
+  display: flex;
+  margin: 20px;
+  align-items: baseline;
+}
+.title .title__name .chk input {
+  margin: 2px;
+}
+/* 별 */
+.star-rating {
+  display: flex;
+  flex-direction: row-reverse;
+  font-size: 2.25rem;
+  line-height: 2.5rem;
+  justify-content: space-around;
+  padding: 0 0.2em;
+  text-align: center;
+  width: 5em;
+}
+.star-rating input {
+  display: none;
+}
+.star-rating label {
+  -webkit-text-fill-color: transparent; /* Will override color (regardless of order) */
+  -webkit-text-stroke-width: 2.3px;
+  -webkit-text-stroke-color: #333;
+  cursor: pointer;
+  margin: 0 4px;
+}
+.star-rating :checked ~ label {
+  -webkit-text-fill-color: #ffd65f;
+}
+.star-rating label:hover,
+.star-rating label:hover ~ label {
+  -webkit-text-fill-color: #fff58c;
+}
+/* 평점표시 */
+.title__name #result {
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: var(--color-grey6);
+  margin: 0 10px;
+}
+
+/* 제목입력창 */
+.main-title {
+  /* grid-area: main-title; */
+  width: 100%;
+  margin-bottom: 20px;
+}
+.main-title .input input {
+  height: 30px;
+  width: 55%;
+  font-size: 15px;
+  border-radius: 4px;
+  padding: 0;
+  border-color: #ffd65f;
+}
+
+/* 동물병원 검색창 */
+.hos-search {
+  /* grid-area: hos-search; */
+  width: 100%;
+  margin-top: 20px;
+  margin-bottom: 3rem;
+}
+
+.hos-search-star {
+  display: flex;
+  align-items: center;
+}
+
+.hos-search input {
+  border: none;
+  outline: 2px solid #ffd65f;
+  border-radius: 2px;
+  padding: 10px;
+  width: 20rem;
+  height: 10px;
+}
+.hos-search button {
+  margin-left: 20px;
+  width: 120px;
+  height: 30px;
+  color: white;
+}
+
+/* 본문입력창 */
+.body-write {
+  /* grid-area: body-write; */
+  width: 100%;
+  margin-bottom: 20px;
+}
+.body-write .input {
+  display: flex;
+  outline: 2px solid #ffd65f;
+  border-radius: 4px;
+}
+.body-write .input input {
+  height: 300px;
+  width: 100%;
+  font-size: 15px;
+  border-radius: 4px;
+  border: none;
+}
+
+/* 첨부파일버튼 */
+.file {
+  /* grid-area: file; */
+  font-size: 17px;
+  font-weight: bold;
+  padding: 20px;
+  margin-bottom: 10px;
+  outline: 2px solid #f26d3d;
+  border-radius: 4px;
+}
+
+/* 사진첨부 */
+.pic {
+  /* grid-area: pic; */
+  width: 100%;
+  margin-bottom: 40px;
+}
+.pic .pic__file {
+  display: flex;
+  align-items: center;
+}
+.pic .pic__file .img {
+  display: flex;
+  padding: 2px;
+  outline: 2px solid #ffd65f;
+  border-radius: 15px;
+  margin-right: 10px;
+  align-items: center;
+  height: 20px;
+}
+.pic .pic__file .img .pic__img {
+  outline: none;
+  align-items: center;
+  margin-right: 5px;
+  font-size: 13px;
+}
+.pic img {
+  width: 20px;
+  margin: 0 5px;
+}
+.pic .pic__file .file__pic {
+  height: 100%;
+  display: flex;
+  font-size: 13px;
+}
+
+/* 등록,목록 버튼 */
+.btn {
+  /* grid-area: btn; */
+  width: 100%;
+  margin-bottom: 30px;
+  display: flex;
+  justify-content: flex-end;
+}
+.btn .detail button {
+  background-color: #ffd65f;
+  font-size: 15px;
+  font-weight: bold;
+  padding: 5px 20px;
+  border-radius: 10px;
+  color: black;
+  border: 2px solid #f26d3d;
+}
+.btn .add button {
+  background-color: #ffd65f;
+  font-size: 15px;
+  font-weight: bold;
+  padding: 5px 20px;
+  border-radius: 10px;
+  color: black;
+  border: 2px solid #f26d3d;
+  margin-left: 10px;
+}
+
+/* 모달 버튼 만들기 */
+button {
+  background-color: #ffd65f;
+  border-radius: 4px;
+  cursor: pointer;
+  border: none;
+}
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+.modal .bg {
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.6);
+}
+.modalBox {
+  position: absolute;
+  background-color: #fff;
+  width: 500px;
+  height: 600px;
+  padding: 15px;
+}
+.modalBox .title {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-bottom: 20px;
+  align-items: center;
+}
+.modal .mid {
+  display: flex;
+  flex-direction: row;
+  height: 40px;
+  justify-content: space-evenly;
+  align-items: center;
+  margin-bottom: 10px;
+}
+.modal .mid input {
+  width: 350px;
+}
+.modal .modalBox .res {
+  height: 400px;
+  width: 100%;
+  margin-bottom: 50px;
+  padding: 5px;
+  border-top: 1px solid #ffd65f;
+  border-bottom: 1px solid #ffd65f;
+}
+.modal .modalBox .bot {
+  display: flex;
+  justify-content: center;
+}
+.hidden {
+  display: none;
+}

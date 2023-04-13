@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="ko"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Title</title>
+  <link rel="stylesheet" href="/css/mypage/pet_info">
+</head>
+<body>
+<th:block th:each="petInfo:${petInfos}" th:fragment="pet">
+  <div class="profile-area" th:data-pet-num="${petInfo.petNum}" th:onclick="petModify(this)" )>
+    <div class="upload-area">
+      <img src="../img/img_profile1.png" alt=""/>
+    </div>
+    <div class="upload-area2" id="">
+      <div class="pet-name" th:text="${petInfo.petName}">반려동물이름</div>
+      <div class="pet-info" th:text="|${petInfo.petType}/${petInfo.petGender}|">정보</div>
+    </div>
+  </div>
+</th:block>
+</body>
+</html>
