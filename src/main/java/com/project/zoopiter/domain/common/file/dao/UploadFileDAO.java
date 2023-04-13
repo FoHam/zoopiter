@@ -1,11 +1,13 @@
 package com.project.zoopiter.domain.common.file.dao;
 
 import com.project.zoopiter.domain.entity.UploadFile;
+import com.project.zoopiter.web.common.AttachFileType;
 
 import java.util.List;
 import java.util.Optional;
 
 public interface UploadFileDAO {
+
   /**
    * 업로드 파일 등록 - 단건
    * @param uploadFile
@@ -14,7 +16,7 @@ public interface UploadFileDAO {
   Long addFile(UploadFile uploadFile);
 
   /**
-   * 업로드 파일 등록 - 여러건(컬렉션)
+   * 업로드 파일 등록 - 여러건
    * @param uploadFiles
    */
   void addFiles(List<UploadFile> uploadFiles);
@@ -25,7 +27,7 @@ public interface UploadFileDAO {
    * @param rid
    * @return
    */
-  List<UploadFile> findFilesByCodeWithRid(String code,Long rid);
+  List<UploadFile> findFilesByCodeWithRid(AttachFileType attachFileType, Long rid);
 
   /**
    * 첨부파일조회
@@ -48,5 +50,5 @@ public interface UploadFileDAO {
    * @param rid 첨부파일아이디
    * @return 삭제한 레코드수
    */
-  int deleteFileByCodeWithRid(String code, Long rid);
+  int deleteFileByCodeWithRid(AttachFileType attachFileType, Long rid);
 }

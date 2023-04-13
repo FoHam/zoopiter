@@ -1,52 +1,41 @@
 package com.project.zoopiter.domain.common.file.svc;
 
 import com.project.zoopiter.domain.entity.UploadFile;
+import com.project.zoopiter.web.common.AttachFileType;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 import java.util.Optional;
 
 public interface UploadFileSVC {
+  /**
+   * 업로드 파일 등록 - 단건
+   * @param uploadFile
+   * @return 파일Id
+   */
+  Long addFile(UploadFile uploadFile);
 
   /**
-   * 업로드 파일 처리-단건
-   * @param code 분류코드 (커뮤니티: F0101, 병원후기: F0102, 회원프로필: F0103)
-   * @param fid 참조 (게시글번호)
-   * @param file 첨부파일
-   * @return 성공여부
+   * 업로드 파일 등록 - 여러건
+   * @param uploadFiles
    */
-  boolean addFile(String code, Long fid, MultipartFile file);
-
-  /**
-   * 업로드 파일 처리-여러건
-   * @param code 분류코드 (커뮤니티: F0101, 병원후기: F0102, 회원프로필: F0103)
-   * @param fid 참조 (게시글번호)
-   * @param files 첨부파일
-   * @return 성공여부
-   */
-  boolean addFiles(String code, Long fid, List<MultipartFile> files);
-
-  /**
-   * 업로드파일 경로
-   * @param code
-   * @return
-   */
-  String getFullPath(String code);
+  void addFiles(List<UploadFile> uploadFiles);
 
   /**
    * 업로드파일조회
-   * @param code
+   * @param attachFileType
    * @param rid
    * @return
    */
-  List<UploadFile> getFilesByCodeWithRid(String code, Long rid);
+  List<UploadFile> findFilesByCodeWithRid(AttachFileType attachFileType, Long rid);
 
   /**
    * 첨부파일조회
-   * @param  uploadfileId 첨부파일 아이디
-   * @return 첨부파일 메타정보
+   * @param uploadfileId
+   * @return
    */
   Optional<UploadFile> findFileByUploadFileId(Long uploadfileId);
+
 
   /**
    * 첨부파일 삭제 by uplaodfileId
@@ -57,10 +46,46 @@ public interface UploadFileSVC {
 
   /**
    * 첨부파일 삭제 By code, rid
-   * @param code 첨부파일 분류코드
+   * @param attachFileType 첨부파일 분류코드
    * @param rid 첨부파일아이디
    * @return 삭제한 레코드수
    */
-  int deleteFileByCodeWithRid(String code, Long rid);
+  int deleteFileByCodeWithRid(AttachFileType attachFileType, Long rid);
 
+  /**
+   *  물리 파일 저장 경로
+   * @param attachFileType
+   * @return d:/attach/분류코드/
+   */
+  public String getFullPath(AttachFileType attachFileType);
+
+  /**
+   * 물리 저장 파일
+   * @param attachFileType
+   * @param storeFilename
+   * @return d:/attach/분류코드/xxx-xxx-xxx-xxx-xxx.png
+   */
+  public String getStoreFilename(AttachFileType attachFileType,String storeFilename);
+
+  public UploadFile convert(MultipartFile mf, AttachFileType attachFileType);
+
+
+
+  public List<UploadFile> convert(List<MultipartFile> mfs,AttachFileType attachFileType);
+
+  /**
+   * 물리파일 삭제-단건
+   * @param attachFileType
+   * @param sfname
+   * @return
+   */
+  public boolean deleteFile(AttachFileType attachFileType ,String sfname);
+
+  /**
+   * 물리파일 삭제-여러건
+   * @param attachFileType
+   * @param sfnames
+   * @return
+   */
+  public boolean deleteFiles(AttachFileType attachFileType, List<String> sfnames );
 }

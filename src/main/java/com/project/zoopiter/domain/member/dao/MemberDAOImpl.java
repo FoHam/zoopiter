@@ -126,7 +126,7 @@ public class MemberDAOImpl implements MemberDAO {
   @Override
   public Optional<Member> findById(String userId) {
     StringBuffer sql = new StringBuffer();
-    sql.append("select user_id, user_pw, user_email, user_nick from member where user_id = :userId ");
+    sql.append("select * from member where user_id = :userId ");
 
     try{
       Map<String, String> param = Map.of("userId", userId);
@@ -150,7 +150,7 @@ public class MemberDAOImpl implements MemberDAO {
   @Override
   public List<Member> findAll() {
     StringBuffer sql = new StringBuffer();
-    sql.append("select user_id as userId, user_email, user_pw, user_nick from member order by user_id desc ");
+    sql.append("select * from member order by user_id desc ");
 
     List<Member> list = template.query(
       sql.toString(),

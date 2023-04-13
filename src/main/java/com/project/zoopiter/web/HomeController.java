@@ -12,10 +12,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/")
 public class HomeController {
   @GetMapping
-  public String home(HttpServletRequest httpServletRequest){
+  public String home(HttpServletRequest request){
     //인증번호 세션 있으면 오류나서 홈화면 올때는 이메일 인증번호 세션 삭제함
-    HttpSession session = httpServletRequest.getSession();
-    session.removeAttribute("checkNum");
+    HttpSession session = request.getSession(false);
+    if(session != null && session.getAttribute("checkNum") != null){
+      session.removeAttribute("checkNum");
+    }
     return "index";
   }
 }

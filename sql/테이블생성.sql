@@ -30,7 +30,8 @@ drop sequence UPLOADFILE_UPLOADFILE_ID_SEQ;
 create table code(
     code_id     varchar2(10),       --코드
     decode      varchar2(30),       --코드명
-    discript    clob,               --코드설명
+--    discript    clob,               --코드설명
+    detail      clob,               --코드설명
     pcode_id    varchar2(10),       --상위코드
     useyn       char(1) default 'Y',            --사용여부 (사용:'Y',미사용:'N')
     cdate       timestamp default systimestamp,         --생성일시
@@ -57,6 +58,10 @@ insert into code (code_id,decode,pcode_id,useyn) values ('P0104','접종 완료','P0
 insert into code (code_id,decode,pcode_id,useyn) values ('B01','게시판',null,'Y');
 insert into code (code_id,decode,pcode_id,useyn) values ('B0101','병원후기','B01','Y');
 insert into code (code_id,decode,pcode_id,useyn) values ('B0102','커뮤니티','B01','Y');
+insert into code (code_id,decode,pcode_id,useyn) values ('F01','게시판',null,'Y');
+insert into code (code_id,decode,pcode_id,useyn) values ('F0101','병원후기','B01','Y');
+insert into code (code_id,decode,pcode_id,useyn) values ('F0102','커뮤니티','B01','Y');
+insert into code (code_id,decode,pcode_id,useyn) values ('F0103','회원프로필','M01','Y');
 commit;
 
 ------------
@@ -459,8 +464,8 @@ alter table BBSH add constraint  BBSH_BH_GUBUN_fk
 --제약조건
 alter table BBSH modify BH_TITLE constraint BBSH_BH_TITLE_nn not null;
 alter table BBSH modify BH_CONTENT constraint BBSH_BH_CONTENT_nn not null;
-alter table BBSH modify USER_NICK constraint BBSH_USER_NICK_nn not null;
-alter table BBSH modify BH_HIT constraint BBSH_BH_HIT_nn not null;
+--alter table BBSH modify USER_NICK constraint BBSH_USER_NICK_nn not null;
+--alter table BBSH modify BH_HIT constraint BBSH_BH_HIT_nn not null;
 -- not null 제약조건은 add 대신 modify 명령문 사용
 
 

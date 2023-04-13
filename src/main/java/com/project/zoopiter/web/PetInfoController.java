@@ -1,7 +1,7 @@
 package com.project.zoopiter.web;
 
 import com.project.zoopiter.domain.entity.PetInfo;
-import com.project.zoopiter.domain.member.svc.PetInfoSVC;
+import com.project.zoopiter.domain.petinfo.svc.PetInfoSVC;
 import com.project.zoopiter.web.form.pet.PetDetailForm;
 import com.project.zoopiter.web.form.pet.PetSaveForm;
 import com.project.zoopiter.web.form.pet.PetUpdateForm;

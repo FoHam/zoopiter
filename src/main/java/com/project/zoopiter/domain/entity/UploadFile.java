@@ -1,5 +1,6 @@
 package com.project.zoopiter.domain.entity;
 
+import com.project.zoopiter.web.common.AttachFileType;
 import lombok.Data;
 
 import java.time.LocalDateTime;
@@ -15,4 +16,9 @@ public class UploadFile {
   private String ftype;           //  FTYPE	VARCHAR2(50 BYTE)
   private LocalDateTime cdate;    //  CDATE	TIMESTAMP(6)
   private LocalDateTime udate;    //  UDATE	TIMESTAMP(6)
+
+  private String fileName;
+  private String contentType;
+  private byte[] fileData;
+  private AttachFileType attachFileType;
 }

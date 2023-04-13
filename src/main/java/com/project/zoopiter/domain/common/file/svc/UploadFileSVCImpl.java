@@ -2,6 +2,8 @@ package com.project.zoopiter.domain.common.file.svc;
 
 import com.project.zoopiter.domain.common.file.dao.UploadFileDAO;
 import com.project.zoopiter.domain.entity.UploadFile;
+import com.project.zoopiter.web.common.AttachFileType;
+import com.project.zoopiter.web.exception.BizException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
@@ -11,75 +13,123 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.IOException;
-import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
 @Slf4j
-@Service
+@Service @Transactional
 @RequiredArgsConstructor
-@Transactional
 public class UploadFileSVCImpl implements UploadFileSVC{
+
+  @Value("${attach.root_dir}") // d:/attach/
+  private String ROOT_DIR;
 
   private final UploadFileDAO uploadFileDAO;
 
-  //첨부파일 저장될 파일시스템의 경로 application.properties에 정의
-  @Value("${uploadfiles.root_dir}")
-  private String ROOT_DIR;  //첨부파일 루트경로
+  @Override
+  public Long addFile(UploadFile uploadFile) {
+    return uploadFileDAO.addFile(uploadFile);
+  }
 
-  //폴더생성
-  private void createFolder(String path) {
-    File folder = new File(path);
-    if(!folder.exists()){
-      folder.mkdir();
+  @Override
+  public void addFiles(List<UploadFile> uploadFiles) {
+    uploadFileDAO.addFiles(uploadFiles);
+  }
+
+  @Override
+  public List<UploadFile> findFilesByCodeWithRid(AttachFileType attachFileType, Long rid) {
+    return uploadFileDAO.findFilesByCodeWithRid(attachFileType, rid);
+  }
+
+  @Override
+  public Optional<UploadFile> findFileByUploadFileId(Long uploadfileId) {
+    return uploadFileDAO.findFileByUploadFileId(uploadfileId);
+  }
+
+  @Override
+  public int deleteFileByUploadFildId(Long uploadfileId) {
+    Optional<UploadFile> findedFile = uploadFileDAO.findFileByUploadFileId(uploadfileId);
+    UploadFile file = findedFile.orElseThrow(() -> new BizException("첨부파일없음!"));
+
+    //1)첨부파일 메타정보삭제
+    int cnt = uploadFileDAO.deleteFileByUploadFildId(uploadfileId);
+    //2)물리파일삭제
+    deleteFile(AttachFileType.valueOf(file.getCode()), file.getStore_filename());
+
+    return cnt;
+  }
+
+  @Override
+  public int deleteFileByCodeWithRid(AttachFileType attachFileType, Long rid) {
+
+    return uploadFileDAO.deleteFileByCodeWithRid(attachFileType, rid);
+  }
+
+  //물리 파일 저장 경로
+  //  d:/attach/분류코드/
+  @Override
+  public String getFullPath(AttachFileType attachFileType) {
+    StringBuffer path = new StringBuffer();
+    path = path.append(ROOT_DIR).append(attachFileType.name()).append("/"); // d:/attach/분류코드/
+
+    //경로가 없으면 생성성
+    createFolder(path.toString());
+    return path.toString();
+  }
+
+
+
+  //물리 저장 파일
+  @Override
+  public String getStoreFilename(AttachFileType attachFileType,String storeFilename) {
+    StringBuffer storedFileFullPath = new StringBuffer();
+    storedFileFullPath
+        //  d:/attach/분류코드/
+        .append(getFullPath(attachFileType))
+        //  d:/attach/분류코드/xxx-yyy-xxx-uuu.png
+        .append(storeFilename);
+    log.info("storedFileFullPath={}",storedFileFullPath.toString());
+    return storedFileFullPath.toString();
+  }
+
+  public UploadFile convert(MultipartFile mf, AttachFileType attachFileType){
+    if(mf == null || mf.isEmpty()) return null;
+    UploadFile uploadFile = new UploadFile();
+    uploadFile.setCode(attachFileType.name()); //"F010301"
+//    uploadFile.setRid(rid);
+    uploadFile.setUpload_filename(mf.getOriginalFilename());
+
+    String storeFilename = createStoreFilename(mf.getOriginalFilename());
+    uploadFile.setStore_filename(storeFilename);
+
+    uploadFile.setFsize(String.valueOf(mf.getSize()));
+    uploadFile.setFtype(mf.getContentType());
+
+    //물리 파일 저장
+    storeFile(mf,attachFileType,storeFilename);
+
+    return uploadFile;
+  }
+  @Override
+  public List<UploadFile> convert(List<MultipartFile> mfs,AttachFileType attachFileType) {
+    if(mfs.size() < 1) return null;
+    List<UploadFile> uploadFiles = new ArrayList<>();
+    for (MultipartFile mf : mfs) {
+      if(mf.isEmpty()) continue;
+      uploadFiles.add(convert(mf,attachFileType));
     }
+    return uploadFiles;
   }
 
-  //임의파일명 생성
-  private String createStoreFilename(String originalFile) {
-    StringBuffer storeFileName = new StringBuffer();
-    storeFileName.append(UUID.randomUUID().toString())
-        .append(".")
-        .append(extractExt(originalFile)); // xxx-yyy-zzz-ttt..
-    return storeFileName.toString();
-  }
-
-  //확장자 추출
-  private String extractExt(String originalFile) {
-    int posOfExt =originalFile.lastIndexOf(".");
-    String ext = originalFile.substring(posOfExt + 1);
-    return ext;
-  }
-
-  //파일시스템에 물리적 파일 저장
-  private void storeFile(UploadFile uploadFile, MultipartFile file) {
-    try {
-      file.transferTo(Path.of(getFullPath(uploadFile.getCode()), uploadFile.getStore_filename()));
-    } catch (IOException e) {
-      e.printStackTrace();
-    }
-  }
-
-  //파일시스템에 물리적 파일 저장
-  private void storeFiles(List<UploadFile> uploadFiles, List<MultipartFile> files) {
-    for (int i=0; i<uploadFiles.size(); i++) {
-      storeFile(uploadFiles.get(i), files.get(i));
-    }
-  }
-
-  /**
-   * 서버 보관 파일 삭제
-   * @param code
-   * @param sfname
-   * @return
-   */
-  private boolean deleteFile(String code ,String sfname) {
+  //물리파일 삭제
+  @Override
+  public boolean deleteFile(AttachFileType attachFileType ,String sfname) {
 
     boolean isDeleted = false;
 
-    File file = new File(getFullPath(code)+sfname);
+    File file = new File(getStoreFilename(attachFileType,sfname));
 
     if(file.exists()) {
       if(file.delete()) {
@@ -90,171 +140,54 @@ public class UploadFileSVCImpl implements UploadFileSVC{
     return isDeleted;
   }
 
-  private boolean deleteFiles(String code, List<String> fnames ) {
+  @Override
+  public boolean deleteFiles(AttachFileType attachFileType, List<String> sfnames ) {
 
     boolean isDeleted = false;
     int deletedFileCount = 0;
 
-    for(String sfname : fnames) {
-      if(deleteFile(code, sfname)) {
+    for(String sfname : sfnames) {
+      if(deleteFile(attachFileType, sfname)) {
         deletedFileCount++;
       };
     }
 
-    if(deletedFileCount == fnames.size()) isDeleted = true;
+    if(deletedFileCount == sfnames.size()) isDeleted = true;
 
     return isDeleted;
   }
 
-  /**
-   * 업로드 파일 처리-단건
-   *
-   * @param code 분류코드 (커뮤니티: F0101, 병원후기: F0102, 회원프로필: F0103)
-   * @param fid  참조 (게시글번호)
-   * @param file 첨부파일
-   * @return 성공여부
-   */
-  @Override
-  public boolean addFile(String code, Long fid, MultipartFile file) {
+  //분류코드 폴더 생성
+  private void createFolder(String path) {
+    File folder = new File(path);
+    if(!folder.exists()) folder.mkdir();
+  }
+
+  private void storeFile(MultipartFile mf, AttachFileType attachFileType,String storeFilename) {
+    String fullPath = getFullPath(attachFileType);
+    File file = new File(fullPath+storeFilename);
+
     try {
-      UploadFile uploadFile = new UploadFile();
-      uploadFile.setCode(code);
-      uploadFile.setRid(fid);
-
-      String originalFileName = file.getOriginalFilename();
-      String storeFileName = createStoreFilename(originalFileName);
-      uploadFile.setStore_filename(storeFileName);
-      uploadFile.setUpload_filename(originalFileName);
-
-      uploadFile.setFsize(String.valueOf(file.getSize()));
-      uploadFile.setFtype(file.getContentType());
-
-      //파일시스템에 물리적 파일 저장
-      storeFile(uploadFile, file);
-      //uploadfile 테이블에 첨부파일 메타정보 저장
-      uploadFileDAO.addFile(uploadFile);
-
-    }catch (Exception e){
-      e.printStackTrace();
-      return false;
+      mf.transferTo(file);  // 디렉토리에 저장
+    } catch (IOException e) {
+      throw new RuntimeException(e);
     }
-    return true;
   }
 
-  /**
-   * 업로드 파일 처리-여러건
-   *
-   * @param code  분류코드 (커뮤니티: F0101, 병원후기: F0102, 회원프로필: F0103)
-   * @param fid   참조 (게시글번호)
-   * @param files 첨부파일
-   * @return 성공여부
-   */
-  @Override
-  public boolean addFiles(String code, Long fid, List<MultipartFile> files) {
-    //1) uploadfile 테이블에 첨부파일 메타정보 저장
-    //2) 파일시스템에 물리적 파일 저장
-    try {
-      List<UploadFile> uploadFiles = new ArrayList<>();
-
-      for(MultipartFile file: files) {
-        UploadFile uploadFile = new UploadFile();
-        uploadFile.setCode(code);
-        uploadFile.setRid(fid);
-
-        String originalFileName = file.getOriginalFilename();
-        String storeFileName = createStoreFilename(originalFileName);
-        uploadFile.setStore_filename(storeFileName);
-        uploadFile.setUpload_filename(originalFileName);
-
-        uploadFile.setFsize(String.valueOf(file.getSize()));
-        uploadFile.setFtype(file.getContentType());
-
-        uploadFiles.add(uploadFile);
-      }
-      storeFiles(uploadFiles, files);
-      uploadFileDAO.addFiles(uploadFiles);
-    }catch (Exception e){
-      e.printStackTrace();
-      return false;
-    }
-    return true;
+  //임의파일명 생성
+  private String createStoreFilename(String originalFile) {
+    StringBuffer storeFileName = new StringBuffer();
+    storeFileName.append(UUID.randomUUID().toString()) // xxx-yyy-zzz-ttt..
+        .append(".")
+        .append(extractExt(originalFile)); // png,jpg
+    return storeFileName.toString();
   }
 
-  /**
-   * 업로드파일 경로
-   *
-   * @param code
-   * @return
-   */
-  @Override
-  public String getFullPath(String code) {
-    StringBuffer path = new StringBuffer();
-    path = path.append(ROOT_DIR).append(code).append("/");
-    //경로가 없으면 생성
-    createFolder(path.toString());
-    log.info("파일저장위치={}", path.toString());
-    return path.toString();
-  }
-
-  /**
-   * 업로드파일조회
-   *
-   * @param code
-   * @param rid
-   * @return
-   */
-  @Override
-  public List<UploadFile> getFilesByCodeWithRid(String code, Long rid) {
-    return uploadFileDAO.findFilesByCodeWithRid(code,rid);
-  }
-
-  /**
-   * 첨부파일조회
-   *
-   * @param uploadfileId 첨부파일 아이디
-   * @return 첨부파일 메타정보
-   */
-  @Override
-  public Optional<UploadFile> findFileByUploadFileId(Long uploadfileId) {
-    return uploadFileDAO.findFileByUploadFileId(uploadfileId);
-  }
-
-  /**
-   * 첨부파일 삭제 by uplaodfileId
-   *
-   * @param uploadfileId 첨부파일아이디
-   * @return 삭제한 레코드수
-   */
-  @Override
-  public int deleteFileByUploadFildId(Long uploadfileId) {
-    //1)물리파일삭제
-    UploadFile uploadFile = uploadFileDAO.findFileByUploadFileId(uploadfileId).get();
-    deleteFile(uploadFile.getCode(), uploadFile.getStore_filename());
-
-    //2)메타정보삭제
-    int affectedRow = uploadFileDAO.deleteFileByUploadFildId(uploadfileId);
-
-    return affectedRow;
-  }
-
-  /**
-   * 첨부파일 삭제 By code, rid
-   *
-   * @param code 첨부파일 분류코드
-   * @param rid  첨부파일아이디
-   * @return 삭제한 레코드수
-   */
-  @Override
-  public int deleteFileByCodeWithRid(String code, Long rid) {
-    //1)물리파일삭제
-    List<UploadFile> uploadFiles = uploadFileDAO.findFilesByCodeWithRid(code, rid);
-    for (UploadFile uploadFile : uploadFiles) {
-      deleteFile(uploadFile.getCode(), uploadFile.getStore_filename());
-    }
-
-    //2)메타정보삭제
-    uploadFileDAO.deleteFileByCodeWithRid(code, rid);
-
-    return uploadFiles.size();
+  //확장자 추출
+  private String extractExt(String originalFile) {
+    int posOfExt =originalFile.lastIndexOf(".");
+    String ext = originalFile.substring(posOfExt + 1);
+    return ext;
   }
 }
+

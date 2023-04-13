@@ -1,6 +1,7 @@
 package com.project.zoopiter.domain.member.dao;
 
 import com.project.zoopiter.domain.entity.PetInfo;
+import com.project.zoopiter.domain.petinfo.dao.PetInfoDAO;
 import lombok.extern.slf4j.Slf4j;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.*;
