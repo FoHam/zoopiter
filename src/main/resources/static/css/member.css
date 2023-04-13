@@ -122,6 +122,7 @@ main form input {
   font-size: 1rem;
   font-weight: bold;
   color: var(--color-main-text);
+  margin: 20px 0;
 }
 
 /* 로그인페이지 member_login */
@@ -536,7 +537,7 @@ dialog li {
 }
 
 .signUpH{
-  margin: 0 5px; 
+  margin: 0 5px;
 }
 
 #scroll-checkbox {
@@ -578,6 +579,7 @@ input:focus {
 
 .joinForm__list__items.item6 {
   display: flex;
+  margin-bottom: 0;
 }
 
 .joinForm__list__items.item7 {
@@ -588,7 +590,14 @@ input:focus {
 /*사업자 인증 관련 */
 .item7 .item7__business{
   display: flex;
-  margin-bottom: 10px;
+}
+
+.item7 .information{
+ opacity: 100;
+}
+
+#businessEss{
+  opacity: .5;
 }
 
 /* 사업자 인증 기본 안내문구 */
@@ -618,8 +627,6 @@ input:focus {
  width: 73.8px;
 }
 
-
-
 .item7__business .businessBtn{
   width: 5rem;
   margin-left: 10px;
@@ -627,6 +634,10 @@ input:focus {
   background-color: var(--color-main-point3);
   border-radius: 2rem;
   font-weight: bold;
+}
+
+#addItems {
+  margin-bottom: 10px;
 }
 
 /* 이메일 인증번호 버튼 */

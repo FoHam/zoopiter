@@ -440,7 +440,7 @@ $chkBtn2.addEventListener('click', (e) => {
         switch(res.data[0].b_stt_cd){ //납세자 상태
           case "01": //계속사업자
             console.log('계속');
-            $numChk.style = 'color : green';
+            $numChk.setAttribute('style','color : green; opacity: 100;');
             $numChk.textContent = "계속";
             //비활성
             document.getElementById('businessBtn').disabled = true;
@@ -500,7 +500,7 @@ $chkBtn2.addEventListener('click', (e) => {
         switch(res.data[0].valid){
           case "01":  //Valid  유효
             console.log('유효한 사업자');
-            $numChk2.style = 'color : green';
+            $numChk2.setAttribute('style','color : green; opacity: 100;');
             $numChk2.textContent = "가입 가능합니다.";
             document.getElementById('businessBtn2').disabled = true;
             document.getElementById('start_dt').disabled = true;
