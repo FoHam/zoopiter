@@ -77,12 +77,6 @@
           <label for="findIdEmail">이메일</label>
           <li>
             <input type="text" id="findIdEmail" maxlength="20" spellcheck="false"/>
-            <button
-                type="button"
-                id="emailchkBtn"
-            >
-              확인 버튼 지워줘요
-            </button>
             <p class="err findIdEmail hidden">* 이메일을 입력해 주세요</p>
           </li>
           <br />
@@ -121,16 +115,22 @@
                 type="button"
                 id="findPwIdBtn"
             >
-              인증확인
+              확인
             </button>
             <p class="err findPwIdEmail hidden">* 이메일을 입력해 주세요</p>
           </li>
-          <label for="check2">인증번호</label>
+          <label for="checkNum">인증번호</label>
           <br />
           <li>
-            <input type="number" id="check2" />
+            <input type="number" id="checkNum" />
+            <button
+                type="button"
+                id="findPwIdBtn2"
+            >
+              인증확인
+            </button>
             <!-- number 는 maxlength 가 안됨 -->
-            <p class="err check2 hidden">* 인증번호를 입력해 주세요</p>
+            <p class="err checkNum hidden">* 인증번호를 입력해 주세요</p>
           </li>
         </ul>
       </form>

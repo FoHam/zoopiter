@@ -376,6 +376,17 @@ dialog li {
   font-weight: bold;
 }
 
+#findPwIdBtn2{
+  margin-left: 10px;
+  width: 150px;
+  padding: 8px;
+  border: 1px solid var(--color-main-point);
+  background-color: var(--color-main-point);
+  border-radius: 2rem;
+  color: var(--color-background);
+  font-weight: bold;
+}
+
 /* 회원가입 완료 팝업-로그인 하러가기 버튼 */
 #loginGo {
   width: 10rem;
