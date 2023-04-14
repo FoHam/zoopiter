@@ -156,9 +156,9 @@ commit;
 -------
 create table hmember (
     H_ID                   varchar2(20),   --로긴 아이디
-    H_PW                   varchar2(20),   --로긴 비밀번호
-    H_NAME                 varchar2(60),   --병원 상호명
-    H_EMAIL                varchar2(40),   --이메일
+--    H_PW                   varchar2(20),   --로긴 비밀번호
+--    H_NAME                 varchar2(60),   --병원 상호명
+--    H_EMAIL                varchar2(40),   --이메일
     H_TEL                  varchar2(30),   --병원 연락처
     H_TIME                 clob,           --진료시간
     H_INFO                 varchar2(60),   --편의시설정보
