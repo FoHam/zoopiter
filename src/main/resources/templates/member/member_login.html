@@ -70,8 +70,15 @@
   <dialog id="findIdPopup">
     <!-- dialog 태그 display 바꾸면 버그생김 반드시 다른 박스로 감싸서 코드 -->
     <div class="contents">
-      <h3>아이디를 찾아요</h3>
-      <p>가입시 인증한 이메일을 적어주세요</p>
+      <div class="contents__header">
+        <article>
+          <h3>아이디를 찾아요</h3>
+          <p>가입시 인증한 이메일을 적어주세요</p>
+        </article>
+        <aside>
+          <i class="fa-solid fa-xmark"></i>
+        </aside>
+      </div>
       <form action="" method="">
         <ul>
           <label for="findIdEmail">이메일</label>
@@ -89,8 +96,15 @@
   <dialog id="findIdPopup2">
     <!-- 다일로그 display 바꾸면 버그생김 반드시 다른 박스로 감싸야함 -->
     <div class="contents">
-      <h3>아이디 찾기 완료!</h3>
-      <div id="resId">찾은 아이디</div>
+      <div class="contents__header">
+        <article>
+          <h3>아이디 찾기 완료!</h3>
+          <div id="resId">찾은 아이디</div>
+        </article>
+        <aside>
+          <i class="fa-solid fa-xmark"></i>
+        </aside>
+      </div>
       <button type="button" id="loginGo">로그인 하러가기</button>
       <button type="button" id="checkPw">비밀번호 찾기</button>
     </div>
@@ -99,15 +113,22 @@
   <dialog id="findPwPopup">
     <!-- 다일로그 display 바꾸면 버그생김 반드시 다른 박스로 감싸야함 -->
     <div class="contents">
-      <h3>비밀번호를 찾아요</h3>
-      <p>아이디와 인증한 이메일을 적어주세요</p>
+      <div class="contents__header">
+        <article>
+          <h3>비밀번호를 찾아요</h3>
+          <p>아이디와 인증한 이메일을 적어주세요</p>
+        </article>
+        <aside>
+          <i class="fa-solid fa-xmark"></i>
+        </aside>
+      </div>
       <form action="" method="">
         <ul>
           <label for="findPwId">아이디</label>
-          <li>
+          <li >
             <input type="text" id="findPwId" maxlength="16" />
-            <p class="err findPwId hidden">* 아이디를 입력해 주세요</p>
           </li>
+          <p class="err findPwId hidden">* 아이디를 입력해 주세요</p>
           <label for="findPwIdEmail">이메일</label>
           <li>
             <input type="email" id="findPwIdEmail" maxlength="20" />
@@ -117,8 +138,8 @@
             >
               확인
             </button>
-            <p class="err findPwIdEmail hidden">* 이메일을 입력해 주세요</p>
           </li>
+          <p class="err findPwIdEmail hidden">* 이메일을 입력해 주세요</p>
           <label for="checkNum">인증번호</label>
           <br />
           <li>
@@ -142,8 +163,15 @@
   <dialog id="findPwPopup2">
     <!-- 다일로그 display 바꾸면 버그생김 반드시 다른 박스로 감싸야함 -->
     <div class="contents">
-      <h3>비밀번호 찾기 완료!</h3>
-      <div>찾은 비밀번호</div>
+      <div class="contents__header">
+        <article>
+          <h3>비밀번호 찾기 완료!</h3>
+          <div>이메일을 확인해 주세요.</div>
+        </article>
+        <aside>
+          <i class="fa-solid fa-xmark"></i>
+        </aside>
+      </div>
       <button type="button" id="loginGo2">로그인 하러가기</button>
     </div>
   </dialog>

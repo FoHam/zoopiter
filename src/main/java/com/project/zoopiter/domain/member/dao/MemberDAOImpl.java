@@ -100,7 +100,7 @@ public class MemberDAOImpl implements MemberDAO {
    * @return
    */
   @Override
-  public Optional<Member> findbyEmail(String userEmail) {
+  public Optional<Member> findByEmail(String userEmail) {
     StringBuffer sql = new StringBuffer();
     sql.append("select * from member where user_email = :userEmail ");
 

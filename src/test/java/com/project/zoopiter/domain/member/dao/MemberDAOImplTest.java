@@ -61,7 +61,7 @@ public class MemberDAOImplTest {
     @DisplayName("조회 by email")
     void findbyEmail(){
       String userEmail = "member99@gmail.com";
-      Optional<Member> member = memberDAO.findbyEmail(userEmail);
+      Optional<Member> member = memberDAO.findByEmail(userEmail);
       Member findedMember = member.orElseThrow();
       Assertions.assertThat(findedMember.getUserPw()).isEqualTo("member9999");
       Assertions.assertThat(findedMember.getUserNick()).isEqualTo("회원9");

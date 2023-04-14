@@ -54,8 +54,8 @@ public class MemberSVCImpl implements MemberSVC {
    * @return
    */
   @Override
-  public Optional<Member> findbyEmail(String userEmail) {
-    return memberDAO.findbyEmail(userEmail);
+  public Optional<Member> findByEmail(String userEmail) {
+    return memberDAO.findByEmail(userEmail);
   }
 
   /**

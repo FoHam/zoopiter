@@ -409,7 +409,7 @@ const emailSend = res => {
 };
 
 const emailSendBtn_h = () => {
-  const url = `/api/members/emailChk?email=${email.value}`;
+  const url = `/api/members/emailChk?email=${$email.value}`;
   $errEmailCheck.textContent =
     '이메일을 보내고 있습니다. 잠시만 기다려 주세요.';
   document.getElementById('emailSendBtn').disabled = true;

@@ -195,6 +195,19 @@ const $errCheckNum = document.querySelector('.err.checkNum');
 const $findPwPopup = document.getElementById('findPwPopup');
 const $findPwPopup2 = document.getElementById('findPwPopup2');
 
+//닫힘버튼
+const $closeBtns = document.querySelectorAll('.fa-xmark');
+
+//모달창 닫힘 버튼
+for(const ele of $closeBtns){
+    ele.addEventListener('click', e => {
+        $findIdPopup.close();
+        $findIdPopup2.close();
+        $findPwPopup.close();
+        $findPwPopup2.close();
+    });
+}
+
 //아이디 찾기 다일로그창
 $findId.addEventListener('click', e => {
   $findIdPopup.showModal();
@@ -444,16 +457,61 @@ $findPwIdEmail.addEventListener('blur', e => {
     $errEmail2.classList.remove('hidden');
     $errEmail2.style = 'color : red';
     $errEmail2.textContent = '* 이메일를 입력해 주세요.';
+    document.getElementById('findPwIdBtn').disabled = true;
     $findPwIdEmail.value = '';
   } else if (!emailRegex.test(input)) {
     $errEmail2.classList.remove('hidden');
     $errEmail2.style = 'color : red';
+    document.getElementById('findPwIdBtn').disabled = true;
     $errEmail2.textContent = '* 이메일 양식에 맞게 입력해 주세요.';
   } else {
     $errEmail2.classList.add('hidden');
+    document.getElementById('findPwIdBtn').disabled = false;
   }
   return;
 });
+
+//이메일 인증 체크1
+const emailSend = res => {
+  if (res.header.rtcd == '00') {
+    if (res.data) {
+      $errEmail2.style = 'color : grey';
+      $errEmail2.textContent = res.data;
+    } else {
+      $errEmail2.style = 'color : red';
+      $errEmail2.textContent = '오류';
+    }
+  } else {
+    $errEmail2.textContent = `${res.header.rtmsg}`;
+  };
+  return;
+};
+
+const emailSendBtn_h = () => {
+  const url = `/api/members/emailChk?email=${$findPwIdEmail.value}`;
+  $errEmail2.classList.remove('hidden');
+  $errEmail2.textContent =
+    '이메일을 보내고 있습니다. 잠시만 기다려 주세요.';
+  document.getElementById('findPwIdBtn').disabled = true;
+  document.getElementById('findPwIdEmail').disabled = true;
+  document.getElementById('findPwId').disabled = true;
+  ajax
+    .get(url)
+    .then(res => res.json())
+    .then(emailSend) //res=>chkEmail(res)
+    .then(e=>{
+      if($errEmail2.style.color === 'grey'){
+            document.getElementById('findPwIdBtn2').disabled = false;
+      }else{
+            document.getElementById('findPwIdBtn').disabled = false;
+            document.getElementById('findPwIdEmail').disabled = false;
+            document.getElementById('findPwId').disabled = false;
+      };
+    })
+    .catch(console.error); //err=>console.error(err)
+  return;
+};
+
 
 // 이메일로 아이디 찾아서 입력한 아이디랑 비교
 const findIdByEmail2 = res => {
@@ -484,7 +542,11 @@ const findIdByEmail_h2 = () => {
     .get(url)
     .then(res => res.json())
     .then(findIdByEmail2) //res=>chkEmail(res)
-//    .then() 여기에 이메일 보내기 넣기
+    .then(e=>{
+        if($errEmail2.classList.contains('hidden')){
+            emailSendBtn_h();   //이메일 보내기
+        };
+    })
     .catch(console.error); //err=>console.error(err)
 };
 
@@ -511,7 +573,7 @@ const chkEmail_h2 = () => {
   ajax
     .get(url)
     .then(res => res.json())
-    .then(chkEmail2) //res=>chkEmail(res)
+    .then(chkEmail2) //이메일 회원여부 체크
     .then(e=>{
         if($errEmail2.classList.contains('hidden')){
         //실행 아이디 이메일 비교
@@ -521,15 +583,73 @@ const chkEmail_h2 = () => {
     .catch(console.error); //err=>console.error(err)
 };
 
-
-
-
 $findPwIdBtn.addEventListener('click',e=>{
-    chkEmail_h2();
+    // 아이디가 맞는 값이 입력된 경우만
+    if($errFindId.classList.contains('hidden')){
+        chkEmail_h2();
+    }else{
+        e.preventDefault();
+    };
+    return;
+});
+
+//이메일 인증 체크2
+const emailSend2 = res => {
+  $errCheckNum.classList.remove('hidden');
+  if (res.header.rtcd == '00') {
+    if (res.data) {
+      $errCheckNum.style = 'color : green';
+      $errCheckNum.textContent = res.data;
+    } else {
+      $errCheckNum.style = 'color : red';
+      $errCheckNum.textContent = '오류';
+    }
+  } else if (res.header.rtcd == '01') {
+    $errCheckNum.style = 'color : red';
+    $errCheckNum.textContent = res.data;
+  } else {
+    $errCheckNum.textContent = `${res.header.rtmsg}`;
+  };
+  return;
+};
+
+const emailSendBtn_h2 = e => {
+  const url = `/api/members/emailChk2?num=${$checkNum.value}`;
+  ajax
+    .get(url)
+    .then(res => res.json())
+    .then(emailSend2) //res=>chkEmail(res)
+    .then(e=>{
+    if($errCheckNum.textContent=='인증성공'){
+      document.getElementById('checkNum').disabled = true;
+      document.getElementById('findPwIdBtn2').disabled = true;
+    };
+    })
+    .catch(console.error); //err=>console.error(err)
+    return;
+};
+
+//인증번호 확인
+$findPwIdBtn2.addEventListener('click', e => {
+  const input = $checkNum.value;
+  const lenOfInput = input.length;
+  if (lenOfInput == 0) {
+    e.preventDefault();
+  } else {
+    emailSendBtn_h2(e);
+  };
+  return;
 });
 
 //비밀번호 찾기 완료 다일로그 창
 $checkPassword.addEventListener('click', e => {
-  $findPwPopup.close();
-  $findPwPopup2.showModal();
+  if($errCheckNum.style.color === 'green'){
+    const url = `/api/members/findPwByEmail?email=${$findPwIdEmail.value}`;
+    ajax
+      .get(url)
+      .catch(console.error); //err=>console.error(err)
+    $findPwPopup.close();
+    $findPwPopup2.showModal();
+  };
 });
+

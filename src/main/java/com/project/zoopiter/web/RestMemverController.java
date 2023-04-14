@@ -107,6 +107,7 @@ public class RestMemverController {
             session.removeAttribute("checkNum");
             res = RestResponse.createRestResponse("00","성공", "인증성공");
         };
+        log.info("res={}",res);
         return res;
     }
 
@@ -146,5 +147,26 @@ public class RestMemverController {
         res = RestResponse.createRestResponse("00","성공", exist);
 
         return res;
+    }
+
+    //아이디 찾기
+    @ResponseBody
+    @GetMapping("/findPwByEmail")
+    public void findPwByEmail(@RequestParam("email") String email){
+        log.info("email={}",email);
+
+        //비밀번호 들고오기
+        Optional<Member> exist = memberSVC.findByEmail(email);
+        if(exist!=null){
+            String res= exist.get().getUserPw();
+            //이메일 보내기
+            StringBuffer str = new StringBuffer();
+            str.append("<html>");
+            str.append("<h3>비밀번호 확인</h3>");
+            str.append("<p>비밀번호는 " + res + " 입니다.</p>");
+            str.append("</html>");
+
+            mailService.sendMail(email,"비밀번호",str.toString());
+        };
     }
 }

@@ -31,7 +31,7 @@ public interface MemberDAO {
    * @param userEmail 이메일
    * @return
    */
-  Optional<Member> findbyEmail(String userEmail);
+  Optional<Member> findByEmail(String userEmail);
 
   /**
    * 조회 by user_id
