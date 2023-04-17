@@ -173,13 +173,11 @@ li {
   border-bottom: 2px solid #858585;
   margin-bottom: 30px;
 }
-.profile-list .profile-list__areas {
-  display: flex;
-}
+
 .myprofile-list .list-frm {
   display: flex;
   /* flex-wrap: wrap; */
-  margin-bottom: 18px;
+  margin-bottom: 10px;
 }
 /* .myprofile-list .list-frm .list {
   width: 10%;
@@ -190,16 +188,16 @@ li {
   /* margin: 10px; */
   margin-bottom: 10px;
 }
-.myprofile-list .myprofile-list-text {
-  margin: 30px;
-  position: relative;
-  left: 30px;
-  font-size: 14px;
-}
 img {
   object-fit: contain;
   width: auto;
   height: auto;
+}
+.myprofile-list .myprofile-list-text {
+  margin: 20px;
+  /* position: relative;
+  left: 30px; */
+  font-size: 14px;
 }
 
 .myprofile-list .list-frm .list {

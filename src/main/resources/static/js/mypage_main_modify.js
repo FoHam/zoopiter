@@ -30,6 +30,41 @@ $(document).ready(function () {
   $newPasswordCheck.on('keyup', checkPasswordMatch);
 });
 
+// 비밀번호 버튼
+// const myButton = document.getElementById('myButton');
+// const myButtonHidden = document.getElementById('myButtonHidden');
+// myButton.addEventListener('click', function () {
+//   if (myButtonHidden.style.display === 'none') {
+//     myButtonHidden.style.display = 'block';
+//   } else {
+//     myButtonHidden.style.display = 'none';
+//   }
+// });
+
+function toggleDiv() {
+  var myButton = document.getElementById('myButton');
+  var myButtonHidden = document.getElementById('myButtonHidden');
+  if (myButtonHidden.style.display === 'none') {
+    myButtonHidden.style.display = 'block';
+    myButton.style.display = 'none';
+  } else {
+    myButtonHidden.style.display = 'none';
+    myButton.style.display = 'block';
+  }
+}
+// 비밀번호 완료
+function toggleOut() {
+  var myButton = document.getElementById('myButton');
+  var myButtonHidden = document.getElementById('myButtonHidden');
+  if (myButtonHidden.style.display === 'block') {
+    myButtonHidden.style.display = 'none';
+    myButton.style.display = 'block';
+  } else {
+    myButtonHidden.style.display = 'block';
+    myButton.style.display = 'none';
+  }
+}
+
 // 마이페이지 수정버튼
 function modify() {
   Swal.fire({

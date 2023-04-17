@@ -1,5 +1,6 @@
 // 탈퇴
 function withdraw() {
+  const userId = document.getElementById('btnWithdraw').value;
   Swal.fire({
     title: '탈퇴하시겠습니까?',
     text: '탈퇴확인시 등록된 정보 및 게시글이 전체 삭제 됩니다',
@@ -12,6 +13,7 @@ function withdraw() {
   }).then(result => {
     if (result.isConfirmed) {
       Swal.fire('탈퇴완료!', '그동안 이용해주셔서 감사합니다', 'success');
+      location.href = '/mypage/withdraw';
     }
   });
 }

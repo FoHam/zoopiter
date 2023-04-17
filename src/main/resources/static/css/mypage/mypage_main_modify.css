@@ -213,8 +213,8 @@ img {
   font-size: 13px;
   background-color: #fff;
   box-sizing: border-box;
-  margin-right: 10px;
   border-radius: 6px;
+  margin: auto;
 }
 
 .list-frm .my-info .myprofile-button .btn-frm:hover {
@@ -222,24 +222,48 @@ img {
   color: #fff;
   /* #f26d3d; */
 }
-
-/* 수정부분 */
-/* 버튼 css */
-/* .btn-group {
-  display: inline-flex;
-  flex-direction: column;
-  align-items: flex-start;
-  margin: 5px 0;
-  border: 1px solid #e5e5e5;
-  background-color: #ffffff;
-  color: #000000;
+/*input 박스 크기 */
+/* input[type='text'] {
+  width: 200px;
+  height: 20px;
 } */
+
+/* 닉네임 박스 옆 여백*/
+input#nickname {
+  margin-right: 10px;
+}
 
 /* 비밀번호 */
 .my-info .my-info-modify .input > label {
   display: inline-block;
   min-width: 165px;
   line-height: 32px;
+}
+.my-info .my-info-modify .my-info-modify-pw {
+  margin-left: 5%;
+  width: 600px;
+}
+.my-info .my-info-modify .my-info-modify-pw .input {
+  margin-bottom: 5px;
+}
+.list-frm > ul > li {
+  color: #777777;
+  font-size: 14px;
+}
+/* 비밀번호 버튼 */
+.list-frm .my-info .myprofile-button #myButtonCom {
+  margin-top: 10px;
+}
+
+.list-frm .my-info .myprofile-button #myButton,
+.list-frm .my-info .myprofile-button #myButtonCom {
+  width: 110px;
+  margin: 5px;
+}
+
+p.information.pw {
+  color: #777777;
+  font-size: 14px;
 }
 
 /* 닉네임 */

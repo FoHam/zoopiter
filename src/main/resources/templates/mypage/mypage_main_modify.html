@@ -131,24 +131,32 @@
         <div class="list-frm">
           <div class="list">비밀번호</div>
           <div class="my-info">
-            <div class="my-info-modify">
-              <div class="input">
-                <label for="password">현재 비밀번호</label>
-                <input type="password" name="password" id="password" />
-                <p class="information pw">
-                  비밀번호는 영문 대소문자, 숫자조합으로 8~20자 가능합니다.
-                </p>
-                <p class="err password"></p>
+            <div class="myprofile-button">
+              <button type="button" class="btn-frm" id="myButton" onclick="toggleDiv()" style="display: block">변경하기</button>
+
+              <div class="my-info-modify" id="myButtonHidden" style="display: none">
+                <div class="my-info-modify-pw">
+                  <div class="input">
+                    <label for="password">현재 비밀번호</label>
+                    <input type="password" name="password" id="password" />
+                    <p class="information pw">
+                      비밀번호는 영문 대소문자, 숫자조합으로 8~20자 가능합니다.
+                    </p>
+                    <p class="err password"></p>
+                  </div>
+                  <div class="input">
+                    <label for="new-password">신규 비밀번호</label>
+                    <input type="password" id="newPassword" placeholder="비밀번호는 8~20자 입력 가능합니다"/>
+                  </div>
+                  <div class="input">
+                    <label for="new-password-check">신규 비밀번호 확인</label>
+                    <input type="password" id="newPasswordCheck" placeholder="신규 비밀번호 확인"/>
+                  </div>
+                  <button type="button" class="btn-frm" id="myButtonCom" onclick="toggleOut()">수정완료</button>
+                </div>
               </div>
-              <div class="input">
-                <label for="new-password">신규 비밀번호</label>
-                <input type="password" id="newPassword" placeholder="비밀번호는 8~20자 입력 가능합니다"/>
-              </div>
-              <div class="input">
-                <label for="new-password-check">신규 비밀번호 확인</label>
-                <input type="password" id="newPasswordCheck" placeholder="신규 비밀번호 확인"/>
-              </div>
-            </div>
+
+            </div>            
           </div>
         </div>
                 
@@ -197,10 +205,6 @@
       $(function () {
         $('#mypagePcGnb').children().eq(0).find('a').addClass('on');
       });
-
-
-
-
 </script>
 
 </html>

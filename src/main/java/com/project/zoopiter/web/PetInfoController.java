@@ -11,6 +11,7 @@ import com.project.zoopiter.web.form.pet.PetDetailForm;
 import com.project.zoopiter.web.form.pet.PetSaveForm;
 import com.project.zoopiter.web.form.pet.PetUpdateForm;
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -73,7 +74,7 @@ public class PetInfoController {
     return petInfos;
   }
 
-// 등록 pet_reg
+  // 등록 pet_reg
   // 등록양식
   @GetMapping("/petreg")
   public String saveInfo(Model model){
@@ -87,10 +88,10 @@ public class PetInfoController {
 //  PetInfo saveInfo(PetInfo petInfo);
   @PostMapping("/petreg")
   public String save(
-      @Valid @ModelAttribute PetSaveForm petSaveForm,
-      BindingResult bindingResult,
-      RedirectAttributes redirectAttributes
-      ){
+          @Valid @ModelAttribute PetSaveForm petSaveForm,
+          BindingResult bindingResult,
+          RedirectAttributes redirectAttributes
+  ){
     log.info("petSaveForm={}",petSaveForm);
     // 데이터 검증
     if (bindingResult.hasErrors()){
@@ -122,8 +123,8 @@ public class PetInfoController {
   // 조회
   @GetMapping("/{id}/detail")
   public String findInfo(
-    @PathVariable("id") Long id,
-    Model model
+          @PathVariable("id") Long id,
+          Model model
   ){
     Optional<PetInfo> findPetInfo = petInfoSVC.findInfo(id);
     PetInfo petInfo = findPetInfo.orElseThrow(() -> new RuntimeException("PetInfo not found for id: " + id));
@@ -146,13 +147,13 @@ public class PetInfoController {
     return "mypage/mypage_pet_detail";
   }
 
-// 수정 pet_modify > 메인으로 이동(보호자정보페이지)
+  // 수정 pet_modify > 메인으로 이동(보호자정보페이지)
 //  int updateInfo (Long PetNum, PetInfo petInfo);
   // 수정양식
   @GetMapping("/{id}/edit")
   public String updateInfo(
-      @PathVariable("id") Long id,
-      Model model
+          @PathVariable("id") Long id,
+          Model model
   ){
     Optional<PetInfo> findPetInfo = petInfoSVC.findInfo(id);
     PetInfo petInfo = findPetInfo.orElseThrow();
@@ -178,10 +179,10 @@ public class PetInfoController {
   // 수정
   @PostMapping("/{id}/edit")
   public String update(
-      @PathVariable("id") Long petNum,
-      @Valid @ModelAttribute PetUpdateForm petUpdateForm,
-      BindingResult bindingResult,
-      RedirectAttributes redirectAttributes
+          @PathVariable("id") Long petNum,
+          @Valid @ModelAttribute PetUpdateForm petUpdateForm,
+          BindingResult bindingResult,
+          RedirectAttributes redirectAttributes
   ){
     // 데이터 검증
     if(bindingResult.hasErrors()){
@@ -222,7 +223,7 @@ public class PetInfoController {
 
   // 마이페이지 - 회원정보수정
 
- // 목록
+  // 목록
 //  @GetMapping
 //  public String findAllMember(){
 //    return "mypage/mypage_main";
@@ -239,8 +240,8 @@ public class PetInfoController {
   // 회원수정
   @GetMapping("/memberedit")
   public String editForm(
-      Model model,
-      HttpServletRequest request
+          Model model,
+          HttpServletRequest request
   ) {
     String userId = null;
     HttpSession session = request.getSession(false);
@@ -267,10 +268,10 @@ public class PetInfoController {
   // 회원수정 처리
   @PostMapping("/memberedit")
   public String edit(
-      @Valid @ModelAttribute ModifyForm modifyForm,
-      BindingResult bindingResult,
-      HttpServletRequest request
-      ) {
+          @Valid @ModelAttribute ModifyForm modifyForm,
+          BindingResult bindingResult,
+          HttpServletRequest request
+  ) {
     // 1) 유효성 체크
     if(bindingResult.hasErrors()){
       log.info("bindingResult={}",bindingResult);
@@ -316,5 +317,12 @@ public class PetInfoController {
   }
 
   // 회원탈퇴
-
+  @PostMapping("/withdraw")
+  public String withdraw(HttpServletRequest request,
+                         HttpServletResponse response){
+    String userId = (String)request.getSession().getAttribute("userId");
+    memberSVC.delete(userId);
+    request.getSession().invalidate();
+    return "redirect:/";
+  }
 }
