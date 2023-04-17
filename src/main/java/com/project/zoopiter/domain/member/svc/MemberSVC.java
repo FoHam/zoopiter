@@ -14,6 +14,20 @@ public interface MemberSVC {
   Member save(Member member);
 
   /**
+   * 회원정보수정
+   * @param userId 아이디
+   * @param member 회원정보
+   */
+  boolean updateNick(String userId, Member member);
+
+  /**
+   * 회원정보수정
+   * @param userId 아이디
+   * @param member 회원정보
+   */
+  boolean updatePw(String userId, Member member);
+
+  /**
    * 병원가입
    * @param member 회원정보
    * @return

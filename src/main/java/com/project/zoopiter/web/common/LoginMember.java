@@ -1,4 +1,4 @@
-package com.project.zoopiter.web.login;
+package com.project.zoopiter.web.common;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

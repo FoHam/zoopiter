@@ -2,8 +2,8 @@ package com.project.zoopiter.web;
 
 import com.project.zoopiter.domain.entity.Member;
 import com.project.zoopiter.domain.member.svc.MemberSVC;
-import com.project.zoopiter.web.login.LoginForm;
-import com.project.zoopiter.web.login.LoginMember;
+import com.project.zoopiter.web.form.login.LoginForm;
+import com.project.zoopiter.web.common.LoginMember;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;

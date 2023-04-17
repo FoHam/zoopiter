@@ -1,4 +1,4 @@
-package com.project.zoopiter.web.login;
+package com.project.zoopiter.web.form.login;
 
 import jakarta.validation.constraints.NotBlank;
 import lombok.Data;

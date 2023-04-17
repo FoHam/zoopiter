@@ -94,6 +94,48 @@ public class MemberDAOImpl implements MemberDAO {
   }
 
   /**
+   * @param userId 아이디
+   * @param member 회원정보
+   */
+  @Override
+  public boolean updateNick(String userId, Member member) {
+    StringBuffer sql = new StringBuffer();
+    sql.append("update member set user_nick = :userNick ,user_update = systimestamp where user_id = :userId ");
+
+    SqlParameterSource param = new MapSqlParameterSource()
+        .addValue("userNick",member.getUserNick())
+        .addValue("userId",userId);
+
+    int updatedRows = template.update(sql.toString(), param);
+    if (updatedRows > 0) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  /**
+   * @param userId 아이디
+   * @param member 회원정보
+   */
+  @Override
+  public boolean updatePw(String userId, Member member) {
+    StringBuffer sql = new StringBuffer();
+    sql.append("update member set user_pw = :userPw, ,user_update = systimestamp where user_id = :userId ");
+
+    SqlParameterSource param = new MapSqlParameterSource()
+        .addValue("userPw",member.getUserPw())
+        .addValue("userId",userId);
+
+    int updatedRows = template.update(sql.toString(), param);
+    if (updatedRows > 0) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  /**
    * 조회 by email
    *
    * @param userEmail 이메일

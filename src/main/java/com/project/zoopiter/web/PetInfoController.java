@@ -1,11 +1,15 @@
 package com.project.zoopiter.web;
 
+import com.project.zoopiter.domain.entity.Member;
 import com.project.zoopiter.domain.entity.PetInfo;
+import com.project.zoopiter.domain.member.svc.MemberSVC;
 import com.project.zoopiter.domain.petinfo.svc.PetInfoSVC;
+import com.project.zoopiter.web.common.LoginMember;
+import com.project.zoopiter.web.form.member.DetailForm;
+import com.project.zoopiter.web.form.member.ModifyForm;
 import com.project.zoopiter.web.form.pet.PetDetailForm;
 import com.project.zoopiter.web.form.pet.PetSaveForm;
 import com.project.zoopiter.web.form.pet.PetUpdateForm;
-import com.project.zoopiter.web.login.LoginMember;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
@@ -26,13 +30,38 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class PetInfoController {
   private final PetInfoSVC petInfoSVC;
+  private final MemberSVC memberSVC;
 
-  // 목록
-  @GetMapping
-  public String findAll(){
+  @GetMapping("")
+  public String findAll(Model model, @SessionAttribute(
+      name = SessionConst.LOGIN_MEMBER, required = false) LoginMember loginMember
+  ){
+    if(loginMember ==null){
+      // 로그인 안되어있으면 로그인화면으로 이동
+      return "redirect:/login";
+    }
+    String userId = loginMember.getUserId();
+    Optional<Member> member = memberSVC.findById(userId);
+    model.addAttribute("member",member);
+
+//    String userPw = member.map(Member::getUserPw).orElse("");
+    String userEmail = member.map(Member::getUserEmail).orElse("");
+    String userNick = member.map(Member::getUserNick).orElse("");
+
+    DetailForm detailForm = new DetailForm();
+    detailForm.setUserEmail(userEmail);
+    detailForm.setUserNick(userNick);
+    detailForm.setUserId(userId);
+    model.addAttribute("DetailForm", detailForm);
 
     return "mypage/mypage_main";
   }
+
+  // 목록
+//  @GetMapping
+//  public String findAll(){
+//    return "mypage/mypage_main";
+//  }
 
   @ModelAttribute("petInfos")
   public List<PetInfo> getPetInfo(HttpServletRequest request){
@@ -191,5 +220,102 @@ public class PetInfoController {
 
     return "redirect:/mypage";
   }
+
+  // 마이페이지 - 회원정보수정
+
+ // 목록
+//  @GetMapping
+//  public String findAllMember(){
+//    return "mypage/mypage_main";
+//  }
+
+  @GetMapping("/mypage/main")
+  public String mypageMain(Model model){
+    String userId = "myUserId";
+    model.addAttribute("userId", userId);
+
+    return "member/mypage_main";
+  }
+
+  // 회원수정
+  @GetMapping("/memberedit")
+  public String editForm(
+      Model model,
+      HttpServletRequest request
+  ) {
+    String userId = null;
+    HttpSession session = request.getSession(false);
+    if(session != null) {
+      LoginMember loginMember = (LoginMember)session.getAttribute(SessionConst.LOGIN_MEMBER);
+      userId = loginMember.getUserId();
+    }
+    Optional<Member> optionalMember = memberSVC.findById(userId);
+
+    Member member = optionalMember.get();
+
+    ModifyForm modifyForm = new ModifyForm();
+    modifyForm.setUserId(member.getUserId());
+    modifyForm.setUserNick(member.getUserNick());
+
+    // modifyForm.setUserPhoto(member.getUserPhoto());
+    model.addAttribute("modifyForm",modifyForm);
+    model.addAttribute("userEmail",member.getUserEmail());
+
+    return "mypage/mypage_main_modify";
+
+  }
+
+  // 회원수정 처리
+  @PostMapping("/memberedit")
+  public String edit(
+      @Valid @ModelAttribute ModifyForm modifyForm,
+      BindingResult bindingResult,
+      HttpServletRequest request
+      ) {
+    // 1) 유효성 체크
+    if(bindingResult.hasErrors()){
+      log.info("bindingResult={}",bindingResult);
+      return "mypage/mypage_main_modify";
+    }
+
+    String userId = null;
+    HttpSession session = request.getSession(false);
+    if(session != null) {
+      LoginMember loginMember = (LoginMember)session.getAttribute(SessionConst.LOGIN_MEMBER);
+      userId = loginMember.getUserId();
+    }
+
+    Member member = new Member();
+//    member.setUserEmail(modifyForm.getUserEmail());
+    member.setUserNick(modifyForm.getUserNick());
+//    member.setUserPhoto(modifyForm.getUserPhoto());
+
+    boolean flag = memberSVC.updateNick(userId,member);
+    if(flag){
+      LoginMember loginMember = (LoginMember) session.getAttribute(SessionConst.LOGIN_MEMBER); //세션에 저장된 LoginMember 객체 가져오기
+      loginMember.setUserNick(modifyForm.getUserNick()); //값 변경
+      session.setAttribute(SessionConst.LOGIN_MEMBER, loginMember); //세션에 변경된 LoginMember 객체 저장
+    };
+
+//    redirectAttributes.addAttribute("id", modifyForm.getUserId());
+    return "redirect:/mypage";
+  }
+  //   회원 불러오기
+  @GetMapping("/{id}/memberdetail")
+  public String detail(@PathVariable("id") String userId, Model model){
+    Optional<Member> member = memberSVC.findById(userId);
+
+    DetailForm detailForm = new DetailForm();
+    detailForm.setUserId(member.get().getUserId());
+    detailForm.setUserEmail(member.get().getUserEmail());
+    detailForm.setUserNick(member.get().getUserNick());
+    detailForm.setUserPw(member.get().getUserPw());
+
+    model.addAttribute("detailForm", detailForm);
+
+    return "mypage/mypage_main";
+  }
+
+  // 회원탈퇴
 
 }

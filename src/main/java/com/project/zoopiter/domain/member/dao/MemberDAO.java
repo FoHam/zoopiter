@@ -27,6 +27,20 @@ public interface MemberDAO {
   void update(String userId, Member member);
 
   /**
+   * 회원정보수정
+   * @param userId 아이디
+   * @param member 회원정보
+   */
+  boolean updateNick(String userId, Member member);
+
+  /**
+   * 회원정보수정
+   * @param userId 아이디
+   * @param member 회원정보
+   */
+  boolean updatePw(String userId, Member member);
+
+  /**
    * 조회 by email
    * @param userEmail 이메일
    * @return

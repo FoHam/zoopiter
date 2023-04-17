@@ -48,6 +48,24 @@ public class MemberSVCImpl implements MemberSVC {
   }
 
   /**
+   * @param userId 아이디
+   * @param member 회원정보
+   */
+  @Override
+  public boolean updateNick(String userId, Member member) {
+    return memberDAO.updateNick(userId, member);
+  }
+
+  /**
+   * @param userId 아이디
+   * @param member 회원정보
+   */
+  @Override
+  public boolean updatePw(String userId, Member member) {
+    return memberDAO.updatePw(userId, member);
+  }
+
+  /**
    * 조회 by email
    *
    * @param userEmail 이메일

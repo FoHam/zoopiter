@@ -1,3 +1,36 @@
+// 닉네임체크
+const nicknameInput = document.getElementById('nickname');
+const nicknameError = document.getElementById('nickname-error');
+
+nicknameInput.addEventListener('input', () => {
+  const nickname = nicknameInput.value.trim();
+  if (!nicknameInput.checkValidity()) {
+    nicknameError.textContent =
+      '닉네임은 영문자, 숫자, 한글조합 10글자 이하로 작성해주세요.';
+    nicknameError.classList.add('error');
+  } else {
+    nicknameError.textContent = '';
+    nicknameError.classList.remove('error');
+  }
+});
+// 비밀번호
+$(document).ready(function () {
+  const $newPassword = $('#newPassword');
+  const $newPasswordCheck = $('#newPasswordCheck');
+  const $passwordErr = $('.err.password');
+
+  function checkPasswordMatch() {
+    if ($newPassword.val() !== $newPasswordCheck.val()) {
+      $passwordErr.text('비밀번호가 일치하지 않습니다.');
+    } else {
+      $passwordErr.text('');
+    }
+  }
+  $newPassword.on('keyup', checkPasswordMatch);
+  $newPasswordCheck.on('keyup', checkPasswordMatch);
+});
+
+// 마이페이지 수정버튼
 function modify() {
   Swal.fire({
     title: '수정하시겠습니까?',
@@ -14,7 +47,7 @@ function modify() {
     }
   });
 }
-
+// 펫정보 수정페이지
 function petModify({ dataset }) {
   Swal.fire({
     title: '수정페이지로 이동하시겠습니까?',

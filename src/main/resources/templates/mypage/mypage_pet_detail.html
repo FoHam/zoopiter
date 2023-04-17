@@ -53,7 +53,7 @@
   <div class="main-gnb">
     <div class="pc" id="mypagePcGnb">
       <ul>
-        <li><a href="./mypage_main.html">보호자 정보관리</a></li>
+        <li><a href="./mypage_main.html" th:href="@{/mypage/memberedit}">보호자 정보관리</a></li>
       </ul>
       <ul>
         <li>
@@ -297,6 +297,7 @@
     integrity="sha256-oP6HI9z1XaZNBrJURtCoUT5SUnxFr8s3BzRl+cbzUq8="
     crossorigin="anonymous"
 ></script>
+<!--사이드메뉴 강조-->
 <script>
       $(function () {
         $('#mypagePcGnb').children().eq(1).find('a').addClass('on');

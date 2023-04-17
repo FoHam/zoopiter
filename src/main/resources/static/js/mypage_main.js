@@ -1,7 +1,4 @@
-
-
-
-
+// 탈퇴
 function withdraw() {
   Swal.fire({
     title: '탈퇴하시겠습니까?',
@@ -18,8 +15,30 @@ function withdraw() {
     }
   });
 }
-
-function petModify({dataset}) {
+// $(function () {
+//   $('#btnModify').click(function () {
+//     var userId = $(this).data('userId');
+//   });
+// });
+// 회원정보 수정
+function modify() {
+  Swal.fire({
+    title: '회원정보 수정페이지로 이동하시겠습니까?',
+    text: '등록한 정보를 수정하러 이동합니다',
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonColor: '#333',
+    cancelButtonColor: '#ffd88f',
+    confirmButtonText: '수정하기',
+    cancelButtonText: '취소하기',
+  }).then(result => {
+    if (result.isConfirmed) {
+      location.replace(`/mypage/memberedit`);
+    }
+  });
+}
+// 펫정보 수정
+function petModify({ dataset }) {
   Swal.fire({
     title: '수정페이지로 이동하시겠습니까?',
     text: '등록한 반려동물정보를 수정하러 이동합니다',
@@ -31,7 +50,7 @@ function petModify({dataset}) {
     cancelButtonText: '취소하기',
   }).then(result => {
     if (result.isConfirmed) {
-        location.replace(`/mypage/${dataset.petNum}/edit`);
+      location.replace(`/mypage/${dataset.petNum}/edit`);
     }
   });
 }

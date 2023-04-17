@@ -22,8 +22,10 @@
 <body>
 <div class="wrap">
   <div class="hd-l"></div>
-  <!-- 프레그먼트 반영:menu  -->
-  <th:block th:replace="~{fragment/menu::gnb}"></th:block>
+  <header class="hd">
+    <!-- 프레그먼트 반영:menu  -->
+    <th:block th:replace="~{fragment/menu::gnb}"></th:block>
+  </header>
   <div class="hd-r"></div>
 
   <div class="fg-l"></div>
@@ -38,167 +40,130 @@
           </th:block>
         </div>
         <div class="profile-make" onclick="location.replace(`/mypage/petreg`)">
-            <img src="../img/add_circle.png" alt=""/>
+          <img src="../img/add_circle.png" alt=""/>
           </a>
         </div>
       </div>
     </div>
   </figure>
-
   <div class="fg-r"></div>
+
   <div class="mn-l"></div>
   <main class="container">
+    <!-- 사이드메뉴 -->
     <div class="main-gnb">
-      <div class="main-gnb">
-        <div class="pc" id="mypagePcGnb">
-          <ul>
-            <li><a href="./mypage_main.html">보호자 정보관리</a></li>
-          </ul>
-          <ul>
-            <li><a href="./mypage_pet_reg.html">반려동물 등록</a></li>
-          </ul>
-          <ul>
-            <li><a href="./mypage_scheduler.html">의료수첩 관리</a></li>
-          </ul>
-        </div>
+      <div class="pc" id="mypagePcGnb">
+        <ul>
+          <li><a href="./mypage_main.html" th:href="@{/mypage/memberedit}">보호자 정보관리</a></li>
+        </ul>
+        <ul>
+          <li>
+            <a href="./mypage_pet_reg.html" th:href="@{/mypage/petreg}"
+            >반려동물 등록</a
+            >
+          </li>
+        </ul>
+        <ul>
+          <li><a href="./mypage_scheduler.html">의료수첩 관리</a></li>
+        </ul>
       </div>
     </div>
+    <!-- 메인컨텐츠 -->
     <div class="mypage_content">
-      <div class="myprofile-top">보호자 정보관리</div>
-      <div class="myprofile-list">
-        <ul class="list-frm">
-          <div class="list">사진</div>
-          <div class="list-frm">
-            <div class="myprofile-list-image">
-              <!-- <img src="" alt="" /> -->
-              <div class="contents">
-                <div class="upload-box">
-                  <div id="dropFile" class="drag-file">
-                    <img
-                        src="../img/img_profile1.png"
-                        alt=""
-                        class="image"
+      <form method="post" th:object="${modifyForm}">
+        <div class="myprofile-top">보호자 정보관리</div>
+        <div class="myprofile-list">
+          <ul class="list-frm">
+            <div class="list">사진</div>
+            <div class="list-frm">
+              <div class="myprofile-list-image">
+                <!-- <img src="" alt="" /> -->
+                <div class="contents">
+                  <div class="upload-box">
+                    <div id="dropFile" class="drag-file">
+                      <img
+                          src="../img/img_profile1.png"
+                          alt=""
+                          class="image"
+                      />
+                      <li>
+                        <div class="myprofile-list-text">
+                          회원님을 알수있는 사진을 등록해주세요
+                        </div>
+                      </li>
+                      <img src="" alt="미리보기 이미지" class="preview"/>
+                    </div>
+                    <label class="file-label" for="chooseFile">사진업로드</label>
+                    <input
+                        class="file"
+                        id="chooseFile"
+                        type="file"
+                        onchange="dropFile.handleFiles(this.files)"
+                        accept="image/png, image/jpeg, image/gif"
                     />
-                    <li>
-                      <div class="myprofile-list-text">
-                        회원님을 알수있는 사진을 등록해주세요
-                      </div>
-                    </li>
-                    <img src="" alt="미리보기 이미지" class="preview"/>
                   </div>
-                  <label class="file-label" for="chooseFile">사진업로드</label>
-                  <input
-                      class="file"
-                      id="chooseFile"
-                      type="file"
-                      onchange="dropFile.handleFiles(this.files)"
-                      accept="image/png, image/jpeg, image/gif"
-                  />
                 </div>
               </div>
-
             </div>
-          </div>
-          <div class="myprofile-button">
-            <button type="button" class="btn-frm" id="btnModify" onclick="modify()" value="confirm">
-              완료
-            </button>
-          </div>
-        </ul>
+          </ul>
 
-        <div class="list-frm">
-          <div class="list">아이디</div>
-          <div class="my-info">aaa1234</div>
+          <div class="list-frm">
+            <div class="list">아이디</div>
+            <div class="my-info" th:text="*{userId}"></div>
+          </div>
+          <div class="list-frm">
+            <div class="list">닉네임</div>
+            <input type="text" id="nickname" class="my-info" pattern="[a-zA-Z0-9가-힣]{1,10}" required
+            maxlength="10" th:field="*{userNick}" >
+            <ul>
+              <li>
+                닉네임은 영문자, 숫자, 한글조합 10글자 이하로 작성해주세요
+              </li>
+            </ul>
+            <!-- <span id="nickname-error" class="error-message"></span> -->
+            
+          </div>
+          <div class="list-frm">
+            <div class="list">이메일</div>
+            <div class="my-info" th:text="${userEmail}" ></div>
         </div>
+
         <div class="list-frm">
           <div class="list">비밀번호</div>
           <div class="my-info">
             <div class="my-info-modify">
               <div class="input">
-                <label for="input-password">현재 비밀번호</label>
-                <input type="password" id="password"/>
+                <label for="password">현재 비밀번호</label>
+                <input type="password" name="password" id="password" />
+                <p class="information pw">
+                  비밀번호는 영문 대소문자, 숫자조합으로 8~20자 가능합니다.
+                </p>
+                <p class="err password"></p>
               </div>
               <div class="input">
-                <label for="input-password">신규 비밀번호</label>
-                <input type="password" id="password"/>
+                <label for="new-password">신규 비밀번호</label>
+                <input type="password" id="newPassword" placeholder="비밀번호는 8~20자 입력 가능합니다"/>
               </div>
               <div class="input">
-                <label for="input-password">신규 비밀번호 재 입력</label>
-                <input type="password" id="password"/>
-              </div>
-              <div class="btn-group">
-                <button type="button" class="btn">취소</button>
-                <button type="button" class="btn">완료</button>
+                <label for="new-password-check">신규 비밀번호 확인</label>
+                <input type="password" id="newPasswordCheck" placeholder="신규 비밀번호 확인"/>
               </div>
             </div>
           </div>
         </div>
+                
+      </div>
         <div class="list-frm">
-          <div class="list">닉네임</div>
-          <div class="my-info">
-            <div class="my-info-txt">
-              <ul>
-                <li>
-                  닉네임은 영문자, 숫자, 한글조합 10글자 이하로 작성해주세요
-                </li>
-              </ul>
-
-              <div class="input">
-                <input type="text" id="nickName" maxlength="10"/>
-              </div>
-              <div class="btn-group">
-                <button type="button" class="btn">취소</button>
-                <button type="button" class="btn">완료</button>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="list-frm">
-          <div class="list">이메일</div>
-          <div class="my-info">
-            <div class="my-info">
-              <div class="my-info-txt">
-                <ul>
-                  <li>
-                    메일주소 입력 후 인증하기 버튼을 누르시면, 회원님의
-                    이메일로 이메일 인증 번호가 적힌메일이 발송됩니다.
-                  </li>
-                  <li>아래에 인증 번호를 입력하시면 인증이 완료됩니다.</li>
-                </ul>
-
-                <div class="input">
-                  <input type="text" id="email" placeholder="이메일 주소 입력" maxlength="50"/>
-                  <button type="button" class="">인증</button>
-                </div>
-                <div class="input">
-                  <input type="text" id="email" placeholder="인증번호 입력" maxlength="50"/>
-                </div>
-                <div class="btn-group">
-                  <button type="button" class="btn">취소</button>
-                  <button type="button" class="btn">완료</button>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="list-frm">
-          <div class="list">전화번호</div>
-          <div class="my-info">
-            <input type="tel" id="tel">
-          </div>
-        </div>
-        <div class="list-frm">
-          <div class="list">회원정보수정</div>
           <div class="my-info">
             <div class="myprofile-button">
-              <button type="button" class="btn-frm" id="btnModify" onclick="modify()" value="confirm">
-                수정하기
+              <button type="submit" class="btn-frm" id="btn_modify" value="confirm">
+                수정
               </button>
             </div>
           </div>
         </div>
 
-      </div>
+      </form>
     </div>
   </main>
   <div class="mn-r"></div>
@@ -206,20 +171,20 @@
   <div class="ft-l"></div>
   <!-- 프레그먼트 반영 footer -->
   <th:block th:replace="~{fragment/footer::fnb}"></th:block>
-  <div class="ft-r"></div>
   <!-- 개인정보 약관 -->
   <th:block th:replace="~{fragment/footer::ft-modal1}"></th:block>
   <!-- 이용 약관 -->
   <th:block th:replace="~{fragment/footer::ft-modal2}"></th:block>
   <!-- 광고 문의 -->
   <th:block th:replace="~{fragment/footer::ft-modal3}"></th:block>
-
+  <div class="ft-r"></div>
   <!-- 햄버거 메뉴 구현 -->
   <script src="../js/hambuger.js"></script>
   <!-- my page modify -->
   <script src="../js/mypage_main_modify.js"></script>
   <!-- footer 모달 구현 -->
   <script src="../js/ft_modal.js"></script>
+</div>
 </body>
 <!-- jquery CDN -->
 <script
@@ -227,10 +192,14 @@
     integrity="sha256-oP6HI9z1XaZNBrJURtCoUT5SUnxFr8s3BzRl+cbzUq8="
     crossorigin="anonymous"
 ></script>
+<!--사이드메뉴 강조-->
 <script>
       $(function () {
         $('#mypagePcGnb').children().eq(0).find('a').addClass('on');
       });
+
+
+
 
 </script>
 

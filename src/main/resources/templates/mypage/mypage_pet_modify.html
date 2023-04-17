@@ -61,7 +61,7 @@
     <div class="main-gnb">
       <div class="pc" id="mypagePcGnb">
         <ul>
-          <li><a href="./mypage_main.html">보호자 정보관리</a></li>
+          <li><a href="./mypage_main.html" th:href="@{/mypage/memberedit}">보호자 정보관리</a></li>
         </ul>
         <ul>
           <li><a href="./mypage_pet_reg.html" th:href="@{/mypage/petreg}">반려동물 등록</a></li>
@@ -234,10 +234,10 @@
           <div class="my-info">
             <div class="myprofile-button">
               <button type="submit" class="btn-frm" id="btn_modify" value="confirm">
-                수정
+                수정하기
               </button>
               <button type="button" class="btn-frm" id="btn_del" value="confirm">
-                삭제
+                삭제하기
               </button>
             </div>
           </div>
@@ -264,16 +264,11 @@
 <script src="../js/mypage_main.js" th:src="@{/js/mypage_main.js}"></script>
 <!-- footer 모달 구현 -->
 <script src="../js/ft_modal.js"></script>
-</body>
-
+<!--사이드메뉴 강조-->
 <script>
       $(function () {
         $('#mypagePcGnb').children().eq(1).find('a').addClass('on');
       });
-
-
-
-
 </script>
-
+</body>
 </html>

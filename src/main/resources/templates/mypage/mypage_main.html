@@ -46,7 +46,7 @@
         </div>
 
         <div class="profile-make" onclick="location.replace(`/mypage/petreg`)">
-            <img src="../img/add_circle.png" alt=""/>
+          <img src="../img/add_circle.png" alt=""/>
           </a>
         </div>
 
@@ -61,7 +61,7 @@
     <div class="main-gnb">
       <div class="pc" id="mypagePcGnb">
         <ul>
-          <li><a href="./mypage_main.html">보호자 정보관리</a></li>
+          <li><a href="./mypage_main.html" th:href="@{/mypage/memberedit}">보호자 정보관리</a></li>
         </ul>
         <ul>
           <li>
@@ -77,6 +77,7 @@
     </div>
     <!-- 메인컨텐츠 -->
     <div class="mypage_content">
+      <form method="post" th:object="${DetailForm}">
       <div class="myprofile-top">보호자 정보관리</div>
       <div class="myprofile-list">
         <ul class="list-frm">
@@ -84,6 +85,7 @@
           <div class="list-frm">
             <div class="myprofile-list-image">
               <img src="../img/img_profile1.png" alt=""/>
+              <!-- th:field="*{userPhoto}"-->
               <li>
                 <div class="myprofile-list-text">
                   회원님을 알수있는 사진을 등록해주세요 <br/>
@@ -96,36 +98,21 @@
 
         <div class="list-frm">
           <div class="list">아이디</div>
-          <div class="my-info">aaa1234</div>
-        </div>
-        <div class="list-frm">
-          <div class="list">비밀번호</div>
-          <div class="my-info">aaa1234</div>
+          <div class="my-info" th:text="*{userId}" ></div>
         </div>
         <div class="list-frm">
           <div class="list">닉네임</div>
-          <div class="my-info">건강한치킨</div>
+          <div class="my-info" th:text="*{userNick}"></div>
         </div>
         <div class="list-frm">
           <div class="list">이메일</div>
-          <div class="my-info">aaa1234@naver.com</div>
-        </div>
-        <div class="list-frm">
-          <div class="list">전화번호</div>
-          <div class="my-info">010-1234-5678</div>
+          <div class="my-info" th:text="*{userEmail}"></div>
         </div>
         <div class="list-frm">
           <div class="list">회원정보수정</div>
           <div class="my-info">
-            <div class="myprofile-button">
-              <button
-                  input
-                  type="button"
-                  class="btn-frm"
-                  id="btnModify"
-                  onclick="modify()"
-                  value="confirm"
-              >
+            <div class="myprofile-button" th:object="${DetailForm}" >
+              <button type="button" class="btn-frm"  th:data-userId="${userId}" id="btnModify" th:onclick="modify(this)" value="">
                 수정하기
               </button>
             </div>
@@ -135,19 +122,14 @@
           <div class="list">회원탈퇴</div>
           <div class="my-info">
             <div class="myprofile-button">
-              <button
-                  type="button"
-                  class="btn-frm"
-                  id="btnWithdraw"
-                  onclick="withdraw()"
-                  value="confirm"
-              >
+              <button type="button" class="btn-frm" id="btnWithdraw" th:onclick="withdraw(this)" value="">
                 탈퇴하기
               </button>
             </div>
           </div>
         </div>
       </div>
+      </form>
     </div>
   </main>
   <div class="mn-r"></div>
@@ -169,11 +151,11 @@
 <script src="../js/mypage_main.js"></script>
 <!-- footer 모달 구현 -->
 <script src="../js/ft_modal.js"></script>
+<!--사이드메뉴 강조-->
 <script>
       $(function () {
         $('#mypagePcGnb').children().eq(0).find('a').addClass('on');
       });
-
 </script>
 </body>
 </html>
