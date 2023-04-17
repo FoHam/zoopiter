@@ -117,23 +117,216 @@ nicknameInput.addEventListener('blur', e => {
 //     myButtonHidden.style.display = 'none';
 //   }
 // });
+const myButton = document.getElementById('myButton');
+const myButtonCom = document.getElementById('myButtonCom');
+const myButtonHidden = document.getElementById('myButtonHidden');
+const myPwChk = document.getElementById('myPwChk');
+
+const password = document.getElementById('password');
+const $pw = document.getElementById('newPassword');
+const $pwCheck = document.getElementById('newPasswordCheck');
+const passwordError = document.getElementById('password-error');
+const $errPw = document.getElementById('newPassword-error');
+const $errPwCheck = document.getElementById('newPasswordCheck-error');
+
+
+
+//기존 비밀번호 맞는지 확인
+const isExistPw = res => {
+  if (res.header.rtcd == '00') {
+    if (res.data) {
+      passwordError.style = 'color : green';
+      passwordError.textContent = '비밀번호가 맞습니다';
+    } else {
+      passwordError.style = 'color : red';
+      passwordError.textContent = '비밀번호가 틀립니다';
+    }
+  } else {
+    $errNickname.textContent = `${res.header.rtmsg}`;
+  };
+  return;
+};
+
+const isExistPw_h = () => {
+  const url = `/api/mypage/pw?pw=${password.value}`;
+  ajax
+    .get(url)
+    .then(res => res.json())
+    .then(isExistPw) //res=>chkEmail(res)
+    .catch(console.error); //err=>console.error(err)
+  return;
+};
+
+myPwChk.addEventListener('click',isExistPw_h);
+
+//비밀번호 확인 함수
+const pwCheck_h = e => {
+  const input = $pwCheck.value;
+  const inputChk = $pw.value;
+  const lenOfInput = input.length;
+
+  if (lenOfInput != 0) {
+    if (input == inputChk) {
+      $errPw.classList.add('hidden');
+      $errPwCheck.style = 'color : green';
+      $errPwCheck.textContent = '비밀번호가 일치합니다';
+    } else {
+      $errPwCheck.classList.remove('hidden');
+      $errPwCheck.style = 'color : red';
+      $errPwCheck.textContent = '비밀번호가 일치하지 않습니다.';
+    }
+  }
+  return;
+};
+
+//비밀번호
+$pw.addEventListener('keydown', e => {
+  const input = $pw.value;
+  const lenOfInput = input.length;
+
+  if (e.key === ' ') {
+    e.preventDefault();
+  }
+
+  if (e.key != 'Enter') {
+    return;
+  }
+  if (e.key == 'Enter') {
+    if (/[^A-Za-z0-9]/.test(input)) {
+      $errPw.classList.remove('hidden');
+      $errPw.style = 'color : red';
+      $errPw.textContent = '* 영문 대소문자 숫자만 입력 가능합니다.';
+      $pw.focus();
+      return;
+    }
+    if (lenOfInput == 0) {
+      $errPw.classList.remove('hidden');
+      $errPw.style = 'color : red';
+      $errPw.textContent = '* 비밀번호를 입력해 주세요.';
+      $pw.focus();
+    } else if (8 > lenOfInput || lenOfInput > 20) {
+      $errPw.classList.remove('hidden');
+      $errPw.style = 'color : red';
+      $errPw.textContent = '* 비밀번호는 8~20자 입력 가능합니다.';
+      $pw.focus();
+    } else {
+      $errPw.classList.add('hidden');
+      $errPw.textContent = '';
+      $pwCheck.focus();
+    }
+    return;
+  }
+  return;
+});
+
+$pw.addEventListener('blur', e => {
+  const input = $pw.value;
+  const lenOfInput = input.length;
+
+  if (/[^A-Za-z0-9]/.test(input)) {
+    $errPw.classList.remove('hidden');
+    $errPw.style = 'color : red';
+    $errPw.textContent = '* 영문 대소문자 숫자만 입력 가능합니다.';
+    return;
+  }
+  if (lenOfInput == 0) {
+    $errPw.classList.remove('hidden');
+    $errPw.style = 'color : red';
+    $errPw.textContent = '* 비밀번호를 입력해 주세요.';
+  } else if (8 > lenOfInput || lenOfInput > 20) {
+    $errPw.classList.remove('hidden');
+    $errPw.style = 'color : red';
+    $errPw.textContent = '* 비밀번호는 8~20자 입력 가능합니다.';
+  } else {
+    $errPw.classList.add('hidden');
+    $errPw.textContent = '';
+    pwCheck_h(e);
+  }
+  return;
+});
+
+$pwCheck.addEventListener('focus', e => {
+  if ($pw.value == null) {
+    $pw.focus();
+  } else if (!$errPw.classList.contains('hidden')) {
+    $pw.focus();
+  };
+  return;
+});
+
+//비밀번호 확인
+$pwCheck.addEventListener('input', pwCheck_h);
+
+//비밀번호 확인
+$pwCheck.addEventListener('keydown', e => {
+  const input = $pwCheck.value;
+  const inputChk = $pw.value;
+  const lenOfInput = input.length;
+
+  if (e.key === ' ') {
+    e.preventDefault();
+  }
+
+  if (e.key != 'Enter') {
+    return;
+  }
+
+  if (e.key == 'Enter') {
+    if (lenOfInput != 0 && input == inputChk) {
+      $email.focus();
+    }
+  }
+  return;
+});
+
+// 비밀번호 변경 버튼
+myButton.addEventListener('click',toggleDiv);
+
+//신규 비밀번호 저장
+const updatePw = res => {
+  if (res.header.rtcd == '00') {
+    if (res.data) {
+      alert('비밀번호 수정 성공!');
+    } else {
+      alert('비밀번호 수정 실패 ㅠㅠ');
+    }
+  } else {
+    alert(`${res.header.rtmsg}`);
+  };
+  return;
+};
+
+const updatePw_h = () => {
+  const url = `/api/mypage/updatePw?pw=${$pw.value}`;
+  ajax
+    .get(url)
+    .then(res => res.json())
+    .then(updatePw) //res=>chkEmail(res)
+    .catch(console.error); //err=>console.error(err)
+  return;
+};
+
+myButtonCom.addEventListener('click',e=>{
+    if(passwordError.style.color === 'green' &&
+        $errPwCheck.style.color === 'green'){
+            //저장
+            updatePw_h();
+            toggleOut();
+        }
+});
 
 function toggleDiv() {
-  var myButton = document.getElementById('myButton');
-  var myButtonHidden = document.getElementById('myButtonHidden');
-  if (myButtonHidden.style.display === 'none') {
-    myButtonHidden.style.display = 'block';
-    myButton.style.display = 'none';
-  } else {
-    myButtonHidden.style.display = 'none';
-    myButton.style.display = 'block';
-  }
+    if (myButtonHidden.style.display === 'none') {
+        myButtonHidden.style.display = 'block';
+        myButton.style.display = 'none';
+    } else {
+        myButtonHidden.style.display = 'none';
+        myButton.style.display = 'block';
+    }
 }
 
 // 비밀번호 완료
 function toggleOut() {
-  var myButton = document.getElementById('myButton');
-  var myButtonHidden = document.getElementById('myButtonHidden');
   if (myButtonHidden.style.display === 'block') {
     myButtonHidden.style.display = 'none';
     myButton.style.display = 'block';

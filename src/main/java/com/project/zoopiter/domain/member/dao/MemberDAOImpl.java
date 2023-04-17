@@ -121,7 +121,7 @@ public class MemberDAOImpl implements MemberDAO {
   @Override
   public boolean updatePw(String userId, Member member) {
     StringBuffer sql = new StringBuffer();
-    sql.append("update member set user_pw = :userPw, ,user_update = systimestamp where user_id = :userId ");
+    sql.append("update member set user_pw = :userPw, user_update = systimestamp where user_id = :userId ");
 
     SqlParameterSource param = new MapSqlParameterSource()
         .addValue("userPw",member.getUserPw())
