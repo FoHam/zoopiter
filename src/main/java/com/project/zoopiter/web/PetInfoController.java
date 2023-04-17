@@ -61,16 +61,17 @@ public class PetInfoController {
   }
 
   @ModelAttribute("petInfos")
-  public List<PetInfo> getPetInfo(HttpServletRequest request){
+  public List<PetInfo> getPetInfo(HttpServletRequest request) {
     List<PetInfo> petInfos = null;
     HttpSession session = request.getSession(false);
-    if (session == null) {
-      return null;
+    if (session != null) {
+      Optional<LoginMember> loginMemberOpt = Optional.ofNullable((LoginMember) session.getAttribute(SessionConst.LOGIN_MEMBER));
+      if (loginMemberOpt.isPresent()) {
+        LoginMember loginMember = loginMemberOpt.get();
+        petInfos = petInfoSVC.findAll(loginMember.getUserId());
+      }
     }
-    if(session != null) {
-      LoginMember loginMember = (LoginMember)session.getAttribute(SessionConst.LOGIN_MEMBER);
-      petInfos = petInfoSVC.findAll(loginMember.getUserId());
-    }
+    //이거 자꾸 로그인멤버 관련 오류남  ㅠㅠ
     return petInfos;
   }
 
