@@ -126,6 +126,16 @@ public class MemberSVCImpl implements MemberSVC {
   }
 
   /**
+   * @param userId 아이디
+   * @param userPw 비밀번호
+   * @return
+   */
+  @Override
+  public boolean isExistPw(String userId, String userPw) {
+    return memberDAO.isExistPw(userId, userPw);
+  }
+
+  /**
    * @param userNick 닉네임
    * @return
    */

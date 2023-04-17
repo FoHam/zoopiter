@@ -52,11 +52,8 @@ button {
 /* 메뉴 조정중*/
 .main-gnb .pc {
   width: 100%;
-  /* height: 50px; */
   margin: 0 10px;
   line-height: 2rem;
-
-  /* 레이아웃 조정 - 난경 */
   padding: 10px;
 }
 
@@ -68,26 +65,27 @@ button {
   position: relative;
   margin: 10px;
   box-sizing: border-box; /*반응형 추가*/
+  overflow: hidden;
 }
 .profile-list .profile-list__areas {
   display: flex;
+}
+.profile-list .profile-area {
+  width: 30%;
 }
 .user-profile .profile-area {
   display: flex;
   align-items: center;
   justify-content: space-evenly;
-  /* position: relative;
-  left: 180px;
-  top: -60px; */
   width: 300px;
   height: 150px;
   max-width: 100%;
   margin-bottom: 24px;
-  border-radius: 5%;
+  margin-left: 10px;
+  border-radius: 20px;
   box-shadow: 0 3px 20px 0 rgb(0 0 0 / 6%);
-  /* 수정-난경 */
   background-color: var(--color-background);
-  box-sizing: border-box; /*반응형 추가*/
+  box-sizing: border-box;
 }
 
 .user-profile .profile-area .upload-area2 {
@@ -139,6 +137,7 @@ button {
 .main .main-gnb {
   flex: 3;
   margin: 30px;
+  width: 100%;
 }
 .main .main-gnb a,
 li {

@@ -81,6 +81,14 @@ public interface MemberDAO {
   boolean isExistId(String userId);
 
   /**
+   * 비밀번호 체크
+   * @param userId 아이디
+   * @param userPw 비밀번호
+   * @return
+   */
+  boolean isExistPw(String userId, String userPw);
+
+  /**
    * 회원유무
    *
    * @param userNick 닉네임

@@ -89,6 +89,14 @@ public interface MemberSVC {
   boolean isExistNick(String userNick);
 
   /**
+   * 비밀번호 체크
+   * @param userId 아이디
+   * @param userPw 비밀번호
+   * @return
+   */
+  boolean isExistPw(String userId, String userPw);
+
+  /**
    * 로그인
    * @param userId 아이디
    * @param userPw 비밀번호

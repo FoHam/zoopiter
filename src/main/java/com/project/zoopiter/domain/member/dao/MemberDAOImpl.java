@@ -250,6 +250,26 @@ public class MemberDAOImpl implements MemberDAO {
   }
 
   /**
+   * 비밀번호 체크
+   * @param userId 아이디
+   * @param userPw 비밀번호
+   * @return
+   */
+  @Override
+  public boolean isExistPw(String userId, String userPw) {
+    boolean flag = false;
+    String sql = "select count(USER_PW) from member where USER_ID = :userId and USER_PW = :userPw";
+
+    SqlParameterSource param = new MapSqlParameterSource()
+        .addValue("userPw",userPw)
+        .addValue("userId",userId);
+
+    Integer cnt = template.queryForObject(sql, param, Integer.class);
+
+    return cnt == 1 ? true : false;
+  }
+
+  /**
    * @param userNick 닉네임
    * @return
    */

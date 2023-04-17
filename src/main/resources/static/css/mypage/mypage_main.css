@@ -75,6 +75,9 @@ button {
   box-sizing: border-box; /*반응형 추가*/
   overflow: hidden;
 }
+.profile-list .profile-list__areas {
+  display: flex;
+}
 .profile-list .profile-area {
   width: 30%;
 }
@@ -114,15 +117,18 @@ button {
   display: flex;
   align-items: center;
   justify-content: space-evenly;
-  left: 140px;
+  /* position: relative; */
+  left: 180px;
   top: -60px;
-  width: 250px;
+  width: 300px;
   height: 150px;
   max-width: 100%;
   margin-bottom: 24px;
-  border-radius: 20px;
+  border-radius: 5%;
   box-shadow: 0 3px 20px 0 rgb(0 0 0 / 6%);
   opacity: 70%;
+
+  /* 레이아웃 조정 - 난경 */
   background-color: var(--color-background);
   margin-left: 20px;
 }
