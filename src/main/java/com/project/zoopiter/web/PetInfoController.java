@@ -32,15 +32,17 @@ public class PetInfoController {
   private final PetInfoSVC petInfoSVC;
   private final MemberSVC memberSVC;
 
-  @GetMapping("")
-  public String findAll(Model model, @SessionAttribute(
-      name = SessionConst.LOGIN_MEMBER, required = false) LoginMember loginMember
-  ){
-    if(loginMember ==null){
-      // 로그인 안되어있으면 로그인화면으로 이동
-      return "redirect:/login";
+  @GetMapping
+  public String findAll(Model model, HttpServletRequest request
+  ) {
+    String userId = null;
+    HttpSession session = request.getSession(false);
+    if(session != null) {
+      LoginMember loginMember = (LoginMember)session.getAttribute(SessionConst.LOGIN_MEMBER);
+      userId = loginMember.getUserId();
+    }else{
+      return "redirect:/login?redirectUrl=/mypage";
     }
-    String userId = loginMember.getUserId();
     Optional<Member> member = memberSVC.findById(userId);
     model.addAttribute("member",member);
 
@@ -57,16 +59,13 @@ public class PetInfoController {
     return "mypage/mypage_main";
   }
 
-  // 목록
-//  @GetMapping
-//  public String findAll(){
-//    return "mypage/mypage_main";
-//  }
-
   @ModelAttribute("petInfos")
   public List<PetInfo> getPetInfo(HttpServletRequest request){
     List<PetInfo> petInfos = null;
     HttpSession session = request.getSession(false);
+    if (session == null) {
+      return null;
+    }
     if(session != null) {
       LoginMember loginMember = (LoginMember)session.getAttribute(SessionConst.LOGIN_MEMBER);
       petInfos = petInfoSVC.findAll(loginMember.getUserId());

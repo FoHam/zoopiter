@@ -23,7 +23,8 @@ public class AppConfig implements WebMvcConfigurer {
             "/css/**",
             "/js/**",
             "/img/**",
-            "/api/**"
+            "/api/**",
+            "/mypage"
         );  //인터셉터에서 제외되는 url패턴
   }
 }
