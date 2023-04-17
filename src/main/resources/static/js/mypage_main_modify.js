@@ -1,34 +1,111 @@
+import { ajax } from '/js/ajax.js';
 // 닉네임체크
 const nicknameInput = document.getElementById('nickname');
 const nicknameError = document.getElementById('nickname-error');
 
-nicknameInput.addEventListener('input', () => {
-  const nickname = nicknameInput.value.trim();
-  if (!nicknameInput.checkValidity()) {
-    nicknameError.textContent =
-      '닉네임은 영문자, 숫자, 한글조합 10글자 이하로 작성해주세요.';
-    nicknameError.classList.add('error');
-  } else {
-    nicknameError.textContent = '';
-    nicknameError.classList.remove('error');
-  }
-});
-// 비밀번호
-$(document).ready(function () {
-  const $newPassword = $('#newPassword');
-  const $newPasswordCheck = $('#newPasswordCheck');
-  const $passwordErr = $('.err.password');
+//<!--사이드메뉴 강조-->
+      $(function () {
+        $('#mypagePcGnb').children().eq(0).find('a').addClass('on');
+      });
 
-  function checkPasswordMatch() {
-    if ($newPassword.val() !== $newPasswordCheck.val()) {
-      $passwordErr.text('비밀번호가 일치하지 않습니다.');
+//닉네임 중복체크
+const chkNick = res => {
+  if (res.header.rtcd == '00') {
+    if (res.data) {
+      nicknameError.style = 'color : red';
+      nicknameError.textContent = '사용중인 닉네임 입니다.';
     } else {
-      $passwordErr.text('');
+      nicknameError.style = 'color : green';
+      nicknameError.textContent = '사용가능한 닉네임 입니다.';
     }
+  } else {
+    nicknameError.textContent = `${res.header.rtmsg}`;
+  };
+  return;
+};
+
+const chkNick_h = () => {
+  const url = `/api/members/nickname?nickname=${nicknameInput.value}`;
+  ajax
+    .get(url)
+    .then(res => res.json())
+    .then(chkNick) //res=>chkEmail(res)
+    .catch(console.error); //err=>console.error(err)
+  return;
+};
+
+// 닉네임
+nicknameInput.addEventListener('keydown', e => {
+  const input = nicknameInput.value;
+  const lenOfInput = input.length;
+
+  if (e.key === ' ') {
+    e.preventDefault();
   }
-  $newPassword.on('keyup', checkPasswordMatch);
-  $newPasswordCheck.on('keyup', checkPasswordMatch);
+
+  if (e.key != 'Enter') {
+    return;
+  }
+  if (e.key == 'Enter') {
+    if (/[^A-Za-z0-9ㄱ-힣]/.test(input)) {
+      nicknameError.classList.remove('hidden');
+      nicknameError.style = 'color : red';
+      nicknameError.textContent = '* 영문 숫자 한글만 입력 가능합니다.';
+      nicknameInput.focus();
+      return;
+    }
+    if (lenOfInput == 0) {
+      nicknameError.classList.remove('hidden');
+      nicknameError.style = 'color : red';
+      nicknameError.textContent = '* 닉네임를 입력해 주세요.';
+      nicknameInput.focus();
+      nicknameInput.value = '';
+    } else {
+      //      $errNickname.classList.add('hidden');
+      chkNick_h();
+      // $nickname.value = input;
+    }
+    return;
+  }
+  return;
 });
+
+nicknameInput.addEventListener('blur', e => {
+  const input = nicknameInput.value;
+  const lenOfInput = input.length;
+
+  if (/[^A-Za-z0-9ㄱ-힣]/.test(input)) {
+    nicknameError.classList.remove('hidden');
+    nicknameError.style = 'color : red';
+    nicknameError.textContent = '* 영문 숫자 한글만 입력 가능합니다.';
+    return;
+  }
+  if (lenOfInput == 0) {
+    nicknameError.classList.remove('hidden');
+    nicknameError.style = 'color : red';
+    nicknameError.textContent = '* 닉네임을 입력해 주세요.';
+    nicknameInput.value = '';
+  } else {
+    //    $errNickname.classList.add('hidden');
+    chkNick_h();
+    // $nickname.value = input;
+  }
+  return;
+});
+
+// 은아님 원래 했던 닉네임 체크
+//nicknameInput.addEventListener('input', () => {
+//  const nickname = nicknameInput.value.trim();
+//  if (!nicknameInput.checkValidity()) {
+//    nicknameError.textContent =
+//      '닉네임은 영문자, 숫자, 한글조합 10글자 이하로 작성해주세요.';
+//    nicknameError.classList.add('error');
+//  } else {
+//    nicknameError.textContent = '';
+//    nicknameError.classList.remove('error');
+//  }
+//});
+
 
 // 비밀번호 버튼
 // const myButton = document.getElementById('myButton');
@@ -52,6 +129,7 @@ function toggleDiv() {
     myButton.style.display = 'block';
   }
 }
+
 // 비밀번호 완료
 function toggleOut() {
   var myButton = document.getElementById('myButton');
@@ -100,22 +178,6 @@ function petModify({ dataset }) {
     }
   });
 }
-// function petAdd() {
-//   Swal.fire({
-//     title: '반려동물정보를 추가 하시겠습니까?',
-//     text: '신규등록하러 이동합니다',
-//     icon: 'warning',
-//     showCancelButton: true,
-//     confirmButtonColor: '#333',
-//     cancelButtonColor: '#ffd88f',
-//     confirmButtonText: '등록하기',
-//     cancelButtonText: '취소하기',
-//   }).then(result => {
-//     if (result.isConfirmed) {
-//       location.replace('./mypage_pet_modify.html');
-//     }
-//   });
-// }
 
 /* 사진업로드 */
 function DropFile(dropAreaId, fileListId) {
