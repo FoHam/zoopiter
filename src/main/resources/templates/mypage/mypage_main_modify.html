@@ -76,7 +76,7 @@
     </div>
     <!-- 메인컨텐츠 -->
     <div class="mypage_content">
-      <form method="post" th:object="${modifyForm}">
+      <form method="post" th:object="${modifyForm}" onsubmit="return false">
         <div class="myprofile-top">보호자 정보관리</div>
         <div class="myprofile-list">
           <ul class="list-frm">
@@ -165,7 +165,7 @@
         <div class="list-frm">
           <div class="my-info">
             <div class="myprofile-button">
-              <button type="submit" class="btn-frm" id="btn_modify" value="confirm">
+              <button type="button" class="btn-frm" id="btn_modify" value="confirm">
                 수정
               </button>
             </div>

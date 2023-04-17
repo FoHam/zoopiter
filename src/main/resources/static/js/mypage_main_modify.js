@@ -2,11 +2,46 @@ import { ajax } from '/js/ajax.js';
 // 닉네임체크
 const nicknameInput = document.getElementById('nickname');
 const nicknameError = document.getElementById('nickname-error');
+const btnModify = document.getElementById('btn_modify');
 
 //<!--사이드메뉴 강조-->
       $(function () {
         $('#mypagePcGnb').children().eq(0).find('a').addClass('on');
       });
+
+//닉네임 저장
+const updateNick = res => {
+  if (res.header.rtcd == '00') {
+    if (res.data) {
+      location.href="/mypage";
+    } else {
+      alert("닉네임 저장 실패");
+    }
+  } else {
+    alert(`${res.header.rtmsg}`);
+  };
+  return;
+};
+
+const updateNick_h = () => {
+  const url = `/api/mypage/updateNick?nick=${nicknameInput.value}`;
+  ajax
+    .get(url)
+    .then(res => res.json())
+    .then(updateNick) //res=>chkEmail(res)
+    .catch(console.error); //err=>console.error(err)
+  return;
+};
+
+btnModify.addEventListener('click',e=>{
+    if(nicknameError.style.color === 'green'){
+        updateNick_h();
+    }else{
+        location.href="/mypage";
+    };
+    return;
+});
+
 
 //닉네임 중복체크
 const chkNick = res => {
@@ -240,7 +275,6 @@ $pw.addEventListener('blur', e => {
     $errPw.classList.remove('hidden');
     $errPw.style = 'color : red';
     $errPw.textContent = '* 영문 대문자, 소문자 ,숫자가 모두 포함되어야 합니다.';
-    $pw.focus();
     return;
   }
   if (lenOfInput == 0) {

@@ -62,4 +62,35 @@ public class RestPetInfoController {
 
     return res;
   }
+
+  //비밀번호 수정
+  @ResponseBody
+  @GetMapping("/updateNick")
+  public RestResponse<Object> updateNick(@RequestParam("nick") String nick, HttpServletRequest request) {
+    log.info("nick={}", nick);
+    RestResponse<Object> res = null;
+
+    String userId = null;
+    HttpSession session = request.getSession(false);
+    if(session != null) {
+      LoginMember loginMember = (LoginMember)session.getAttribute(SessionConst.LOGIN_MEMBER);
+      userId = loginMember.getUserId();
+    }
+
+    Member member = new Member();
+    member.setUserNick(nick);
+
+    boolean exist = memberSVC.updateNick(userId,member);
+    if(exist){
+      LoginMember loginMember = (LoginMember) session.getAttribute(SessionConst.LOGIN_MEMBER); //세션에 저장된 LoginMember 객체 가져오기
+      loginMember.setUserNick(nick); //값 변경
+      session.setAttribute(SessionConst.LOGIN_MEMBER, loginMember); //세션에 변경된 LoginMember 객체 저장
+    };
+
+//    redirectAttributes.addAttribute("id", modifyForm.getUserId());
+//    return "redirect:/mypage";
+    res = RestResponse.createRestResponse("00", "성공", exist);
+
+    return res;
+  }
 }

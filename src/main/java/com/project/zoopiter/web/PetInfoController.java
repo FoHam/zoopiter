@@ -266,41 +266,42 @@ public class PetInfoController {
 
   }
 
-  // 회원수정 처리
-  @PostMapping("/memberedit")
-  public String edit(
-          @Valid @ModelAttribute ModifyForm modifyForm,
-          BindingResult bindingResult,
-          HttpServletRequest request
-  ) {
-    // 1) 유효성 체크
-    if(bindingResult.hasErrors()){
-      log.info("bindingResult={}",bindingResult);
-      return "mypage/mypage_main_modify";
-    }
-
-    String userId = null;
-    HttpSession session = request.getSession(false);
-    if(session != null) {
-      LoginMember loginMember = (LoginMember)session.getAttribute(SessionConst.LOGIN_MEMBER);
-      userId = loginMember.getUserId();
-    }
-
-    Member member = new Member();
-//    member.setUserEmail(modifyForm.getUserEmail());
-    member.setUserNick(modifyForm.getUserNick());
-//    member.setUserPhoto(modifyForm.getUserPhoto());
-
-    boolean flag = memberSVC.updateNick(userId,member);
-    if(flag){
-      LoginMember loginMember = (LoginMember) session.getAttribute(SessionConst.LOGIN_MEMBER); //세션에 저장된 LoginMember 객체 가져오기
-      loginMember.setUserNick(modifyForm.getUserNick()); //값 변경
-      session.setAttribute(SessionConst.LOGIN_MEMBER, loginMember); //세션에 변경된 LoginMember 객체 저장
-    };
-
-//    redirectAttributes.addAttribute("id", modifyForm.getUserId());
-    return "redirect:/mypage";
-  }
+  //rest로 이동
+//  // 회원수정 처리
+//  @PostMapping("/memberedit")
+//  public String edit(
+//          @Valid @ModelAttribute ModifyForm modifyForm,
+//          BindingResult bindingResult,
+//          HttpServletRequest request
+//  ) {
+//    // 1) 유효성 체크
+//    if(bindingResult.hasErrors()){
+//      log.info("bindingResult={}",bindingResult);
+//      return "mypage/mypage_main_modify";
+//    }
+//
+//    String userId = null;
+//    HttpSession session = request.getSession(false);
+//    if(session != null) {
+//      LoginMember loginMember = (LoginMember)session.getAttribute(SessionConst.LOGIN_MEMBER);
+//      userId = loginMember.getUserId();
+//    }
+//
+//    Member member = new Member();
+////    member.setUserEmail(modifyForm.getUserEmail());
+//    member.setUserNick(modifyForm.getUserNick());
+////    member.setUserPhoto(modifyForm.getUserPhoto());
+//
+//    boolean flag = memberSVC.updateNick(userId,member);
+//    if(flag){
+//      LoginMember loginMember = (LoginMember) session.getAttribute(SessionConst.LOGIN_MEMBER); //세션에 저장된 LoginMember 객체 가져오기
+//      loginMember.setUserNick(modifyForm.getUserNick()); //값 변경
+//      session.setAttribute(SessionConst.LOGIN_MEMBER, loginMember); //세션에 변경된 LoginMember 객체 저장
+//    };
+//
+////    redirectAttributes.addAttribute("id", modifyForm.getUserId());
+//    return "redirect:/mypage";
+//  }
   //   회원 불러오기
   @GetMapping("/{id}/memberdetail")
   public String detail(@PathVariable("id") String userId, Model model){
