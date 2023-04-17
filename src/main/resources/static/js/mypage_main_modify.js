@@ -183,7 +183,7 @@ const pwCheck_h = e => {
 $pw.addEventListener('keydown', e => {
   const input = $pw.value;
   const lenOfInput = input.length;
-
+  const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,20}$/;
   if (e.key === ' ') {
     e.preventDefault();
   }
@@ -196,6 +196,12 @@ $pw.addEventListener('keydown', e => {
       $errPw.classList.remove('hidden');
       $errPw.style = 'color : red';
       $errPw.textContent = '* 영문 대소문자 숫자만 입력 가능합니다.';
+      return;
+    }
+    if (!passwordRegex.test(input)) {
+      $errPw.classList.remove('hidden');
+      $errPw.style = 'color : red';
+      $errPw.textContent = '* 영문 대문자, 소문자 ,숫자가 모두 포함되어야 합니다.';
       $pw.focus();
       return;
     }
@@ -222,11 +228,19 @@ $pw.addEventListener('keydown', e => {
 $pw.addEventListener('blur', e => {
   const input = $pw.value;
   const lenOfInput = input.length;
+  const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,20}$/;
 
   if (/[^A-Za-z0-9]/.test(input)) {
     $errPw.classList.remove('hidden');
     $errPw.style = 'color : red';
     $errPw.textContent = '* 영문 대소문자 숫자만 입력 가능합니다.';
+    return;
+  }
+  if (!passwordRegex.test(input)) {
+    $errPw.classList.remove('hidden');
+    $errPw.style = 'color : red';
+    $errPw.textContent = '* 영문 대문자, 소문자 ,숫자가 모두 포함되어야 합니다.';
+    $pw.focus();
     return;
   }
   if (lenOfInput == 0) {
