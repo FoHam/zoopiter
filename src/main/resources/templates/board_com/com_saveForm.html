@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="ko"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>커뮤니티 작성</title>
+  <!--  리뷰게시판 메인 css -->
+  <link rel="stylesheet" href="../css/board_com-add.css">
+  <!--  폰트 어썸 : 로고 -->
+  <script src="https://kit.fontawesome.com/6631aa96e6.js" crossorigin="anonymous"></script>
+</head>
+
+<body>
+  <div class="wrap">
+    <div class="hd-l"></div>
+    <header class="hd">
+      <!-- 프레그먼트 반영:menu  -->
+      <th:block th:replace="~{fragment/menu::gnb}"></th:block>
+    </header>
+    <div class="hd-r"></div>
+
+    <div class="fg-l"></div>
+
+    <div class="fg-r"></div>
+
+    <div class="mn-l"></div>
+  <form id = "frm" action="" method="post" th:object="${bbscSaveForm}" enctype="multipart/form-data">
+<!--    <input type="text" style="display: none;" th:field = "*{userNick == '${session.loginMember.userNick}'}">-->
+    <main class="container">
+      <div class="sort">
+        <div class="search">
+          <div class="tag-list"></div>
+          <!-- 동물 태그 선택 -->
+          <div class="left">
+            <div class="tag">동물태그</div>
+<!--            <form class="selectBox" name="petTag" >-->
+              <select class="select" name="pet" th:field="*{petType}">
+                <option value="동물유형">동물유형</option>
+                <option value="강아지">강아지</option>
+                <option value="고양이">고양이</option>
+                <option value="소동물">소동물</option>
+                <option value="기타">기타</option>
+              </select>
+              <span class="icoArrow">
+                <i class="fa-solid fa-arrow-down"></i>
+              </span>
+<!--            </form>-->
+          </div>
+        </div>
+      </div>
+
+      <!-- 메인제목 -->
+      <div class="title-l"></div>
+      <div class="title">
+        <div class="title__name">
+          <div class="main">커뮤니티 글작성</div>
+          <div class="title__inline">
+            <input type="radio" th:field="*{bcPublic}" name="cs_open" id="cs_open" value="Y" class="radio" /><span
+              class="ml_10">공개</span>&nbsp;&nbsp;&nbsp;&nbsp;
+            <input type="radio" th:field="*{bcPublic}" name="cs_open" id="cs_open" value="N" class="radio" /><span
+              class="ml_10">비공개</span>&nbsp;
+          </div>
+        </div>
+      </div>
+      <div class="title-r"></div>
+        <!-- 제목입력창 -->
+        <div class="main-title-l"></div>
+        <div class="main-title">
+          <div class="input">
+            <input type="text" th:field="*{bcTitle}" placeholder="제목을 입력해주세요.">
+          </div>
+        </div>
+        <div class="main-title-r"></div>
+
+        <!-- 본문입력창 -->
+        <div class="body-write-l"></div>
+        <div class="body-write">
+          <div class="input">
+            <input type="text" th:field="*{bcContent}" placeholder="본문을 입력해주세요.">
+          </div>
+        </div>
+        <div class="body-write-r"></div>
+
+        <!-- 첨부파일버튼 -->
+        <div class="file-l"></div>
+        <div class="file">
+          <!-- <input type="file" name="FileName"> -->
+<!--          <form name="이 폼의 이름" action="이 데이터들을 받을 파일" method="post" enctype="multipart/form-data">-->
+            <input type='file' th:field="*{imageFiles}"  name='' multiple />
+<!--          </form>-->
+        </div>
+        <div class="file-r"></div>
+
+        <!-- 사진첨부 -->
+        <div class="pic-l"></div>
+        <div class="pic">
+          <div class="pic__file">
+            <!-- <div class="img">
+            <div class="pic__img"><img src="/img/photo.png" alt="">사진첨부</div>
+          </div> -->
+            <div class="file__pic">
+              <div>* 파일은 파일1개당 최대 300mb 이내로 업로드 가능합니다.</div>
+            </div>
+          </div>
+        </div>
+        <div class="pic-r"></div>
+
+        <!-- 글등록버튼 -->
+        <div class="btn-l"></div>
+        <div class="btn">
+          <div class="detail">
+            <button th:onclick="|location.href='@{/bbsc/list}'|">목록</button>
+          </div>
+          <div class="add">
+            <button id="addBtn" type="submit">등록</button>
+          </div>
+        </div>
+        <div class="btn-r"></div>
+      </form>
+    </main>
+
+    <!-- 푸터 -->
+    <div class="ft-l"></div>
+    <!-- 프레그먼트 반영 footer -->
+    <th:block th:replace="~{fragment/footer::fnb}"></th:block>
+    <div class="ft-r"></div>
+    <!-- 푸터 팝업 -->
+    <!-- 개인정보 약관 -->
+    <th:block th:replace="~{fragment/footer::ft-modal1}"></th:block>
+    <!-- 이용 약관 -->
+    <th:block th:replace="~{fragment/footer::ft-modal2}"></th:block>
+    <!-- 광고 문의 -->
+    <th:block th:replace="~{fragment/footer::ft-modal3}"></th:block>
+  </div>
+  <!-- 펫 태그 셀렉트  -->
+  <script src="../js/board_selectPet.js"></script>
+  <script>
+  const add_h = e => {
+    e.preventDefault();
+    frm.submit();
+  }
+  addBtn.addEventListener('click',add_h,false);
+  </script>
+<!--  <script>-->
+<!--    const open = () => {-->
+<!--      document.querySelector(".modal").classList.remove("hidden");-->
+<!--    }-->
+
+<!--    const close = () => {-->
+<!--      document.querySelector(".modal").classList.add("hidden");-->
+<!--    }-->
+
+<!--    document.querySelector(".openBtn").addEventListener("click", open);-->
+<!--    document.querySelector(".closeBtn1").addEventListener("click", close);-->
+<!--    document.querySelector(".closeBtn2").addEventListener("click", close);-->
+<!--    document.querySelector(".bg").addEventListener("click", close);-->
+<!--  </script>-->
+</body>
+
+</html>

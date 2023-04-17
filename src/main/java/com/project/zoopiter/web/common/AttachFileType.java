@@ -3,8 +3,8 @@ package com.project.zoopiter.web.common;
 public enum AttachFileType {
 
 //  F010201("병원후기일반"),
-  F010202("병원후기이미지");
-
+  F010202("병원후기이미지"),
+  F0102("커뮤니티");
   private String description;
 
   AttachFileType(String description) {

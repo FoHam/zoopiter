@@ -3,14 +3,14 @@
 // 선택한 태그를 추가할 영역
 const $tagList = document.querySelector('.tag-list');
 // 동물유형 선택 셀렉트 박스
-const $select = document.querySelector('select[name="pet"]');
+const $select = document.querySelector('.select');
 
 const select_h = e => {
     const target = e.target;
     const petTagValue = target.value;
     const $options = document.querySelectorAll('.select option');
 
-    if (petTagValue == 'default') {
+    if (petTagValue == '동물유형') {
         e.preventDefault();
     } else {
         for (const ele of $options) {

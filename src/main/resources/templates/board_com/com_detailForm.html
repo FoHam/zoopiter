@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>커뮤니티 상세글</title>
+  <!--  리뷰게시판 메인 css -->
+  <link rel="stylesheet" href="/css/board_com-detail.css" />
+  <!--  폰트 어썸 : 로고 -->
+  <script src="https://kit.fontawesome.com/6631aa96e6.js" crossorigin="anonymous"></script>
+</head>
+
+<body>
+  <div class="wrap">
+    <div class="hd-l"></div>
+    <header class="hd">
+      <!-- 프레그먼트 반영:menu  -->
+      <th:block th:replace="~{fragment/menu::gnb}"></th:block>
+    </header>
+    <div class="hd-r"></div>
+
+    <div class="fg-l"></div>
+
+    <div class="fg-r"></div>
+
+    <div class="mn-l"></div>
+    <main class="container">
+      <form action="" th:object="${bbscDetailForm}">
+<!--        <p id="bbscId" th:field="*{bbscId}" th:text="*{bbscId}"></p>-->
+        <!-- 메인 컨텐츠 -->
+        <!-- 첫줄 동물태그 -->
+        <div class="tag-l"></div>
+        <div class="tag">
+          <div class="tag__pet" th:field="*{petType}" th:text="*{petType}">#강아지</div>
+        </div>
+        <div class="tag-r"></div>
+
+        <!-- 게시글 제목 -->
+        <div class="main-title-l"></div>
+        <div class="main-title">
+          <div class="main-title__name">
+            <div class="name" th:field="*{bcTitle}" th:text="*{bcTitle}">커뮤니티 게시글 제목</div>
+          </div>
+
+          <!-- 조회,좋아요 -->
+          <div class="sub">
+            <div class="num">
+              <div class="num-cnt">조회수<p th:field="*{bcHit}" th:text="*{bcHit}">22</p>
+              </div>
+              <div class="num-cnt">좋아요<p th:field="*{bcLike}" th:text="*{bcLike}">22</p>
+              </div>
+              <div class="like-icons">
+                <!--  좋아요 누르기 전 아이콘 -->
+                <i class="fa-regular fa-heart"></i>
+                <!-- 좋아요 누른 후 아이콘 -->
+                <!-- <i class="fa-solid fa-heart"></i> -->
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="main-title-r"></div>
+
+        <!-- 게시글 작성자 닉네임,시간 -->
+        <div class="main-nick-l"></div>
+        <div class="main-nick">
+          <div class="nick__info">
+            <div class="nick__date">
+              <div class="re1" th:field="*{userNick}" th:text="*{userNick}">닉네임</div>
+              <div id="re1" th:field="*{bcCdate}" th:text="*{bcCdate}" style="color: black; font-size: 12px">clock</div>
+            </div>
+          </div>
+        </div>
+        <div class="main-nick-r"></div>
+
+
+        <!-- 게시글내용 -->
+        <div class="content-l"></div>
+        <div class="content">
+          <div class="content__view">
+              <div th:each="file : ${imagedFiles}" class="view__img">
+                <th:block th:if="${#strings.contains(file.ftype,'image')}">
+                  <img th:src="@{|/attach/view/${file.rid}|}" >
+                </th:block>
+              </div>
+            <p th:field="*{bcContent}" th:text="*{bcContent}">
+              샘플 본문
+            </p>
+          </div>
+        </div>
+        <div class="content-r"></div>
+        <!-- 목록,수정,삭제버튼 -->
+        <div class="btn-l"></div>
+        <div class="btn">
+          <div class="btn__che">
+            <div class="btn__btn-list">
+              <div class="list">
+                <button type="button" th:onclick="|location.href='@{/bbsc/list}'|">
+                  목록
+                </button>
+              </div>
+            </div>
+            <div class="btn__btn">
+              <!-- 글작성자와 세션아이디체크해서 동일한경우만 수행 -->
+              <th:block th:if="*{userNick} == ${session.loginMember.userNick}">
+                <div class="modi">
+                  <button onclick="location.href='board_com-edit.html'">수정</button>
+                </div>
+                <div class="del">
+                  <button class="openBtn">삭제</button>
+                </div>
+              </th:block>
+            <!--     게시글 삭제 모달      -->
+              <div class="modal hidden">
+                <div class="bg"></div>
+                <div class="modalBox">
+                  <div class="alarm">
+                    <div class="chk">게시글을 삭제하시겠습니까?</div>
+                    <div class="btn">
+                      <button onclick="location.href='board_com.html'">확인</button>
+                      <button class="closeBtn">취소</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!--     게시글 삭제 모달 종료     -->
+            </div>
+          </div>
+        </div>
+        <div class="btn-r"></div>
+      </form>
+
+
+      <!-- 댓글작성 -->
+      <div class="comment-cnt-l"></div>
+      <div class="comment-cnt">
+        <div class="comment-cnt__num">
+          <div>댓글</div>
+          <div>2</div>
+        </div>
+      </div>
+      <div class="comment-cnt-r"></div>
+      <div class="main-comment-l"></div>
+      <div class="main-comment">
+        <div class="input">
+          <div class="main-comment__write">
+
+            <div th:text="${session.loginMember.userNick}">닉네임</div>
+            <div><input type="text" placeholder="댓글을 입력해주세요." /></div>
+            <div class="re_btn">
+              <div class="btn1"><button>취소</button></div>
+              <div class="btn2"><button>등록</button></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="main-comment-r"></div>
+
+      <!-- 댓글 리스트 -->
+      <div class="list-comment-l"></div>
+      <div class="list-comment">
+        <div class="input item1">
+          <img src="../img/img_profile1.png" style="max-width: 100%; height: 30px" alt="" />
+          <div class="comment__list">
+            <div>닉네임</div>
+            <div>
+              Lorem ipsum dolor sit amet consectetur, adipisicing elit. Suscipit
+              iusto eveniet in inventore, magnam corrupti quae consequatur eos
+              assumenda necessitatibus impedit minima nihil qui, amet adipisci
+              voluptates tempore earum eius!
+            </div>
+            <div class="re2">
+              <div id="re2" style="color: black; font-size: 12px"></div>
+            </div>
+          </div>
+        </div>
+        <div class="input item2">
+          <img src="../img/img_profile1.png" style="max-width: 100%; height: 30px" alt="" />
+          <div class="comment">
+            <div>닉네임</div>
+            <div>
+              Lorem ipsum dolor sit amet consectetur, adipisicing elit. Suscipit
+              iusto eveniet in inventore, magnam corrupti quae consequatur eos
+              assumenda necessitatibus impedit minima nihil qui, amet adipisci
+              voluptates tempore earum eius!
+            </div>
+            <div class="re3">
+              <div id="re3" style="color: black; font-size: 12px"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="list-comment-r"></div>
+    </main>
+
+    <!-- 푸터 -->
+    <div class="ft-l"></div>
+    <!-- 프레그먼트 반영 footer -->
+    <th:block th:replace="~{fragment/footer::fnb}"></th:block>
+    <!-- 푸터 팝업 -->
+    <!-- 개인정보 약관 -->
+    <th:block th:replace="~{fragment/footer::ft-modal1}"></th:block>
+    <!-- 이용 약관 -->
+    <th:block th:replace="~{fragment/footer::ft-modal2}"></th:block>
+    <!-- 광고 문의 -->
+    <th:block th:replace="~{fragment/footer::ft-modal3}"></th:block>
+    <div class="ft-r"></div>
+  </div>
+
+  <!-- 햄버거 메뉴 구현 -->
+  <script src="../js/hambuger.js"></script>
+  <!-- footer 개인정보처리방침 모달 구현 -->
+  <script src="../js/ft_modal.js"></script>
+  <!-- 동물 태그 선택 구현 -->
+  <script src="../js/review.js"></script>
+  <!-- 작성날짜 -->
+  <script src="../js/clock.js"></script>
+  <!-- 취소,삭제 모달 구현 -->
+  <script src="../js/board_del_modal.js"></script>
+
+</body>
+
+</html>
