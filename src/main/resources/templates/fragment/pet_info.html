@@ -10,7 +10,7 @@
 </head>
 <body>
 <th:block th:each="petInfo:${petInfos}" th:fragment="pet">
-  <div class="profile-area" th:data-pet-num="${petInfo.petNum}" th:onclick="petModify(this)" )>
+  <div class="profile-area" th:data-pet-num="${petInfo.petNum}" th:onclick="petModify(this)">
     <div class="upload-area">
       <img src="../img/img_profile1.png" alt=""/>
     </div>

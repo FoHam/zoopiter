@@ -317,16 +317,4 @@ public class PetInfoController {
     return "mypage/mypage_main";
   }
 
-  // 회원탈퇴
-  @GetMapping("/withdraw")
-  public void withdraw(HttpServletRequest request){
-    String userId = null;
-    HttpSession session = request.getSession(false);
-    if(session != null) {
-      LoginMember loginMember = (LoginMember)session.getAttribute(SessionConst.LOGIN_MEMBER);
-      userId = loginMember.getUserId();
-    }
-    memberSVC.delete(userId);
-    request.getSession().invalidate();
-  }
 }

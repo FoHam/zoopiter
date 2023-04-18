@@ -1,4 +1,24 @@
+import { ajax } from '/js/ajax.js';
+
+const $btnWithdraw = document.getElementById('btnWithdraw');
+
 // 탈퇴
+const withdraw_h = () => {
+  const url = `/api/mypage/withdraw`;
+  ajax
+    .get(url)
+    .catch(console.error); //err=>console.error(err)
+  return;
+};
+
+const withdraw2_h = () => {
+  const url = `/api/mypage/withdraw2`;
+  ajax
+    .get(url)
+    .catch(console.error); //err=>console.error(err)
+  return;
+};
+
 function withdraw() {
   const userId = document.getElementById('btnWithdraw').value;
   Swal.fire({
@@ -12,67 +32,23 @@ function withdraw() {
     cancelButtonText: '취소하기',
   }).then(result => {
     if (result.isConfirmed) {
-        location.href = '/mypage/withdraw';
-      Swal.fire('탈퇴완료!', '그동안 이용해주셔서 감사합니다', 'success').then(e=>{
-              location.href = '/';
+        withdraw_h();
+        withdraw2_h();
+        Swal.fire('탈퇴완료!', '그동안 이용해주셔서 감사합니다', 'success').then(result=>{
+              if (result.isConfirmed){
+                location.href = '/';
+              };
       });
-    }
+    };
   });
-}
+};
+
+//탈퇴버튼 클릭
+$btnWithdraw.addEventListener('click',withdraw);
+
+
 // $(function () {
 //   $('#btnModify').click(function () {
 //     var userId = $(this).data('userId');
 //   });
 // });
-// 회원정보 수정
-function modify() {
-  Swal.fire({
-    title: '회원정보 수정페이지로 이동하시겠습니까?',
-    text: '등록한 정보를 수정하러 이동합니다',
-    icon: 'warning',
-    showCancelButton: true,
-    confirmButtonColor: '#333',
-    cancelButtonColor: '#ffd88f',
-    confirmButtonText: '수정하기',
-    cancelButtonText: '취소하기',
-  }).then(result => {
-    if (result.isConfirmed) {
-      location.replace(`/mypage/memberedit`);
-    }
-  });
-}
-// 펫정보 수정
-function petModify({ dataset }) {
-  Swal.fire({
-    title: '수정페이지로 이동하시겠습니까?',
-    text: '등록한 반려동물정보를 수정하러 이동합니다',
-    icon: 'warning',
-    showCancelButton: true,
-    confirmButtonColor: '#333',
-    cancelButtonColor: '#ffd88f',
-    confirmButtonText: '수정하기',
-    cancelButtonText: '취소하기',
-  }).then(result => {
-    if (result.isConfirmed) {
-      location.replace(`/mypage/${dataset.petNum}/edit`);
-    }
-  });
-}
-
-// 반려동물 정보 추가(2개이상) 되면 이미지 슬라이드
-$(document).ready(function () {
-  const profileAreas = $('.profile-area');
-  const profileList = $('.profile-list__areas');
-  if (profileAreas.length > 2) {
-    // profile-area 태그가 2개 이상일 때
-    $('.profile-list__areas').slick({
-      // slick 라이브러리를 적용할 부분 선택자
-      slidesToShow: 2, // 한 화면에 보여줄 슬라이드 개수
-      slidesToScroll: 1, // 슬라이드 이동 시 이동할 슬라이드 개수
-      arrows: false,
-    });
-  } else {
-    profileList.css('width', '40%');
-    profileAreas.css('width', '70%');
-  }
-});
