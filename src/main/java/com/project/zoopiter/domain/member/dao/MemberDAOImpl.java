@@ -205,7 +205,7 @@ public class MemberDAOImpl implements MemberDAO {
   /**
    * 탈퇴
    *
-   * @param userId 이메일
+   * @param userId 아이디
    */
   @Override
   public void delete(String userId) {

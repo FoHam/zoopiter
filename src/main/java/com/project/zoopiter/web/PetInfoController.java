@@ -11,7 +11,6 @@ import com.project.zoopiter.web.form.pet.PetDetailForm;
 import com.project.zoopiter.web.form.pet.PetSaveForm;
 import com.project.zoopiter.web.form.pet.PetUpdateForm;
 import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -319,12 +318,15 @@ public class PetInfoController {
   }
 
   // 회원탈퇴
-  @PostMapping("/withdraw")
-  public String withdraw(HttpServletRequest request,
-                         HttpServletResponse response){
-    String userId = (String)request.getSession().getAttribute("userId");
+  @GetMapping("/withdraw")
+  public void withdraw(HttpServletRequest request){
+    String userId = null;
+    HttpSession session = request.getSession(false);
+    if(session != null) {
+      LoginMember loginMember = (LoginMember)session.getAttribute(SessionConst.LOGIN_MEMBER);
+      userId = loginMember.getUserId();
+    }
     memberSVC.delete(userId);
     request.getSession().invalidate();
-    return "redirect:/";
   }
 }

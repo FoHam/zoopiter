@@ -12,8 +12,10 @@ function withdraw() {
     cancelButtonText: '취소하기',
   }).then(result => {
     if (result.isConfirmed) {
-      Swal.fire('탈퇴완료!', '그동안 이용해주셔서 감사합니다', 'success');
-      location.href = '/mypage/withdraw';
+        location.href = '/mypage/withdraw';
+      Swal.fire('탈퇴완료!', '그동안 이용해주셔서 감사합니다', 'success').then(e=>{
+              location.href = '/';
+      });
     }
   });
 }
