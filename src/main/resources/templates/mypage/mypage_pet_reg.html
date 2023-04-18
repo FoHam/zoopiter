@@ -241,27 +241,6 @@
     $('#mypagePcGnb').children().eq(1).find('a').addClass('on');
   });
 
-// 버튼이벤트
-  const add_h = e =>{
-    e.preventDefault();
-
-    const $field_errors = document.querySelectorAll('.field-error');
-
-    const clear = () => Array.from($field_errors).forEach(ele=>ele.textContent='');
-    // 검증
-    if(petName.value.trim().length == 0){
-      const msg = '상품명을 입력하세요';
-      petName.nextElementSibling.textContent = msg;
-      petName.focous();
-      return;
-    } else {
-      clear();
-    }
-    // 전송
-    myFrm.submit();
-  }
-  btnAdd.addEventListener('click',add_h,false);
-
 </script>
 </body>
 </html>
