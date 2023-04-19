@@ -156,9 +156,9 @@ commit;
 -------
 create table hmember (
     H_ID                   varchar2(20),   --로긴 아이디
---    H_PW                   varchar2(20),   --로긴 비밀번호
---    H_NAME                 varchar2(60),   --병원 상호명
---    H_EMAIL                varchar2(40),   --이메일
+    H_PW                   varchar2(20),   --로긴 비밀번호
+    H_NAME                 varchar2(60),   --병원 상호명
+    H_EMAIL                varchar2(40),   --이메일
     H_TEL                  varchar2(30),   --병원 연락처
     H_TIME                 clob,           --진료시간
     H_INFO                 varchar2(60),   --편의시설정보
@@ -341,7 +341,7 @@ CREATE TABLE PET_INFO(
 alter table PET_INFO add Constraint PET_INFO_PET_NUM_pk primary key (PET_NUM);
 --외래키
 alter table PET_INFO add constraint  PET_INFO_USER_ID_fk
-    foreign key(USER_ID) references member(USER_ID);
+    foreign key(USER_ID) references member(USER_ID) ON DELETE CASCADE;
 alter table PET_INFO add constraint  PET_INFO_PET_VAC_fk
     foreign key(PET_VAC) references  code(code_id);
 
@@ -408,7 +408,7 @@ CREATE TABLE PET_NOTE(
 alter table PET_NOTE add Constraint PET_NOTE_NOTE_NUM_pk primary key (NOTE_NUM);
 --외래키
 alter table PET_NOTE add constraint  PET_NOTE_USER_ID_fk
-    foreign key(USER_ID) references member(USER_ID);
+    foreign key(USER_ID) references member(USER_ID) ON DELETE CASCADE;
 alter table PET_NOTE add constraint  PET_NOTE_PET_VAC_fk
     foreign key(PET_VAC) references  code(code_id);
 
@@ -510,7 +510,7 @@ CREATE TABLE C_BBSH(
 alter table C_BBSH add Constraint C_BBSH_HC_ID_pk primary key (HC_ID);
 --외래키
 alter table C_BBSH add constraint  C_BBSH_BBSH_ID_fk
-    foreign key(BBSH_ID) references BBSH(BBSH_ID);
+    foreign key(BBSH_ID) references BBSH(BBSH_ID) ON DELETE CASCADE;
 
 --제약조건
 alter table C_BBSH modify BBSH_ID constraint C_BBSH_BBSH_ID_nn not null;
@@ -588,7 +588,7 @@ CREATE TABLE C_BBSC(
 alter table C_BBSC add Constraint C_BBSC_CC_ID_pk primary key (CC_ID);
 --외래키
 alter table C_BBSC add constraint  C_BBSC_BBSC_ID_fk
-    foreign key(BBSC_ID) references BBSC(BBSC_ID);
+    foreign key(BBSC_ID) references BBSC(BBSC_ID) ON DELETE CASCADE;
 
 --제약조건
 alter table C_BBSC modify BBSC_ID constraint C_BBSC_BBSC_ID_nn not null;
