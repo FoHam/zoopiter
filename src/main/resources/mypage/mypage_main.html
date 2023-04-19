@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8"/>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="description" content="메인화면"/>
+  <meta name="keywords" content="pet hospital search"/>
+  <meta name="author" content="2팀"/>
+  <title>my page</title>
+  <!--  마이페이지 css -->
+  <link rel="stylesheet" href="/css/mypage/mypage_main.css"/>
+  <!--  폰트 어썸 : 로고 -->
+  <script
+      src="https://kit.fontawesome.com/6631aa96e6.js"
+      crossorigin="anonymous"
+  ></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+  <!-- jquery CDN -->
+  <script
+      src="https://code.jquery.com/jquery-3.6.4.min.js"
+      integrity="sha256-oP6HI9z1XaZNBrJURtCoUT5SUnxFr8s3BzRl+cbzUq8="
+      crossorigin="anonymous"
+  ></script>
+</head>
+
+<body>
+<div class="wrap">
+  <div class="hd-l"></div>
+  <header class="hd">
+    <!-- 프레그먼트 반영:menu  -->
+    <th:block th:replace="~{fragment/menu::gnb}"></th:block>
+  </header>
+  <div class="hd-r"></div>
+
+  <div class="fg-l"></div>
+  <figure class="fg-banner">
+    <div class="user-profile">
+      <p>마이페이지</p>
+      <h2>반가워요</h2>
+      <div class="profile-list">
+        <div class="profile-list__areas">
+          <!-- 프레그먼트 반영-->
+          <th:block th:replace="~{fragment/pet_info::pet}">
+          </th:block>
+        </div>
+
+        <div class="profile-make" onclick="location.replace(`/mypage/petreg`)">
+          <img src="../img/add_circle.png" alt=""/>
+          </a>
+        </div>
+
+      </div>
+    </div>
+  </figure>
+  <div class="fg-r"></div>
+
+  <div class="mn-l"></div>
+  <main class="container">
+    <!-- 사이드메뉴 -->
+    <div class="main-gnb">
+      <div class="pc" id="mypagePcGnb">
+        <ul>
+          <li><a href="./mypage_main.html" th:href="@{/mypage/memberedit}">보호자 정보관리</a></li>
+        </ul>
+        <ul>
+          <li>
+            <a href="./mypage_pet_reg.html" th:href="@{/mypage/petreg}"
+            >반려동물 등록</a
+            >
+          </li>
+        </ul>
+        <ul>
+          <li><a href="./mypage_scheduler.html">의료수첩 관리</a></li>
+        </ul>
+      </div>
+    </div>
+    <!-- 메인컨텐츠 -->
+    <div class="mypage_content">
+      <form method="post" th:object="${DetailForm}">
+      <div class="myprofile-top">보호자 정보관리</div>
+      <div class="myprofile-list">
+        <ul class="list-frm">
+          <div class="list">사진</div>
+          <div class="list-frm">
+            <div class="myprofile-list-image">
+              <img src="../img/img_profile1.png" alt=""/>
+              <!-- th:field="*{userPhoto}"-->
+              <li>
+                <div class="myprofile-list-text">
+                  회원님을 알수있는 사진을 등록해주세요 <br/>
+                  등록된 사진은 회원님의 게시물이나 댓글들에 사용됩니다
+                </div>
+              </li>
+            </div>
+          </div>
+        </ul>
+
+        <div class="list-frm">
+          <div class="list">아이디</div>
+          <div class="my-info" th:text="*{userId}" ></div>
+        </div>
+        <div class="list-frm">
+          <div class="list">닉네임</div>
+          <div class="my-info" th:text="*{userNick}"></div>
+        </div>
+        <div class="list-frm">
+          <div class="list">이메일</div>
+          <div class="my-info" th:text="*{userEmail}"></div>
+        </div>
+        <div class="list-frm">
+          <div class="list">회원정보수정</div>
+          <div class="my-info">
+            <div class="myprofile-button" th:object="${DetailForm}" >
+              <button type="button" class="btn-frm"  th:data-userId="${userId}" id="btnModify" th:onclick="modify(this)" value="">
+                수정하기
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="list-frm">
+          <div class="list">회원탈퇴</div>
+          <div class="my-info">
+            <div class="myprofile-button">
+              <button type="button" class="btn-frm" id="btnWithdraw" th:onclick="withdraw()" value="${userId}">
+                탈퇴하기
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+      </form>
+    </div>
+  </main>
+  <div class="mn-r"></div>
+
+  <div class="ft-l"></div>
+  <!-- 프레그먼트 반영 footer -->
+  <th:block th:replace="~{fragment/footer::fnb}"></th:block>
+  <!-- 개인정보 약관 -->
+  <th:block th:replace="~{fragment/footer::ft-modal1}"></th:block>
+  <!-- 이용 약관 -->
+  <th:block th:replace="~{fragment/footer::ft-modal2}"></th:block>
+  <!-- 광고 문의 -->
+  <th:block th:replace="~{fragment/footer::ft-modal3}"></th:block>
+  <div class="ft-r"></div>
+</div>
+<!-- 햄버거 메뉴 구현 -->
+<script src="../js/hambuger.js"></script>
+<!-- my page -->
+<script src="../js/mypage_main.js"></script>
+<!-- footer 모달 구현 -->
+<script src="../js/ft_modal.js"></script>
+<!--사이드메뉴 강조-->
+<script>
+      $(function () {
+        $('#mypagePcGnb').children().eq(0).find('a').addClass('on');
+      });
+</script>
+</body>
+</html>

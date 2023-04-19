@@ -23,7 +23,7 @@ public class PetInfo {
   private String petInfo; // 기타사항
 
   // 필수입력
-  public PetInfo(Long petNum,String userId, String petGender, String petName, String petVac) {
+  public PetInfo(Long petNum, String userId, String petGender, String petName, String petVac) {
     this.petNum = petNum;
     this.userId = userId;
     this.petGender = petGender;

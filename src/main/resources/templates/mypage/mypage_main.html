@@ -78,57 +78,57 @@
     <!-- 메인컨텐츠 -->
     <div class="mypage_content">
       <form method="post" th:object="${DetailForm}">
-      <div class="myprofile-top">보호자 정보관리</div>
-      <div class="myprofile-list">
-        <ul class="list-frm">
-          <div class="list">사진</div>
-          <div class="list-frm">
-            <div class="myprofile-list-image">
-              <img src="../img/img_profile1.png" alt=""/>
-              <!-- th:field="*{userPhoto}"-->
-              <li>
-                <div class="myprofile-list-text">
-                  회원님을 알수있는 사진을 등록해주세요 <br/>
-                  등록된 사진은 회원님의 게시물이나 댓글들에 사용됩니다
-                </div>
-              </li>
+        <div class="myprofile-top">보호자 정보관리</div>
+        <div class="myprofile-list">
+          <ul class="list-frm">
+            <div class="list">사진</div>
+            <div class="list-frm">
+              <div class="myprofile-list-image">
+                <img src="../img/img_profile1.png" alt=""/>
+                <!-- th:field="*{userPhoto}"-->
+                <li>
+                  <div class="myprofile-list-text">
+                    회원님을 알수있는 사진을 등록해주세요 <br/>
+                    등록된 사진은 회원님의 게시물이나 댓글들에 사용됩니다
+                  </div>
+                </li>
+              </div>
             </div>
-          </div>
-        </ul>
+          </ul>
 
-        <div class="list-frm">
-          <div class="list">아이디</div>
-          <div class="my-info" th:text="*{userId}" ></div>
-        </div>
-        <div class="list-frm">
-          <div class="list">닉네임</div>
-          <div class="my-info" th:text="*{userNick}"></div>
-        </div>
-        <div class="list-frm">
-          <div class="list">이메일</div>
-          <div class="my-info" th:text="*{userEmail}"></div>
-        </div>
-        <div class="list-frm">
-          <div class="list">회원정보수정</div>
-          <div class="my-info">
-            <div class="myprofile-button" th:object="${DetailForm}" >
-              <button type="button" class="btn-frm"  th:data-userId="${userId}" id="btnModify" th:onclick="modify(this)" value="">
-                수정하기
-              </button>
+          <div class="list-frm">
+            <div class="list">아이디</div>
+            <div class="my-info" th:text="*{userId}" ></div>
+          </div>
+          <div class="list-frm">
+            <div class="list">닉네임</div>
+            <div class="my-info" th:text="*{userNick}"></div>
+          </div>
+          <div class="list-frm">
+            <div class="list">이메일</div>
+            <div class="my-info" th:text="*{userEmail}"></div>
+          </div>
+          <div class="list-frm">
+            <div class="list">회원정보수정</div>
+            <div class="my-info">
+              <div class="myprofile-button" th:object="${DetailForm}" >
+                <button type="button" class="btn-frm"  th:data-userId="${userId}" id="btnModify" th:onclick="modify(this)" value="">
+                  수정하기
+                </button>
+              </div>
+            </div>
+          </div>
+          <div class="list-frm">
+            <div class="list">회원탈퇴</div>
+            <div class="my-info">
+              <div class="myprofile-button">
+                <button type="button" class="btn-frm" id="btnWithdraw">
+                  탈퇴하기
+                </button>
+              </div>
             </div>
           </div>
         </div>
-        <div class="list-frm">
-          <div class="list">회원탈퇴</div>
-          <div class="my-info">
-            <div class="myprofile-button">
-              <button type="button" class="btn-frm" id="btnWithdraw">
-                탈퇴하기
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
       </form>
     </div>
   </main>
