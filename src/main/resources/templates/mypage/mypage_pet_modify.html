@@ -96,22 +96,24 @@
                           alt=""
                           class="image"
                       />
-                      <li>
-                        <div class="myprofile-list-text">
-                          회원님을 알수있는 사진을 등록해주세요
-                        </div>
-                      </li>
+
                       <img src="" alt="미리보기 이미지" class="preview"/>
-                    <!--이미지 출력부분-->
+                      <!--이미지 출력부분-->
                       <div class="content__view-imgs">
                         <div th:each="file : ${imagedFiles}" class="view__img">
                           <th:block th:if="${#strings.contains(file.ftype,'image')}">
-                            <img th:src="@{|/attach/view/${file.uploadfileId}|}" >
+                            <img th:src="@{|/attach/view/${file.uploadfileId}|}"
+                                 width="300px" , height="300px">
                           </th:block>
                         </div>
                       </div>
-
-
+                      <th:block th:if="${not #lists.isEmpty(imageFiles)}">
+                        <li>
+                          <div class="myprofile-list-text">
+                            회원님을 알수있는 사진을 등록해주세요
+                          </div>
+                        </li>
+                      </th:block>
                     </div>
                     <label class="file-label" for="chooseFile">사진업로드</label>
                     <input
@@ -120,7 +122,7 @@
                         type="file"
                         onchange="dropFile.handleFiles(this.files)"
                         accept="image/png, image/jpeg, image/gif"
-                        th:field="*{imageFiles}" />
+                        th:field="*{imageFiles}"/>
                     <!-- petImg   -->
                   </div>
                 </div>
@@ -279,6 +281,7 @@
       $(function () {
         $('#mypagePcGnb').children().eq(1).find('a').addClass('on');
       });
+
 </script>
 </body>
 </html>

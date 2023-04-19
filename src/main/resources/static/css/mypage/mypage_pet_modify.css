@@ -191,11 +191,11 @@ li {
   /* margin: 10px; */
   margin-bottom: 10px;
 }
-img {
+/* img {
   object-fit: contain;
   width: auto;
   height: auto;
-}
+} */
 
 .myprofile-list .myprofile-list-text {
   margin: 20px;
@@ -303,10 +303,20 @@ input#petname-text {
   justify-content: center;
   align-items: center;
 }
-
+/* 등록된 사진 크기지정*/
+.content__view-imgs .view__img .img {
+  display: flex;
+  flex-wrap: wrap;
+  width: 200px;
+  height: 200px;
+}
+#drop-file .image {
+  width: 300px;
+  height: 300px;
+}
 .contents .upload-box .drag-file {
   position: relative;
-  width: 100%;
+  width: 300px;
   height: 300px;
   display: flex;
   flex-direction: column;
