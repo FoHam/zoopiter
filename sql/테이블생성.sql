@@ -71,8 +71,8 @@ insert into code (code_id,decode,pcode_id,useyn) values ('F0102','커뮤니티','B01
 --insert into code (code_id,decode,pcode_id,useyn) values ('F0103','회원프로필','F01','Y');
 
 --이건 은아님이 추가
-insert into code (code_id,decode,pcode_id,useyn) values ('F0103','회원프로필','M01','Y');
-
+insert into code (code_id,decode,pcode_id,useyn) values ('F0103','펫프로필','M01','Y');
+insert into code (code_id,decode,pcode_id,useyn) values ('F0104','회원프로필','M01','Y');
 --영훈이가 넣은거
 insert into code (code_id,decode,pcode_id,useyn) values ('F010201','병원후기일반','F01','Y');
 insert into code (code_id,decode,pcode_id,useyn) values ('F010202','병원후기이미지','F01','Y');
@@ -83,7 +83,7 @@ commit;
 ------------
 CREATE TABLE UPLOADFILE(
   UPLOADFILE_ID             NUMBER,          --파일 아이디(내부관리용)
-  CODE                      varchar2(11),    --분류 코드(커뮤니티: F0101, 병원후기: F0102, 회원프로필: F0103)
+  CODE                      varchar2(11),    --분류 코드(커뮤니티: F0101, 병원후기: F0102, 펫프로필: F0103, 회원프로필: F0104)
   RID                       varchar2(10),    --참조번호 --해당 첨부파일이 첨부된 게시글의 순번
   STORE_FILENAME            varchar2(50),    --보관파일명
   UPLOAD_FILENAME           varchar2(50),    --업로드파일명
