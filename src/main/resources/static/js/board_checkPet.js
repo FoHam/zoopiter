@@ -1,4 +1,4 @@
-import { ajax } from '/js/ajax.js';
+//import { ajax } from '/js/ajax.js';
 
 
 // 동물 태그 체크박스 이벤트
@@ -42,33 +42,33 @@ const checkbox_h = e => {
     }, false);
 }
 
-const sendValues_h = e => {
-    e.preventDefault();
-    // unchecked 된 값들을 담을 배열
-    const unckValue = [];
-        // values 배열에 체크한 value값 담기
-        for (const ele of $check) {
-            if (ele.checked == true) {
-                values.push(ele.value);
-            }else{
-               unckValue.push(ele.value);
-            }
-        }
-        // unchecked 된 값 기존 배열에서 제거
-        const result = values.filter((item) => !unckValue.includes(item));
-        // 체크된 값을 담은 배열 확인
-        console.log(result);
-
-       const url = `/api/bbsc/petType?petType=${result[0]}`;
-       ajax
-          .get(url)
-          .then(res => res.json())
-          .then(changeList)
-          .catch(console.error);
-       return;
-
-}
+//const sendValues_h = e => {
+//    e.preventDefault();
+//    // unchecked 된 값들을 담을 배열
+//    const unckValue = [];
+//        // values 배열에 체크한 value값 담기
+//        for (const ele of $check) {
+//            if (ele.checked == true) {
+//                values.push(ele.value);
+//            }else{
+//               unckValue.push(ele.value);
+//            }
+//        }
+//        // unchecked 된 값 기존 배열에서 제거
+//        const result = values.filter((item) => !unckValue.includes(item));
+//        // 체크된 값을 담은 배열 확인
+//        console.log(result);
+//
+//       const url = `/api/bbsc/petType?petType=${result[0]}`;
+//       ajax
+//          .get(url)
+//          .then(res => res.json())
+//          .then(changeList)
+//          .catch(console.error);
+//       return;
+//
+//}
 
 $selectBox.addEventListener('change', checkbox_h, false);
-checkBtn.addEventListener('click',sendValues_h,false);
+//checkBtn.addEventListener('click',sendValues_h,false);
 

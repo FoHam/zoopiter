@@ -18,13 +18,22 @@ public interface BbscDAO {
    * @return
    */
   List<Bbsc> findAll();
+  List<Bbsc> findAll(int startRec, int endRec);
+  List<Bbsc> findAll(BbscFilterCondition filterCondition, int startRec, int endRec);
 
   /**
    * 검색
-   * @param petType 펫태그(강아지,고양이,소동물,기타)
+   * @param filterCondition 펫태그(강아지,고양이,소동물,기타)
    * @return
    */
-  List<Bbsc> findByPetType(String petType);
+  List<Bbsc> findByPetType(BbscFilterCondition filterCondition);
+
+  /**
+   * 필터 검색
+   * @param filterCondition 조회수, 최신순, 좋아요
+   * @return
+   */
+  List<Bbsc> findByFilter(BbscFilterCondition filterCondition);
 
   /**
    * 상세조회
@@ -61,7 +70,12 @@ public interface BbscDAO {
    * @return 게시글 전체건수
    */
   int totalCount();
-  int totalCount(String petType);
+
+  /**
+   * 필터별 건수
+   * @param filterCondition
+   * @return
+   */
   int totalCount(BbscFilterCondition filterCondition);
 
 }

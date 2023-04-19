@@ -1,5 +1,6 @@
 package com.project.zoopiter.web.form.bbsc;
 
+import com.project.zoopiter.domain.entity.UploadFile;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 import org.springframework.web.multipart.MultipartFile;
@@ -18,5 +19,7 @@ public class BbscSaveForm {
   private Long bcLike;      // 좋아요수
   private String petType;   // 반려동물 품종
   private String userNick; // 작성자 닉넴
+
+  private UploadFile attachedFile;        // 일반 파일
   private List<MultipartFile> imageFiles;
 }

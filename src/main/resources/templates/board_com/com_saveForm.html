@@ -32,22 +32,19 @@
     <main class="container">
       <div class="sort">
         <div class="search">
-          <div class="tag-list"></div>
           <!-- 동물 태그 선택 -->
           <div class="left">
             <div class="tag">동물태그</div>
-<!--            <form class="selectBox" name="petTag" >-->
-              <select class="select" name="pet" th:field="*{petType}">
-                <option value="동물유형">동물유형</option>
-                <option value="강아지">강아지</option>
-                <option value="고양이">고양이</option>
-                <option value="소동물">소동물</option>
-                <option value="기타">기타</option>
-              </select>
-              <span class="icoArrow">
-                <i class="fa-solid fa-arrow-down"></i>
-              </span>
-<!--            </form>-->
+            <form class="selectBox"  method="post" name="petTag" th:field="*{petType}">
+              <input th:field="*{petType}" type="radio" id="dog" name="dog" value="강아지">
+              <label for="dog" >강아지</label>
+              <input th:field="*{petType}" type="radio" id="cat" name="cat" value="고양이">
+              <label for="cat">고양이</label>
+              <input th:field="*{petType}" type="radio"  id="small" name="small" value="소동물">
+              <label for="small">소동물</label>
+              <input th:field="*{petType}" type="radio" id="other" name="other" value="기타">
+              <label for="other" >기타</label>
+            </form>
           </div>
         </div>
       </div>
@@ -58,10 +55,10 @@
         <div class="title__name">
           <div class="main">커뮤니티 글작성</div>
           <div class="title__inline">
-            <input type="radio" th:field="*{bcPublic}" name="cs_open" id="cs_open" value="Y" class="radio" /><span
-              class="ml_10">공개</span>&nbsp;&nbsp;&nbsp;&nbsp;
-            <input type="radio" th:field="*{bcPublic}" name="cs_open" id="cs_open" value="N" class="radio" /><span
-              class="ml_10">비공개</span>&nbsp;
+            <input type="radio" th:field="*{bcPublic}" name="cs_open" id="cs_open1" value="Y" class="radio" />
+            <label for="cs_open1" class="ml_10">공개</label>
+            <input type="radio" th:field="*{bcPublic}" name="cs_open" id="cs_open2" value="N" class="radio" />
+            <label for="cs_open2" class="ml_10">비공개</label>
           </div>
         </div>
       </div>
@@ -112,7 +109,7 @@
         <div class="btn-l"></div>
         <div class="btn">
           <div class="detail">
-            <button th:onclick="|location.href='@{/bbsc/list}'|">목록</button>
+            <button type="button" th:onclick="|location.href='@{/bbsc/list}'|">목록</button>
           </div>
           <div class="add">
             <button id="addBtn" type="submit">등록</button>
@@ -135,8 +132,6 @@
     <!-- 광고 문의 -->
     <th:block th:replace="~{fragment/footer::ft-modal3}"></th:block>
   </div>
-  <!-- 펫 태그 셀렉트  -->
-  <script src="../js/board_selectPet.js"></script>
   <script>
   const add_h = e => {
     e.preventDefault();
@@ -144,20 +139,7 @@
   }
   addBtn.addEventListener('click',add_h,false);
   </script>
-<!--  <script>-->
-<!--    const open = () => {-->
-<!--      document.querySelector(".modal").classList.remove("hidden");-->
-<!--    }-->
 
-<!--    const close = () => {-->
-<!--      document.querySelector(".modal").classList.add("hidden");-->
-<!--    }-->
-
-<!--    document.querySelector(".openBtn").addEventListener("click", open);-->
-<!--    document.querySelector(".closeBtn1").addEventListener("click", close);-->
-<!--    document.querySelector(".closeBtn2").addEventListener("click", close);-->
-<!--    document.querySelector(".bg").addEventListener("click", close);-->
-<!--  </script>-->
 </body>
 
 </html>

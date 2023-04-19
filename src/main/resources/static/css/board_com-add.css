@@ -1,5 +1,5 @@
 @charset "utf-8";
-@import './theme/layout.css';
+@import 'theme/layout.css';
 * {
   /* outline: 1px solid green; */
 }
@@ -18,6 +18,22 @@ p {
 }
 
 /* 메인 컨텐츠 */
+
+/* 선택한 펫태그가 추가될 영역 */
+.tag-list {
+  display: flex;
+  justify-content: center;
+  margin: 0 20px;
+}
+.tag-list .tag {
+  display: flex;
+  color: var(--color-main-point2);
+}
+/* 추가된 펫태그 */
+.tag-list .tag p {
+  margin: 0 10px;
+}
+
 .main-list {
   grid-area: main-list;
   width: 100%;
@@ -83,37 +99,29 @@ p {
 }
 
 /* 동물태그선택 */
+
 .sort {
   grid-area: sort;
   width: 100%;
   height: 80px;
+  margin-bottom: 40px;
 }
 
-.sort .search .left .tag {
-  margin-left: 10px;
+.sort .left {
+  padding: 10px;
 }
 
 .sort .left .tag {
   margin-right: 1.2rem;
 }
 
-/* 선택한 펫태그가 추가될 영역 */
-.tag-list {
-  display: flex;
-  justify-content: center;
-  margin: 0 20px;
-}
-.tag-list .tag {
-  display: flex;
-  color: var(--color-main-point2);
-}
-/* 추가된 펫태그 */
-.tag-list .tag p {
-  margin: 0 10px;
+.sort .left .tag input {
+  font-size: 0.8rem;
+  margin-right: 10px;
 }
 
-.sort .left .tag input[type='checkbox'] {
-  font-size: 0.8rem;
+.sort .left label{
+ margin-right: 10px;
 }
 
 @media screen and (width <=800px) {
@@ -122,13 +130,6 @@ p {
   }
 }
 
-.sort .search {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  width: 100%;
-  height: 100%;
-}
 .sort .left {
   width: auto;
   border-radius: 4px;
@@ -141,16 +142,18 @@ p {
 }
 
 .sort div {
-  /* display: flex; */
   align-items: center;
   font-weight: bold;
   font-size: 1rem;
-  /* margin-left: 10px; */
 }
-
+.sort .search {
+  display: flex;
+  justify-content: flex-start;
+  width: 100%;
+  height: 100%;
+}
 .sort .search .input input {
   height: 20px;
-  /* width: 70%; */
   font-size: 15px;
   border-radius: 4px;
   border: 2px solid var(--color-main-point);
@@ -158,7 +161,6 @@ p {
 }
 .sort .search .input {
   display: flex;
-  /* margin-right: 50px; */
 }
 .sort .search .input button {
   margin-left: 10px;
@@ -183,7 +185,6 @@ p {
 
 .sort .search .left .selectBox .select {
   width: inherit;
-  /* display: none; */
   height: inherit;
   background: transparent;
   border: 0 none;
@@ -191,7 +192,6 @@ p {
   padding: 0 5px;
   position: relative;
   z-index: 3;
-  /* opacity: 0; */
   appearance: none; /* 기록 */
 }
 
@@ -244,7 +244,7 @@ p {
 .title .title__name {
   display: flex;
   align-items: center;
-  margin-bottom: 3rem;
+  margin-bottom: 20px;
 }
 .title .title__name .main {
   font-weight: bold;
@@ -264,7 +264,7 @@ p {
 .main-title {
   grid-area: main-title;
   width: 100%;
-  margin-bottom: 2rem;
+  margin-bottom: 20px;
 }
 .main-title .input input {
   height: 30px;
@@ -342,15 +342,27 @@ p {
   font-size: 13px;
 }
 
-/* 등록,목록 버튼 */
+/* 목록,등록,취소 버튼 */
 .btn {
+  display: flex;
+  justify-content: flex-end;
   grid-area: btn;
   width: 100%;
   margin-bottom: 30px;
-  display: flex;
-  justify-content: flex-end;
 }
-.btn .detail button {
+.btn .btn__che {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  align-items: flex-end;
+}
+.btn .btn__che .btn__btn {
+  display: flex;
+  flex-direction: row;
+  text-align: center;
+  height: 100%;
+}
+.btn .btn__che .btn__btn .detail button {
   background-color: #ffd65f;
   font-size: 15px;
   font-weight: bold;
@@ -359,7 +371,7 @@ p {
   color: black;
   border: 2px solid #f26d3d;
 }
-.btn .add button {
+.btn .btn__che .btn__btn .cancel button {
   background-color: #ffd65f;
   font-size: 15px;
   font-weight: bold;
@@ -368,4 +380,79 @@ p {
   color: black;
   border: 2px solid #f26d3d;
   margin-left: 10px;
+}
+.btn .btn__che .btn__btn .add button {
+  background-color: #ffd65f;
+  font-size: 15px;
+  font-weight: bold;
+  padding: 5px 20px;
+  border-radius: 10px;
+  color: black;
+  border: 2px solid #f26d3d;
+  margin-left: 10px;
+}
+
+/* 모달 버튼 만들기 */
+button {
+  background-color: #ffd65f;
+  border-radius: 4px;
+  cursor: pointer;
+}
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.modal .bg {
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.6);
+}
+.modalBox {
+  position: absolute;
+  border-radius: 4px;
+  background-color: #fff;
+  width: 400px;
+  height: 100px;
+  padding: 15px;
+}
+.modalBox .alarm {
+  display: flex;
+  flex-direction: column;
+  margin-top: 25px;
+}
+.modalBox .alarm .chk {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 10px;
+}
+.modalBox .alarm .btn {
+  justify-content: flex-end;
+}
+.modalBox .alarm .btn button:nth-of-type(2) {
+  margin-left: 5px;
+}
+.hidden {
+  display: none;
+}
+
+.btn .detail button{
+ margin-right: 20px;
+}
+
+.btn button{
+    width: 100px;
+    padding: 8px;
+    background-color: #ffd65f;
+    font-size: 15px;
+    font-weight: bold;
+    padding: 5px 20px;
+    border-radius: 10px;
+    color: var(--color-main-text);
+    border: 2px solid #f26d3d;
 }

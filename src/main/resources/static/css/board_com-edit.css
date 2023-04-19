@@ -104,18 +104,24 @@ p {
   grid-area: sort;
   width: 100%;
   height: 80px;
+  margin-bottom: 40px;
 }
 
-.sort .search .left .tag {
-  margin-left: 10px;
+.sort .left {
+  padding: 10px;
 }
 
 .sort .left .tag {
   margin-right: 1.2rem;
 }
 
-.sort .left .tag input[type='checkbox'] {
+.sort .left .tag input {
   font-size: 0.8rem;
+  margin-right: 10px;
+}
+
+.sort .left label{
+ margin-right: 10px;
 }
 
 @media screen and (width <=800px) {
@@ -124,12 +130,6 @@ p {
   }
 }
 
-.sort .search {
-  justify-content: flex-start;
-  width: 100%;
-  height: 100%;
-  justify-content: space-between;
-}
 .sort .left {
   width: auto;
   border-radius: 4px;
@@ -142,18 +142,18 @@ p {
 }
 
 .sort div {
-  /* display: flex; */
   align-items: center;
   font-weight: bold;
   font-size: 1rem;
-  /* margin-left: 10px; */
 }
 .sort .search {
   display: flex;
+  justify-content: flex-start;
+  width: 100%;
+  height: 100%;
 }
 .sort .search .input input {
   height: 20px;
-  /* width: 70%; */
   font-size: 15px;
   border-radius: 4px;
   border: 2px solid var(--color-main-point);
@@ -161,7 +161,6 @@ p {
 }
 .sort .search .input {
   display: flex;
-  /* margin-right: 50px; */
 }
 .sort .search .input button {
   margin-left: 10px;
@@ -186,7 +185,6 @@ p {
 
 .sort .search .left .selectBox .select {
   width: inherit;
-  /* display: none; */
   height: inherit;
   background: transparent;
   border: 0 none;
@@ -194,7 +192,6 @@ p {
   padding: 0 5px;
   position: relative;
   z-index: 3;
-  /* opacity: 0; */
   appearance: none; /* 기록 */
 }
 
@@ -301,13 +298,29 @@ p {
 /* 첨부파일버튼 */
 .file {
   grid-area: file;
-  /* width: 100%; */
+  display: flex;
+  align-content: center;
   font-size: 17px;
   font-weight: bold;
   padding: 20px;
   margin-bottom: 10px;
   outline: 2px solid #f26d3d;
   border-radius: 4px;
+}
+
+.view__img {
+   display: flex;
+   align-content: center;
+}
+
+/* 첨부파일 지우기 버튼 */
+.view__img .fa-solid.fa-trash-can {
+   cursor:pointer;
+   margin: 0 10px;
+}
+
+.view__img .fa-solid.fa-trash-can:hover{
+   color:red;
 }
 
 /* 사진첨부 */
@@ -369,7 +382,7 @@ p {
   font-weight: bold;
   padding: 5px 20px;
   border-radius: 10px;
-  color: black;
+  color: var(--color-main-text);
   border: 2px solid #f26d3d;
 }
 .btn .btn__che .btn__btn .cancel button {
@@ -378,7 +391,7 @@ p {
   font-weight: bold;
   padding: 5px 20px;
   border-radius: 10px;
-  color: black;
+  color: var(--color-main-text);
   border: 2px solid #f26d3d;
   margin-left: 10px;
 }
@@ -388,7 +401,7 @@ p {
   font-weight: bold;
   padding: 5px 20px;
   border-radius: 10px;
-  color: black;
+  color: var(--color-main-text);
   border: 2px solid #f26d3d;
   margin-left: 10px;
 }

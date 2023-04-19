@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>커뮤니티 작성</title>
+  <!--  리뷰게시판 메인 css -->
+  <link rel="stylesheet" href="/css/board_com-edit.css">
+  <!--  폰트 어썸 : 로고 -->
+  <script src="https://kit.fontawesome.com/6631aa96e6.js" crossorigin="anonymous"></script>
+</head>
+
+<body>
+<div class="wrap">
+  <div class="hd-l"></div>
+  <header class="hd">
+    <!-- 프레그먼트 반영:menu  -->
+    <th:block th:replace="~{fragment/menu::gnb}"></th:block>
+  </header>
+  <div class="hd-r"></div>
+
+  <div class="fg-l"></div>
+
+  <div class="fg-r"></div>
+
+  <div class="mn-l"></div>
+  <form id="editForm" action="" method="post" th:object="${bbscUpdateForm}" enctype="multipart/form-data">
+    <input th:field="*{bbscId}" id="bbscId" style="display: none;">
+    <main class="container">
+      <div class="sort">
+        <div class="search">
+          <!--          <div class="tag-list"></div>-->
+          <!-- 동물 태그 선택 -->
+          <div class="left">
+            <div class="tag">동물태그</div>
+            <form class="selectBox" name="petTag" th:field="*{petType}">
+              <input th:field="*{petType}" type="radio" id="dog" name="dog" value="강아지">
+              <label for="dog" >강아지</label>
+              <input th:field="*{petType}" type="radio" id="cat" name="cat" value="고양이">
+              <label for="cat">고양이</label>
+              <input th:field="*{petType}" type="radio"  id="small" name="small" value="소동물">
+              <label for="small">소동물</label>
+              <input th:field="*{petType}" type="radio" id="other" name="other" value="기타">
+              <label for="other" >기타</label>
+            </form>
+          </div>
+        </div>
+      </div>
+
+      <!-- 메인제목 -->
+      <div class="title-l"></div>
+      <div class="title">
+        <div class="title__name">
+          <div class="main">커뮤니티 글작성</div>
+          <div class="title__inline">
+            <input type="radio" th:field="*{bcPublic}" name="cs_open" id="cs_open1" value="Y" class="radio" />
+            <label for="cs_open1" class="ml_10">공개</label>
+            <input type="radio" th:field="*{bcPublic}" name="cs_open" id="cs_open2" value="N" class="radio" />
+            <label for="cs_open2" class="ml_10">비공개</label>
+          </div>
+        </div>
+      </div>
+      <div class="title-r"></div>
+
+      <!-- 제목입력창 -->
+      <div class="main-title-l"></div>
+      <div class="main-title">
+        <div class="input">
+          <input type="text" th:field="*{bcTitle}" placeholder="제목을 입력해주세요.">
+        </div>
+      </div>
+      <div class="main-title-r"></div>
+
+      <!-- 본문입력창 -->
+      <div class="body-write-l"></div>
+      <div class="body-write" >
+        <div class="input">
+          <input type="text" th:field="*{bcContent}" placeholder="본문을 입력해주세요.">
+        </div>
+      </div>
+      <div class="body-write-r"></div>
+
+      <!-- 첨부파일버튼 -->
+      <div class="file-l"></div>
+      <div class="file" id="files">
+        <input type='file' th:field="*{imageFiles}" multiple />
+        <div th:each="file : ${imagedFiles}" class="view__img">
+          <th:block th:if="${#strings.contains(file.ftype,'image')}">
+            <p th:text="${file.upload_filename}"></p>
+            <img th:src="@{|/attach/view/${file.uploadfileId}|}" th:width="30px" th:height="30px">
+          </th:block>
+          <i class="fa-solid fa-trash-can" th:data-rid="${file.uploadfileId}"></i>
+        </div>
+      </div>
+      <div class="file-r"></div>
+      <!-- 목록,등록,취소 버튼 -->
+      <div class="btn-l"></div>
+      <div class="btn">
+        <div class="btn__che">
+          <div class="btn__btn">
+            <div class="detail">
+              <button type="button" id="listBtn">
+                목록
+              </button>
+            </div>
+            <div class="add">
+              <button id="addBtn" type="button">등록</button>
+            </div>
+            <div class="cancel">
+              <button id="cancleBtn" class="openBtn" type="button">취소</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="btn-r"></div>
+    </main>
+  </form>
+
+  <!-- 푸터 -->
+  <div class="ft-l"></div>
+  <!-- 프레그먼트 반영 footer -->
+  <th:block th:replace="~{fragment/footer::fnb}"></th:block>
+  <!-- 푸터 팝업 -->
+  <!-- 개인정보 약관 -->
+  <th:block th:replace="~{fragment/footer::ft-modal1}"></th:block>
+  <!-- 이용 약관 -->
+  <th:block th:replace="~{fragment/footer::ft-modal2}"></th:block>
+  <!-- 광고 문의 -->
+  <th:block th:replace="~{fragment/footer::ft-modal3}"></th:block>
+  <div class="ft-r"></div>
+</div>
+
+<!-- 햄버거 메뉴 구현 -->
+<script src="/js/hambuger.js"></script>
+<!-- footer 개인정보처리방침 모달 구현 -->
+<script src="/js/ft_modal.js"></script>
+<!-- 등록 구현 -->
+<script src="/js/board_editForm.js" type="module" charset='utf-8'></script>
+
+
+</body>
+
+</html>

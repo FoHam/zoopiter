@@ -21,3 +21,4 @@ const heart_h = e => {
 for (const ele of $prevHeart) {
     ele.addEventListener('click', heart_h, false);
 }
+

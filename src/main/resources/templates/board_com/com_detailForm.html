@@ -27,13 +27,13 @@
 
     <div class="mn-l"></div>
     <main class="container">
-      <form action="" th:object="${bbscDetailForm}">
-<!--        <p id="bbscId" th:field="*{bbscId}" th:text="*{bbscId}"></p>-->
+      <form id="post" action="" method="post" th:object="${bbscDetailForm}">
+        <input id="bbscId" th:field="*{bbscId}" style="display: none;">
         <!-- 메인 컨텐츠 -->
         <!-- 첫줄 동물태그 -->
         <div class="tag-l"></div>
         <div class="tag">
-          <div class="tag__pet" th:field="*{petType}" th:text="*{petType}">#강아지</div>
+          <div class="tag__pet" th:if="${not #strings.isEmpty(bbscDetailForm.petType)}" th:field="*{petType}" th:text="*{petType}">#강아지</div>
         </div>
         <div class="tag-r"></div>
 
@@ -68,7 +68,7 @@
           <div class="nick__info">
             <div class="nick__date">
               <div class="re1" th:field="*{userNick}" th:text="*{userNick}">닉네임</div>
-              <div id="re1" th:field="*{bcCdate}" th:text="*{bcCdate}" style="color: black; font-size: 12px">clock</div>
+              <div id="re1" th:field="*{bcUdate}" th:text="*{bcUdate}" style="color: black; font-size: 12px">clock</div>
             </div>
           </div>
         </div>
@@ -79,11 +79,13 @@
         <div class="content-l"></div>
         <div class="content">
           <div class="content__view">
+            <div class="content__view-imgs">
               <div th:each="file : ${imagedFiles}" class="view__img">
                 <th:block th:if="${#strings.contains(file.ftype,'image')}">
-                  <img th:src="@{|/attach/view/${file.rid}|}" >
+                  <img th:src="@{|/attach/view/${file.uploadfileId}|}" >
                 </th:block>
               </div>
+            </div>
             <p th:field="*{bcContent}" th:text="*{bcContent}">
               샘플 본문
             </p>
@@ -105,26 +107,12 @@
               <!-- 글작성자와 세션아이디체크해서 동일한경우만 수행 -->
               <th:block th:if="*{userNick} == ${session.loginMember.userNick}">
                 <div class="modi">
-                  <button onclick="location.href='board_com-edit.html'">수정</button>
+                    <button type="button" id="modifyBtn">수정</button>
                 </div>
                 <div class="del">
-                  <button class="openBtn">삭제</button>
+                  <button type="button" id="delBtn" class="openBtn">삭제</button>
                 </div>
               </th:block>
-            <!--     게시글 삭제 모달      -->
-              <div class="modal hidden">
-                <div class="bg"></div>
-                <div class="modalBox">
-                  <div class="alarm">
-                    <div class="chk">게시글을 삭제하시겠습니까?</div>
-                    <div class="btn">
-                      <button onclick="location.href='board_com.html'">확인</button>
-                      <button class="closeBtn">취소</button>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <!--     게시글 삭제 모달 종료     -->
             </div>
           </div>
         </div>
@@ -145,7 +133,6 @@
       <div class="main-comment">
         <div class="input">
           <div class="main-comment__write">
-
             <div th:text="${session.loginMember.userNick}">닉네임</div>
             <div><input type="text" placeholder="댓글을 입력해주세요." /></div>
             <div class="re_btn">
@@ -161,7 +148,6 @@
       <div class="list-comment-l"></div>
       <div class="list-comment">
         <div class="input item1">
-          <img src="../img/img_profile1.png" style="max-width: 100%; height: 30px" alt="" />
           <div class="comment__list">
             <div>닉네임</div>
             <div>
@@ -176,7 +162,6 @@
           </div>
         </div>
         <div class="input item2">
-          <img src="../img/img_profile1.png" style="max-width: 100%; height: 30px" alt="" />
           <div class="comment">
             <div>닉네임</div>
             <div>
@@ -209,15 +194,13 @@
   </div>
 
   <!-- 햄버거 메뉴 구현 -->
-  <script src="../js/hambuger.js"></script>
+  <script src="/js/hambuger.js"></script>
   <!-- footer 개인정보처리방침 모달 구현 -->
-  <script src="../js/ft_modal.js"></script>
-  <!-- 동물 태그 선택 구현 -->
-  <script src="../js/review.js"></script>
-  <!-- 작성날짜 -->
-  <script src="../js/clock.js"></script>
-  <!-- 취소,삭제 모달 구현 -->
-  <script src="../js/board_del_modal.js"></script>
+  <script src="/js/ft_modal.js"></script>
+  <!-- 좋아요 구현 -->
+  <script src="/js/board_likeBtn.js"></script>
+  <!-- 수정, 삭제 버튼 이벤트 -->
+  <script src="/js/board_detailForm.js" charset='euc-kr'></script>
 
 </body>
 

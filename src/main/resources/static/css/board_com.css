@@ -32,10 +32,9 @@ p {
 }
 
 .main-list .list .main {
-  /* height: 50px; */
   font-size: 1.6rem;
   font-weight: bold;
-  margin-bottom: 20px 0;
+  margin-bottom: 40px;
 }
 
 .main-list .list .selectBox {
@@ -107,16 +106,17 @@ p {
   height: 80px;
 }
 
-.sort .search .left .tag {
+/*.sort .search .left .tag {
   margin-left: 10px;
-}
+}*/
 
 .sort .left .tag {
   margin-right: 1.2rem;
 }
 
-.sort .left .tag input[type='checkbox'] {
+.sort .left .tag input {
   font-size: 0.8rem;
+   margin-right: 10px;
 }
 
 @media screen and (width <=800px) {
@@ -125,19 +125,13 @@ p {
   }
 }
 
-.sort .search {
-  justify-content: flex-start;
-  width: 100%;
-  height: 100%;
-  justify-content: space-between;
-}
-
 .sort .left {
   width: auto;
   border-radius: 4px;
   outline: 3px solid #f29a2e;
   display: flex;
   height: 50px;
+  padding: 10px;
 }
 
 .sort .search .left .selectBox select:nth-of-type(1) {
@@ -145,15 +139,16 @@ p {
 }
 
 .sort div {
-  /* display: flex; */
   align-items: center;
   font-weight: bold;
   font-size: 1rem;
-  /* margin-left: 10px; */
 }
 
 .sort .search {
   display: flex;
+    justify-content: flex-start;
+    width: 100%;
+    height: 100%;
 }
 
 .sort .search .input input {
@@ -380,13 +375,20 @@ p {
 .main-nick .post .preview .img {
   flex : 2;
   width: 20rem;
+  height: 200px;
   display: flex;
   justify-content: center;
+  align-items: center;
   margin: 10px;
   padding: 20px;
   border-radius: 10px;
   border: 2px solid var(--color-main-background);
   background-color: var(--color-main-background);
+}
+
+.main-nick .post .preview .img img {
+   width: 100%;
+   height: 100%;
 }
 
 .main-nick .post .preview .img i {
