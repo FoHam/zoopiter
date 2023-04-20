@@ -462,6 +462,7 @@ CREATE TABLE BBSH(
   BH_CONTENT         clob,            --글 내용
   PET_TYPE           varchar2(20),    --반려동물 품종
   BH_ATTACH          BLOB,            --첨부파일
+  BH_star            NUMBER,           --별점 (영훈추가)
   BH_HNAME           VARCHAR2(52),    --병원이름
   BH_HIT             NUMBER default 0,--조회수
   BH_GUBUN           VARCHAR2(15) default 'B0101',      --게시판 구분(병원후기: B0101, 커뮤니티: B0102)

@@ -56,7 +56,8 @@
   <div class="hd-r"></div>
 
   <div class="title-l"></div>
-  <form id="frm" action="" method="post" th:object="${bbshUpdateForm}">
+  <form id="frm" action="" method="post" th:object="${updateForm}" enctype="multipart/form-data" >
+    <input type="hidden" id="bbshId" readonly th:field="*{bbshId}" />
     <div class="title">
       <div class="title-row">
         <div class="main">동물병원 후기 작성</div>
@@ -68,11 +69,7 @@
     <div class="title-name">
       <div class="title-name-star">
         <div class="input">
-          <input
-              type="text"
-              th:field="*{bhTitle}"
-
-          />
+          <input type="text" th:field="*{bhTitle}" />
         </div>
         <div class="star-ratings">
           <div class="star-rating space-x-4 mx-auto">
@@ -82,22 +79,25 @@
                 name="rating"
                 value="5"
                 v-model="ratings"
+                th:field="*{bhStar}"
             />
-            <label for="5-stars" class="star pr-4">★</label>
+            <label for="5-stars" class="star pr-4" >★</label>
             <input
                 type="radio"
                 id="4-stars"
                 name="rating"
                 value="4"
                 v-model="ratings"
+                th:field="*{bhStar}"
             />
-            <label for="4-stars" class="star">★</label>
+            <label for="4-stars" class="star" >★</label>
             <input
                 type="radio"
                 id="3-stars"
                 name="rating"
                 value="3"
                 v-model="ratings"
+                th:field="*{bhStar}"
             />
             <label for="3-stars" class="star">★</label>
             <input
@@ -106,6 +106,7 @@
                 name="rating"
                 value="2"
                 v-model="ratings"
+                th:field="*{bhStar}"
             />
             <label for="2-stars" class="star">★</label>
             <input
@@ -114,6 +115,7 @@
                 name="rating"
                 value="1"
                 v-model="ratings"
+                th:field="*{bhStar}"
             />
             <label for="1-star" class="star">★</label>
           </div>
@@ -128,21 +130,21 @@
       <div class="hos-search-star">
         <div class="search">
           <input type="text" />
-          <button class="openBtn">검색</button>
+          <button type="button" class="openBtn">검색</button>
         </div>
         <div class="star-ratings">
           <!-- <div class="star-rating space-x-4 mx-auto">
-        <input type="radio" id="5-stars" name="rating" value="5" v-model="ratings"/>
-        <label for="5-stars" class="star pr-4">★</label>
-        <input type="radio" id="4-stars" name="rating" value="4" v-model="ratings"/>
-        <label for="4-stars" class="star">★</label>
-        <input type="radio" id="3-stars" name="rating" value="3" v-model="ratings"/>
-        <label for="3-stars" class="star">★</label>
-        <input type="radio" id="2-stars" name="rating" value="2" v-model="ratings"/>
-        <label for="2-stars" class="star">★</label>
-        <input type="radio" id="1-star" name="rating" value="1" v-model="ratings" />
-        <label for="1-star" class="star">★</label>
-      </div> -->
+    <input type="radio" id="5-stars" name="rating" value="5" v-model="ratings"/>
+    <label for="5-stars" class="star pr-4">★</label>
+    <input type="radio" id="4-stars" name="rating" value="4" v-model="ratings"/>
+    <label for="4-stars" class="star">★</label>
+    <input type="radio" id="3-stars" name="rating" value="3" v-model="ratings"/>
+    <label for="3-stars" class="star">★</label>
+    <input type="radio" id="2-stars" name="rating" value="2" v-model="ratings"/>
+    <label for="2-stars" class="star">★</label>
+    <input type="radio" id="1-star" name="rating" value="1" v-model="ratings" />
+    <label for="1-star" class="star">★</label>
+  </div> -->
         </div>
       </div>
       <div class="modal hidden">
@@ -152,14 +154,14 @@
           <div class="title">
             <h2>동물병원 검색</h2>
             <div class="btn">
-              <button class="closeBtn1">✖</button>
+              <button type="button" class="closeBtn1">✖</button>
             </div>
           </div>
           <div class="mid">
             <div class="hos">병원 검색</div>
             <div class="input">
               <input type="text" />
-              <button>검색</button>
+              <button type="button">검색</button>
             </div>
           </div>
           <div
@@ -197,7 +199,7 @@
           </div>
           <div class="bot">
             <div class="btn">
-              <button class="closeBtn2">닫기</button>
+              <button type="button" class="closeBtn2">닫기</button>
             </div>
           </div>
         </div>
@@ -225,22 +227,12 @@
         <div class="search">
           <div class="tag">동물태그</div>
           <div class="selectBox1">
-            <select class="select">
+            <select class="select" th:field="*{petType}">
               <option value="">동물 대분류</option>
-              <option value=""></option>
-              <option value=""></option>
-              <option value=""></option>
-            </select>
-            <span class="icoArrow"
-            ><img src="/img/under.png" alt=""
-            /></span>
-          </div>
-          <div class="selectBox2">
-            <select class="select">
-              <option value="">동물 소분류</option>
-              <option value=""></option>
-              <option value=""></option>
-              <option value=""></option>
+              <option value="#개">개</option>
+              <option value="#고양이">고양이</option>
+              <option value="#소동물">소동물</option>
+              <option value="기타">기타</option>
             </select>
             <span class="icoArrow"
             ><img src="/img/under.png" alt=""
@@ -252,17 +244,13 @@
     <div class="sort-r"></div>
 
     <div class="load-tag-l"></div>
-    <div class="load-tag">
-      <div class="tag">#개</div>
-      <div class="tag">#새</div>
-    </div>
+    <div class="load-tag"></div>
     <div class="load-tag-r"></div>
     <div class="alarm-l"></div>
     <div class="alarm">
       <label for="ex_filename">
         <div class="pic">
-              <span class="material-symbols-outlined"> photo_camera </span
-              >사진첨부
+          <span class="material-symbols-outlined"> photo_camera </span>사진첨부
         </div>
       </label>
       <input
@@ -271,18 +259,28 @@
           disabled="disabled"
       />
 
-      <input type="file" id="ex_filename" class="upload-hidden" />
+      <input
+          type="file"
+          id="ex_filename"
+          class="upload-hidden"
+          th:field="*{imageFiles}" multiple
+      />
+      <!--      <div th:each="file : ${imagedFiles}" class="view__img">-->
+      <!--        <th:block th:if="${#strings.contains(file.ftype,'image')}">-->
+      <!--          &lt;!&ndash;     파일명      &ndash;&gt;-->
+      <!--          <p th:text="${file.upload_filename}" style="font-size: 14px; margin-right: 10px;"></p>-->
+      <!--          <img th:src="@{|/attach/view/${file.uploadfileId}|}" th:width="30px" th:height="30px">-->
+      <!--        </th:block>-->
+      <!--        <i class="fa-solid fa-trash-can" th:data-rid="${file.uploadfileId}"></i>-->
+      <!--      </div>-->
     </div>
     <div class="alarm-r"></div>
 
     <div class="complete-l"></div>
     <div class="complete">
       <div>
-        <button type="submit" onclick="location.href='review.html'">
-          목록
-        </button>
-        <button>등록</button>
-        <button id="btnDelete">삭제</button>
+        <button id="btnUpdate" type="submit">등록</button>
+        <button id="btnDelete">취소</button>
       </div>
     </div>
     <div class="complete-r"></div>
@@ -290,10 +288,17 @@
 </div>
 
 <script>
-      $(document).on('change', '.alarm .upload-hidden', function () {
-        var filename = $(this).val().split('/').pop().split('\\').pop();
-        $(this).siblings('.upload-name').val(filename).trigger('change');
-      });
+      const $bbshId = document.getElementById('bbshId');
+      const $btnDelete = document.getElementById('btnDelete');
+
+      const btnDelete_h = e => {
+        if (confirm('취소 하시겠습니까?')) {
+          globalThis.location.href = `/BBSH/${$bbshId.value}/detail`;
+          return true; // return true;로 수정
+        }
+      };
+
+      $btnDelete.addEventListener('click', btnDelete_h, false);
 
       // 파일명 클릭 시 파일 선택 창 띄우기
       $('.alarm .upload-name').click(function () {
@@ -312,16 +317,8 @@
       document.querySelector('.closeBtn2').addEventListener('click', close);
       document.querySelector('.bg').addEventListener('click', close);
 
-        const $btnDelete = document.getElementById('btnDelete');
 
-  const btnDelete_h = e=>{
-    if(confirm('삭제 하시겠습니까?')){
-<!--      globalThis.location.href = `/products/${$productId.value}/del`;-->
-  return false;
-    }
-  }
 
-  $btnDelete.addEventListener('click',btnDelete_h, false);
     </script>
 </body>
 </html>

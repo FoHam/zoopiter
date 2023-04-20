@@ -14,9 +14,12 @@ public class BbshUpdateForm {
   private String bhTitle;       // 제목
   @NotNull
   private String bhContent;    // 본문
-
+  private Long bhStar;        // 별점
+  private String petType; // 반려동물 품종(카테고리)
   private Long bhHit;
 
+  private String bhCdate ; // 작성일
+  private String bhUdate;  // 수정일
 
   private MultipartFile attachFile;        // 일반 파일
   private List<MultipartFile> imageFiles;  // 이미지파일

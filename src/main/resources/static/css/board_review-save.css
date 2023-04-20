@@ -1,7 +1,5 @@
 @charset "utf-8";
-@import '/css/borad_review-common.css';
 @import './theme/layout.css';
-
 * {
   /* outline: 1px solid green; */
   margin: 0;
@@ -223,16 +221,74 @@ textarea:focus {
 .title {
   grid-area: title;
   width: 100%;
+  display: flex;
 }
+.title .title-row .search .tag {
+  font-size: 25px;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+.selectBox2 {
+  position: relative;
+  width: 200px;
+  height: 35px;
+  border-radius: 4px;
+  border: 2px solid #ffd65f;
+  background-color: #fff;
+}
+.selectBox2 .select {
+  width: inherit;
+  height: inherit;
+  background: transparent;
+  border: 0 none;
+  outline: 0 none;
+  padding: 0 10px;
+  position: relative;
+  z-index: 3; // select가 위로 올라와야 함
+}
+.selectBox2 .select option {
+  background: #ffd65f;
+  color: #fff;
+  padding: 3px 0;
+  font-size: 16px;
+}
+.selectBox2 .icoArrow {
+  position: absolute;
+  top: 0;
+  right: 0;
+  z-index: 1;
+  width: 35px;
+  height: inherit;
+  border-left: 2px solid #ffd65f;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.selectBox2 .icoArrow img {
+  width: 50%;
+  transition: 0.3s; // 부드럽게 회전
+}
+
+.selectBox2 .select:focus + .icoArrow img {
+  transform: rotate(180deg);
+}
+
 .title .title-row {
   display: flex;
   align-items: center;
   margin-bottom: 20px;
+  flex-direction: column;
 }
 .title .title-row .main {
   font-weight: bold;
   font-size: 25px;
   margin-right: 50px;
+  display: flex;
+}
+.title .title-row .selectBox {
+  display: flex;
 }
 .title .title-row .chk {
   display: flex;
@@ -352,15 +408,12 @@ textarea:focus {
 }
 .sort .search {
   justify-content: flex-start;
-  width: 55%;
+  width: 25%;
   height: 50px;
-  justify-content: space-between;
+  justify-content: space-around;
   outline: 3px solid #ffd65f;
   border-radius: 4px;
   display: flex;
-}
-.sort .sort-row .search .selectBox2 {
-  margin-right: 80px;
 }
 
 .sort div {
@@ -370,9 +423,6 @@ textarea:focus {
   font-size: 20px;
   /* margin-left: 10px; */
 }
-.sort .search .tag {
-  margin-left: 10px;
-}
 
 .sort .search .selectBox1,
 .sort .search .selectBox2 {
@@ -380,10 +430,28 @@ textarea:focus {
   width: 130px;
   height: 25px;
   border-radius: 4px;
-  border: 2px solid #f29a2e;
+  border: 2px solid #ffd65f;
 }
-.selectBox1 .select,
+#check {
+  width: 4rem;
+  border: 1px solid #ffd65f;
+  border-radius: 2rem;
+  background-color: #ffd65f;
+  margin: 1.2rem;
+}
 .selectBox2 .select {
+  width: inherit;
+  height: inherit;
+  background: transparent;
+  border: 0 none;
+  outline: 0 none;
+  padding: 10px;
+  position: relative;
+  z-index: 3;
+  appearance: none;
+}
+
+.selectBox1 .select {
   width: inherit;
   height: inherit;
   background: transparent;
@@ -410,7 +478,7 @@ textarea:focus {
   z-index: 1;
   width: 35px;
   height: inherit;
-  border-left: 2px solid #f29a2e;
+  border-left: 2px solid #ffd65f;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -528,9 +596,9 @@ textarea:focus {
   font-family: inherit;
   line-height: normal;
   vertical-align: middle;
-  background-color: #f5f5f5;
-  border: 1px solid #ebebeb;
-  border-bottom-color: #e2e2e2;
+  background-color: #fdfdfd;
+  border: 1px solid #ffd65f;
+  border-bottom-color: #ffd65f;
   border-radius: 0.25em;
   width: 80%;
   -webkit-appearance: none;

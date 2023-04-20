@@ -97,7 +97,7 @@ p {
   margin-bottom: 20px;
 }
 .tag .tag__pet {
-  background-color: #1d1c1ce3;
+  background-color: #ffd65f;
   padding: 10px;
   color: white;
   border-radius: 4px;
@@ -248,12 +248,22 @@ p {
   font-size: 1.2rem;
 }
 
+.view__img {
+ width: 400px;
+ height: 300px;
+}
+
+.view__img img{
+  width: 400px;
+  height: 300px;
+}
+
 /* 게시글내용 */
 .content {
   grid-area: content;
   width: 100%;
   margin-bottom: 5px;
-  outline: 1px solid black;
+   outline: 1px solid #ffd65f;
   border-radius: 4px;
 }
 .content .content__view {
