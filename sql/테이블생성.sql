@@ -268,19 +268,14 @@ CREATE TABLE hospital_info(
   H_TEL              VARCHAR2(30),   --병원 연락처
   H_PLIST            varchar2(40),   --진료동물
   H_TIME             clob,           --진료시간
-  H_INFO             varchar2(60),   --편의시설정보
-  H_ADDINFO          varchar2(60),   --병원기타정보
+  H_INFO             varchar2(120),   --편의시설정보
+  H_ADDINFO          varchar2(2500),   --병원기타정보
   H_IMG              BLOB,           --병원이미지
   H_CREATE_DATE       timestamp default systimestamp,         --생성일시
   H_UPDATE            timestamp default systimestamp          --수정일시
 );
 --기본키생성
 alter table HOSPITAL_INFO add Constraint HOSPITAL_INFO_H_NUM_pk primary key (H_NUM);
---외래키
-alter table HOSPITAL_INFO add constraint  HOSPITAL_INFO_H_ID_fk
-    foreign key(H_ID) references hmember(H_ID);
-alter table HOSPITAL_INFO add constraint  HOSPITAL_INFO_HD_ID_fk
-    foreign key(HD_ID) references hospital_data(HD_ID);
 
 --제약조건
 alter table HOSPITAL_INFO modify H_ID constraint HOSPITAL_INFO_H_ID_nn not null;
@@ -290,30 +285,6 @@ alter table HOSPITAL_INFO modify H_CREATE_DATE constraint HOSPITAL_INFO_H_CREATE
 
 --시퀀스 생성
 create sequence HOSPITAL_INFO_H_NUM_seq;
-
---------  아래 샘플데이터 생성 전에 hospital_data 샘플데이터 먼저 생성해야함!!!!  ----------
---샘플데이터 of hospital_info
-insert into hospital_info (H_NUM , HD_ID, H_ID, H_NAME, H_TEL, H_PLIST, H_TIME, H_INFO, H_ADDINFO)
-    values(
-    hospital_info_h_num_seq.nextval, 
-    5400, 
-    'htest1', 
-    '메이 동물병원', 
-    '211-3375', 
-    '강아지, 고양이', 
-    '월요일	오전 9:30~오후 7:00
-    화요일	오전 9:30~오후 7:00
-    수요일
-    (식목일)
-    오전 9:30~오후 7:00
-    시간이 달라질 수 있음
-    목요일	오전 9:30~오후 7:00
-    금요일	오전 9:30~오후 7:00
-    토요일	오전 9:30~오후 4:00
-    일요일	휴무일', 
-    '주차, 무선 인터넷, 반려동물 동반',
-    '강아지, 고양이 전문 병원입니다!'
-    );
 
 
 COMMIT;
