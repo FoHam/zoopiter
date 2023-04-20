@@ -9,7 +9,7 @@ import lombok.ToString;
 @ToString
 public class FindCriteria extends PageCriteria {
   private String searchType;
-  private String keyword;
+  private String[] category;      //펫태그
 
   public FindCriteria(RecordCriteria rc, int pageCount) {
     super(rc, pageCount);

@@ -31,7 +31,7 @@
     <main class="container">
       <div class="sort">
         <div class="search">
-          <!--          <div class="tag-list"></div>-->
+<!--          <div class="tag-list"></div>-->
           <!-- 동물 태그 선택 -->
           <div class="left">
             <div class="tag">동물태그</div>
@@ -88,7 +88,8 @@
         <input type='file' th:field="*{imageFiles}" multiple />
         <div th:each="file : ${imagedFiles}" class="view__img">
           <th:block th:if="${#strings.contains(file.ftype,'image')}">
-            <p th:text="${file.upload_filename}"></p>
+            <!--     파일명      -->
+            <p th:text="${file.upload_filename}" style="font-size: 14px; margin-right: 10px;"></p>
             <img th:src="@{|/attach/view/${file.uploadfileId}|}" th:width="30px" th:height="30px">
           </th:block>
           <i class="fa-solid fa-trash-can" th:data-rid="${file.uploadfileId}"></i>

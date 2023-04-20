@@ -35,10 +35,10 @@
         <div class="list">
           <div class="main">커뮤니티</div>
           <div class="selectBox">
-            <select class="select">
-              <option value="viewCnt">조회순</option>
-              <option value="latest">최신순</option>
-              <option value="like">좋아요</option>
+            <select class="select" id="searchType" th:field="${fc.searchType}">
+              <option value="bcHit">조회순</option>
+              <option value="bcUdate">최신순</option>
+              <option value="">좋아요</option>
             </select>
             <span class="icoArrow">
               <i class="fa-solid fa-arrow-down"></i>
@@ -52,14 +52,14 @@
           <!-- 동물 태그 선택 -->
           <div class="left">
             <div class="tag">동물태그</div>
-            <form th:field="*{petType}" class="selectBox" name="petTag">
-              <input type="checkbox" id="dog" name="dog" value="강아지">
+            <form th:field="${fc.category}" class="selectBox" name="pet">
+              <input type="checkbox" id="dog" class="petTag" name="pet" th:value="강아지">
               <label for="dog" >강아지</label>
-              <input type="checkbox" id="cat" name="cat" value="고양이">
+              <input type="checkbox" id="cat" class="petTag" name="pet" th:value="고양이">
               <label for="cat">고양이</label>
-              <input type="checkbox"  id="small" name="small" value="소동물">
+              <input type="checkbox"  id="small" class="petTag" name="pet" th:value="소동물">
               <label for="small">소동물</label>
-              <input type="checkbox" id="other" name="other" value="기타">
+              <input type="checkbox" id="other" class="petTag" name="pet" th:value="기타">
               <label for="other" >기타</label>
               <button id="checkBtn" type="button">적용</button>
             </form>
@@ -84,7 +84,7 @@
       <div class="main-nick-l"></div>
       <div class="main-nick">
         <!-- 게시글 -->
-        <th:block th:each="Bbsc : ${bbscList}">
+        <th:block th:each="Bbsc : ${list}">
           <input type="text" id="bbscId" th:value="${Bbsc.bbscId}" style="display:none;">
           <div class="post" th:if="${Bbsc.bcPublic} == 'Y'"
                th:onclick="|location.href='@{/bbsc/{id}/detail(id=${Bbsc.bbscId})}'|">
@@ -138,24 +138,40 @@
 
       <!-- 게시판 페이지 -->
       <div class="page">
-        <button type="button" class="prevBtn" onClick="location.href='PAGENAME.html'">
-          이전
-        </button>
-        <button type="button" class="pageBtns item1 active" onClick="location.href='PAGENAME.html'">
-          1
-        </button>
-        <button type="button" class="pageBtns item2" onClick="location.href='PAGENAME.html'">
-          2
-        </button>
-        <button type="button" class="pageBtns item3" onClick="location.href='PAGENAME.html'">
-          3
-        </button>
-        <button type="button" class="pageBtns item4" onClick="location.href='PAGENAME.html'">
-          4
-        </button>
-        <button type="button" class="nextBtn" onClick="location.href='PAGENAME.html'">
-          다음
-        </button>
+        <!--   이전페이지 정보   -->
+        <th:block th:if="${fc.prev}">
+          <a class="page-item" href=""
+             th:href="@{/bbsc/list/1/{searchType}(searchType=${fc.searchType},category=${param.category})}">
+            <i class="fas fa-angle-double-left"></i>
+          </a>
+          <a class="page-item" href=""
+             th:href="@{/bbsc/list/{reqPage}/{searchType}(reqPage=${fc.startPage-1},searchType=${fc.searchType},category=${param.category})}">
+            <i class="fas fa-angle-left"></i>
+          </a>
+        </th:block>
+
+        <!--   페이지 표시   -->
+        <th:block th:each="pnum : ${#numbers.sequence(fc.startPage,fc.endPage)}">
+          <th:block th:if="${pnum != 0}">
+            <a class="page-item" th:classappend="${fc.rc.reqPage == pnum} ? 'active'" href=""
+              th:href="@{/bbsc/list/{reqPage}/{searchType}(reqPage=${pnum},searchType=${fc.searchType},category=${param.category})}"
+              th:text="${pnum}">
+              1
+            </a>
+          </th:block>
+
+        <!--   다음페이지 정보     -->
+          <th:block th:if="${fc.next}">
+            <a class="page-item" href=""
+              th:href="@{/bbsc/list/{reqPage}/{searchType}(reqPage=${fc.endPage+1},searchType=${fc.searchType},category=${param.category})}">
+              <i class="fas fa-angle-right"></i>
+            </a>
+            <a class="page-item" href=""
+               th:href="@{/bbsc/list/{reqPage}/{searchType}(reqPage=${fc.finalEndPage},searchType=${fc.searchType},category=${param.category})}">
+              <i class="fas fa-angle-double-right"></i>
+            </a>
+          </th:block>
+        </th:block>
       </div>
     </main>
     <div class="mn-r"></div>
@@ -181,8 +197,8 @@
   <script src="/js/board_likeBtn.js"></script>
   <!-- 펫 태그 체크박스 이벤트  -->
   <script src="/js/board_checkPet.js"></script>
-  <!-- 글 클릭 좋아요 이벤트관련 -->
-<!--  <script src="/js/board_list.js"></script>-->
+  <!-- 게시글 목록 -->
+  <script src="/js/board_list.js"></script>
 </body>
 
 </html>
