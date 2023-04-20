@@ -43,7 +43,6 @@
         </a>
       </div>
     </div>
-</div>
 </figure>
 <div class="fg-r"></div>
 
@@ -168,11 +167,11 @@
 
         <div class="list-frm">
           <div class="list">생일</div>
-          <input type="date" id="petBirth" th:field="*{petBirth}"/>
+          <input type="date" id="petBirth" name="petBirth" th:value="${petUpdateForm.petBirth}"/>
         </div>
         <div class="list-frm">
           <div class="list">입양일</div>
-          <input type="date" id="petDate" th:field="*{petDate}"/>
+          <input type="date" id="petDate" name="petDate" th:value="${petUpdateForm.petDate}"/>
         </div>
 
         <div class="list-frm">
