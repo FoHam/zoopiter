@@ -46,9 +46,7 @@
           <th:block th:replace="~{fragment/pet_info::pet}"></th:block>
         </div>
         <div class="profile-make" onclick="location.replace(`/mypage/petreg`)">
-          <a href="./mypage_pet_reg.html">
             <img src="../img/add_circle.png" alt=""/>
-          </a>
         </div>
       </div>
     </div>
@@ -73,7 +71,7 @@
     </div>
     <!-- 메인컨텐츠 -->
     <div class="mypage_content">
-      <form action="" method="post" th:object="${petUpdateForm}">
+      <form action="" method="post" th:object="${petUpdateForm}" enctype="multipart/form-data" >
         <input type="hidden" th:field="*{petNum}">
         <!--            th:action="@{mypage/petreg}"-->
         <div class="myprofile-top">반려동물 등록</div>
@@ -103,7 +101,7 @@
                         <div th:each="file : ${imagedFiles}" class="view__img">
                           <th:block th:if="${#strings.contains(file.ftype,'image')}">
                             <img th:src="@{|/attach/view/${file.uploadfileId}|}"
-                                 width="300px" , height="300px">
+                                 style="max-width: 100%; max-height: 100%;">
                           </th:block>
                         </div>
                       </div>
@@ -116,6 +114,7 @@
                       </th:block>
                     </div>
                     <label class="file-label" for="chooseFile">사진업로드</label>
+                    <!-- 이미지 파일 업로드 부분 -->
                     <input
                         class="file"
                         id="chooseFile"
@@ -123,7 +122,8 @@
                         onchange="dropFile.handleFiles(this.files)"
                         accept="image/png, image/jpeg, image/gif"
                         th:field="*{imageFiles}"/>
-                    <!-- petImg   -->
+                    <!-- 기존 이미지 파일 삭제 로직 추가 -->
+                    <input type="hidden" name="deleteImage" th:value="${deleteImage}" />
                   </div>
                 </div>
               </div>

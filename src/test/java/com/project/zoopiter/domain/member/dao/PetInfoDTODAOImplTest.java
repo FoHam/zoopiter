@@ -19,7 +19,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 @Slf4j
 @SpringBootTest
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
-class PetInfoDAOImplTest {
+class PetInfoDTODAOImplTest {
   @Autowired
   private PetInfoDAO petInfoDAO;
 

@@ -34,6 +34,21 @@ function DropFile(dropAreaId, fileListId) {
   function handleFiles(files) {
     files = [...files];
     // files.forEach(uploadFile);
+    // 이미지 파일 삭제 로직 추가
+      document.getElementsByName("deleteImage")[0].value = "true";
+
+      // 미리보기 이미지 출력 로직
+      var previewImage = document.querySelector(".preview");
+      var file = files[0];
+      var reader = new FileReader();
+      reader.onloadend = function () {
+        previewImage.src = reader.result;
+      }
+      if (file) {
+        reader.readAsDataURL(file);
+      } else {
+        previewImage.src = "";
+      }
     files.forEach(previewFile);
   }
 

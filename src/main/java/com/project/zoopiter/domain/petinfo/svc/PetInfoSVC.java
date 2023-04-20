@@ -2,6 +2,7 @@ package com.project.zoopiter.domain.petinfo.svc;
 
 import com.project.zoopiter.domain.entity.PetInfo;
 import com.project.zoopiter.domain.entity.UploadFile;
+import com.project.zoopiter.domain.petinfo.dto.PetInfoDTO;
 import com.project.zoopiter.web.common.AttachFileType;
 
 import java.util.List;
@@ -30,4 +31,11 @@ public interface PetInfoSVC {
 
   // 목록
   List<PetInfo> findAll(String userId);
+
+  /**
+   * 반려동물 이미지 번호 가져오기
+   * @param userId 회원 아이디
+   * @return       이미지 번호들
+   */
+  List<PetInfoDTO> findPetByuserId(String userId);
 }

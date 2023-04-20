@@ -5,6 +5,7 @@ import com.project.zoopiter.domain.entity.Member;
 import com.project.zoopiter.domain.entity.PetInfo;
 import com.project.zoopiter.domain.entity.UploadFile;
 import com.project.zoopiter.domain.member.svc.MemberSVC;
+import com.project.zoopiter.domain.petinfo.dto.PetInfoDTO;
 import com.project.zoopiter.domain.petinfo.svc.PetInfoSVC;
 import com.project.zoopiter.web.common.AttachFileType;
 import com.project.zoopiter.web.common.LoginMember;
@@ -17,6 +18,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -36,6 +38,16 @@ public class PetInfoController {
   private final MemberSVC memberSVC;
   private final UploadFileSVC uploadFileSVC;
 
+  // 반려동물 이미지번호 가져오기
+  @ModelAttribute("petInfos")
+  public List<PetInfoDTO> fidsOfPet(HttpServletRequest request){
+    HttpSession session = request.getSession(false);
+    if(session != null) {
+      LoginMember loginMember = (LoginMember)session.getAttribute(SessionConst.LOGIN_MEMBER);
+      return petInfoSVC.findPetByuserId(loginMember.getUserId());
+    }
+    return null;
+  }
   @GetMapping
   public String findAll(Model model, HttpServletRequest request
   ) {
@@ -63,22 +75,22 @@ public class PetInfoController {
     return "mypage/mypage_main";
   }
 
-  @ModelAttribute("petInfos")
-  public List<PetInfo> getPetInfo(HttpServletRequest request) {
-    List<PetInfo> petInfos = null;
-    HttpSession session = request.getSession(false);
-    if (session != null) {
-      Optional<LoginMember> loginMemberOpt = Optional.ofNullable((LoginMember) session.getAttribute(SessionConst.LOGIN_MEMBER));
-      if (loginMemberOpt.isPresent()) {
-        LoginMember loginMember = loginMemberOpt.get();
-        petInfos = petInfoSVC.findAll(loginMember.getUserId());
-      }
-    }
-    return petInfos;
-  }
+//  @ModelAttribute("petInfos")
+//  public List<PetInfo> getPetInfo(HttpServletRequest request) {
+//    List<PetInfo> petInfos = null;
+//    HttpSession session = request.getSession(false);
+//    if (session != null) {
+//      Optional<LoginMember> loginMemberOpt = Optional.ofNullable((LoginMember) session.getAttribute(SessionConst.LOGIN_MEMBER));
+//      if (loginMemberOpt.isPresent()) {
+//        LoginMember loginMember = loginMemberOpt.get();
+//        petInfos = petInfoSVC.findAll(loginMember.getUserId());
+//      }
+//    }
+//    return petInfos;
+//  }
 
   // 등록 pet_reg
-  // 등록양식
+  // 펫정보 등록양식
   @GetMapping("/petreg")
   public String saveInfo(Model model){
     PetSaveForm petSaveForm = new PetSaveForm();
@@ -86,7 +98,7 @@ public class PetInfoController {
 
     return "mypage/mypage_pet_reg";
   }
-  // 등록처리
+  // 펫정보 등록처리
   @PostMapping("/petreg")
   public String save(
       @Valid @ModelAttribute PetSaveForm petSaveForm,
@@ -101,7 +113,7 @@ public class PetInfoController {
     }
 
     PetInfo petInfo = new PetInfo();
-    petInfo.setPetImg(petSaveForm.getPetImg());
+//    petInfo.setPetImg(petSaveForm.getPetImg());
     petInfo.setPetType(petSaveForm.getPetType());
     petInfo.setPetBirth(petSaveForm.getPetBirth());
     petInfo.setPetGender(petSaveForm.getPetGender());
@@ -121,7 +133,7 @@ public class PetInfoController {
     return "redirect:/mypage";
   }
 
-  // 조회
+  // 펫정보 조회
   @GetMapping("/{id}/detail")
   public String findInfo(
       @PathVariable("id") Long id,
@@ -156,7 +168,7 @@ public class PetInfoController {
 
   // 수정 pet_modify > 메인으로 이동(보호자정보페이지)
 //  int updateInfo (Long PetNum, PetInfo petInfo);
-  // 수정양식
+  // 펫정보 수정양식
   @GetMapping("/{id}/edit")
   public String updateInfo(
       @PathVariable("id") Long id,
@@ -190,7 +202,8 @@ public class PetInfoController {
     return "mypage/mypage_pet_modify";
   }
 
-  // 수정
+  // 펫정보 수정
+  @SneakyThrows
   @PostMapping("/{id}/edit")
   public String update(
       @PathVariable("id") Long petNum,
@@ -207,6 +220,7 @@ public class PetInfoController {
     PetInfo petInfo = new PetInfo();
     petInfo.setPetNum(petNum);
 
+
     petInfo.setPetImg(petUpdateForm.getPetImg());
     petInfo.setPetType(petUpdateForm.getPetType());
     petInfo.setPetBirth(petUpdateForm.getPetBirth());
@@ -217,15 +231,18 @@ public class PetInfoController {
     petInfo.setPetVac(petUpdateForm.getPetVac());
     petInfo.setPetInfo(petUpdateForm.getPetInfo());
     // 파일첨부
-    List<UploadFile> imageFiles = uploadFileSVC.convert(petUpdateForm.getImageFiles(),AttachFileType.F0103);
+    List<UploadFile> imagedFiles = uploadFileSVC.findFilesByCodeWithRid(AttachFileType.F0103, petNum);
+    if (imagedFiles.size() > 0) {
+      // 새로운 사진 파일이 있을 경우, 기존 사진 파일 삭제
+      uploadFileSVC.deleteFileByUploadFildId(imagedFiles.get(0).getUploadfileId());
 
-    if(petUpdateForm.getImageFiles().size() == 0 ){
-      petInfoSVC.updateInfo(petNum,petInfo);
-    } else {
-      petInfoSVC.updateInfo(petNum,petInfo,imageFiles);
+      //넣기
+      List<UploadFile> imageFiles = uploadFileSVC.convert(petUpdateForm.getImageFiles(),AttachFileType.F0103);
+      petInfoSVC.updateInfo(petNum, petInfo, imageFiles);
+    }else {
+      List<UploadFile> imageFiles = uploadFileSVC.convert(petUpdateForm.getImageFiles(),AttachFileType.F0103);
+      petInfoSVC.updateInfo(petNum, petInfo, imageFiles);
     }
-
-//    String updatedPetInfo = String.valueOf(petInfoSVC.updateInfo(petNum, petInfo));
     redirectAttributes.addAttribute("id",petNum);
     return "redirect:/mypage";
   }

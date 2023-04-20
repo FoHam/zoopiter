@@ -4,7 +4,7 @@
 button {
   cursor: pointer;
 }
-/* 레이아웃 조정 - 난경 */
+/* 레이아웃 조정 */
 .fg-banner {
   background-color: var(--color-background2);
   padding: 20px;
@@ -95,7 +95,8 @@ button {
 }
 .user-profile .profile-area .upload-area {
   min-width: 80px;
-  height: auto;
+  width: 110px;
+  height: 110px;
 }
 
 .user-profile .profile-area .pet-name,
@@ -246,6 +247,7 @@ input#nickname {
 .my-info .my-info-modify .my-info-modify-pw .input {
   margin-bottom: 5px;
 }
+
 .list-frm > ul > li {
   color: #777777;
   font-size: 14px;
@@ -260,10 +262,24 @@ input#nickname {
   width: 110px;
   margin: 5px;
 }
-
-p.information.pw {
-  color: #777777;
-  font-size: 14px;
+/* 비밀번호 오류 메세지 */
+.input .old-error-message {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  margin-right: 140px;
+}
+#newPassword-error {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  margin-right: -50px;
+}
+#newPasswordCheck-error {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  margin-right: 80px;
 }
 
 /* 닉네임 */

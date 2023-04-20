@@ -1,6 +1,7 @@
 package com.project.zoopiter.domain.petinfo.dao;
 
 import com.project.zoopiter.domain.entity.PetInfo;
+import com.project.zoopiter.domain.petinfo.dto.PetInfoDTO;
 
 import java.util.List;
 import java.util.Optional;
@@ -44,4 +45,10 @@ public interface PetInfoDAO {
 
   // 회원유무
 
+  /**
+   * 반려동물 이미지 번호 가져오기
+   * @param userId 회원 아이디
+   * @return       이미지 번호들
+   */
+  List<PetInfoDTO> findPetByuserId(String userId);
 }

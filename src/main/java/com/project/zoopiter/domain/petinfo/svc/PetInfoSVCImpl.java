@@ -4,6 +4,7 @@ import com.project.zoopiter.domain.common.file.svc.UploadFileSVC;
 import com.project.zoopiter.domain.entity.PetInfo;
 import com.project.zoopiter.domain.entity.UploadFile;
 import com.project.zoopiter.domain.petinfo.dao.PetInfoDAO;
+import com.project.zoopiter.domain.petinfo.dto.PetInfoDTO;
 import com.project.zoopiter.web.common.AttachFileType;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
@@ -97,5 +98,16 @@ public class PetInfoSVCImpl implements PetInfoSVC{
   @Override
   public List<PetInfo> findAll(String userId) {
     return petInfoDAO.findAll(userId);
+  }
+
+  /**
+   * 반려동물 이미지 번호 가져오기
+   *
+   * @param userId 회원 아이디
+   * @return 이미지 번호들
+   */
+  @Override
+  public List<PetInfoDTO> findPetByuserId(String userId) {
+    return petInfoDAO.findPetByuserId(userId);
   }
 }

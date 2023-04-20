@@ -1,6 +1,7 @@
 package com.project.zoopiter.domain.petinfo.dao;
 
 import com.project.zoopiter.domain.entity.PetInfo;
+import com.project.zoopiter.domain.petinfo.dto.PetInfoDTO;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.dao.EmptyResultDataAccessException;
@@ -151,5 +152,31 @@ public class PetInfoDAOImpl implements PetInfoDAO{
     );
     log.info("list={}", list);
     return list;
+  }
+
+  /**
+   * 반려동물 이미지 번호 가져오기
+   *
+   * @param userId 회원 아이디
+   * @return 이미지 번호들
+   */
+  @Override
+  public List<PetInfoDTO> findPetByuserId(String userId) {
+    StringBuffer sb = new StringBuffer();
+    sb.append("select t1.*, t3.uploadfile_id ");
+    sb.append("  from pet_info t1, member t2, uploadfile t3 ");
+    sb.append(" where t1.user_id = t2.user_id ");
+    sb.append("   and t1.pet_num = t3.rid ");
+    sb.append("   and t2.user_id = :userId ");
+
+    Map<String, String> param = Map.of("userId", userId);
+
+    List<PetInfoDTO> fids = template.query(
+        sb.toString(),
+        param,
+        BeanPropertyRowMapper.newInstance(PetInfoDTO.class)
+    );
+
+    return fids;
   }
 }

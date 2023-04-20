@@ -103,8 +103,8 @@ button {
   align-items: center;
 }
 .user-profile .profile-area .upload-area {
-  min-width: 80px;
-  height: auto;
+  width: 110px;
+  height: 110px;
 }
 
 .user-profile .profile-area .pet-name,

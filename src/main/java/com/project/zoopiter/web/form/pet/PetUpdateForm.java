@@ -6,6 +6,7 @@ import lombok.Data;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 @Data
@@ -27,4 +28,8 @@ public class PetUpdateForm {
   private String petInfo; // 기타사항
   // 이미지파일
   private List<MultipartFile> imageFiles;
+
+  public PetUpdateForm() {
+    this.imageFiles = new ArrayList<>();
+  }
 }

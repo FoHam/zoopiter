@@ -121,8 +121,9 @@
             <div class="list">닉네임</div>
             <input type="text" id="nickname" class="my-info" required
                    maxlength="10" th:field="*{userNick}" />
-            <span id="nickname-error" class="error-message">닉네임은 영문자, 숫자, 한글조합 10글자 이하로 작성해주세요</span>
-
+            <span id="nickname-error" class="error-message"> 
+              <p style="color: #777777; font-size: 14px;">닉네임은 영문자, 숫자, 한글조합 10글자 이하로 작성해주세요</p>
+            </span>
           </div>
           <div class="list-frm">
             <div class="list">이메일</div>
@@ -140,18 +141,24 @@
                     <div class="input">
                       <label for="password">현재 비밀번호</label>
                       <input type="password" name="password" id="password" />
-                      <span id="password-error" class="error-message"></span>
                       <button type="button" class="btn-frm" id="myPwChk" >확인</button>
+                      <div class="old-error-message">
+                        <span id="password-error" class="error-message"></span>
+                      </div>
                     </div>
                     <div class="input">
                       <label for="new-password">신규 비밀번호</label>
                       <input type="password" id="newPassword" placeholder="비밀번호는 8~20자 입력 가능합니다"/>
-                      <span id="newPassword-error" class="error-message"></span>
+                      <div class="new-error-message-style">
+                        <span id="newPassword-error" class="error-message"></span>
+                      </div>
                     </div>
                     <div class="input">
                       <label for="new-password-check">신규 비밀번호 확인</label>
                       <input type="password" id="newPasswordCheck" placeholder="신규 비밀번호 확인"/>
-                      <span id="newPasswordCheck-error" class="error-message"></span>
+                      <div class="new-error-message-style">
+                        <span id="newPasswordCheck-error" class="error-message"></span>
+                      </div>
                     </div>
                     <button type="button" class="btn-frm" id="myButtonCom" >수정완료</button>
                   </div>

@@ -104,7 +104,8 @@ button {
 
 .user-profile .profile-area .upload-area {
   min-width: 80px;
-  height: auto;
+  width: 110px;
+  height: 110px;
 }
 
 .user-profile .profile-area .pet-name,
@@ -191,11 +192,11 @@ li {
   /* margin: 10px; */
   margin-bottom: 10px;
 }
-/* img {
+img {
   object-fit: contain;
   width: auto;
   height: auto;
-} */
+}
 
 .myprofile-list .myprofile-list-text {
   margin: 20px;
