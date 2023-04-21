@@ -1,27 +1,27 @@
 ---------
---°øÁö»çÇ×
+--ê³µì§€ì‚¬í•­
 ---------
 drop TABLE notice;
 drop sequence notice_id_seq;
--- Å×ÀÌºí »ı¼º
+-- í…Œì´ë¸” ìƒì„±
 create table notice(
 id    number(8),
 title       varchar2(100),
 content     clob,
-author      varchar2(12), -- ÀÛ¼ºÀÚ
-hit         number(5) default 0, -- Á¶È¸¼ö
+author      varchar2(12), -- ì‘ì„±ì
+hit         number(5) default 0, -- ì¡°íšŒìˆ˜
 cdate       timestamp default systimestamp,
 udate       timestamp default systimestamp
 );
---±âº»Å°»ı¼º
+--ê¸°ë³¸í‚¤ìƒì„±
 alter table notice add Constraint notice_id_pk primary key (id);
 
---Á¦¾àÁ¶°Ç not null
+--ì œì•½ì¡°ê±´ not null
 alter table notice modify title constraint notice_title_nn not null;
 alter table notice modify content constraint notice_content_nn not null;
 --alter table notice modify author constraint notice_author_nn not null;
 
---½ÃÄö½º »ı¼º
+--ì‹œí€€ìŠ¤ ìƒì„±
 create sequence notice_id_seq
 start with 1
 increment by 1

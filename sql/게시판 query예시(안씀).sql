@@ -23,9 +23,9 @@ select t2.*
 where no between 21 and 30;
 
 select t2.*
- from (select rownum no, t1.* from bbs t1)t2     --°Ô½ÃÆÇ Å×ÀÌºí(Çà) ¼ø¹øÀÌ Æ÷ÇÔµÈ Å×ÀÌºí
-where title like '%6%'        -- °Ô½Ã±Û Á¦¸ñ¿¡ 6ÀÌ Æ÷ÇÔµÈ ±Û
-    and no between 11 and 20; -- °Ô½ÃÆÇ ÆäÀÌÁö¿¡¼­ º¸¿©Áú ±Û °¹¼ö
+ from (select rownum no, t1.* from bbs t1)t2     --ê²Œì‹œíŒ í…Œì´ë¸”(í–‰) ìˆœë²ˆì´ í¬í•¨ëœ í…Œì´ë¸”
+where title like '%6%'        -- ê²Œì‹œê¸€ ì œëª©ì— 6ì´ í¬í•¨ëœ ê¸€
+    and no between 11 and 20; -- ê²Œì‹œíŒ í˜ì´ì§€ì—ì„œ ë³´ì—¬ì§ˆ ê¸€ ê°¯ìˆ˜
 
---¿©±â¼­ bbs_id ¼ø¹ø x
+--ì—¬ê¸°ì„œ bbs_id ìˆœë²ˆ x
 

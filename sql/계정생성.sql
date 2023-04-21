@@ -1,12 +1,12 @@
 drop user c##zoopiter CASCADE;
---°èÁ¤»ý¼º
+--ê³„ì •ìƒì„±
 CREATE USER c##zoopiter IDENTIFIED BY zoopiter1234
     DEFAULT TABLESPACE users
     TEMPORARY TABLESPACE temp
     PROFILE DEFAULT;
---±ÇÇÑºÎ¿©
+--ê¶Œí•œë¶€ì—¬
 GRANT CONNECT, RESOURCE TO c##zoopiter;
 GRANT CREATE VIEW, CREATE SYNONYM TO c##zoopiter;
 GRANT UNLIMITED TABLESPACE TO c##zoopiter;
---¶ô Ç®±â
+--ë½ í’€ê¸°
 ALTER USER c##zoopiter ACCOUNT UNLOCK;
