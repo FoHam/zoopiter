@@ -6,7 +6,10 @@ const $pw = document.getElementById('pw');
 const $errId = document.querySelector('.err.id');
 const $errPw = document.querySelector('.err.pw');
 
+const memberLoginForm= document.getElementById('member_login_form');
+
 // onsubmit="return validateForm()" true면 submit 가능! false면 submit 이벤트 막음!
+// onsubmit 비추
 const validateForm = () => {
   if (
     $id.value &&
@@ -19,6 +22,13 @@ const validateForm = () => {
     return false;
   }
 };
+
+memberLoginForm.addEventListener('submit',e=>{
+    if(!validateForm()){
+        e.preventDefault();
+    }
+} );
+
 
 $id.addEventListener('keydown', e => {
   if (e.key === ' ') {

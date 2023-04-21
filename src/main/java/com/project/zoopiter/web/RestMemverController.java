@@ -167,7 +167,9 @@ public class RestMemverController {
             str.append("<p>비밀번호는 " + res + " 입니다.</p>");
             str.append("</html>");
 
-            mailService.sendMail(email,"비밀번호",str.toString());
+            //비밀번호 이메일 보내기 주석처리
+//            mailService.sendMail(email,"비밀번호",str.toString());
+            log.info("비밀번호={}",res);
         };
     }
 }
