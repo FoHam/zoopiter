@@ -1,6 +1,5 @@
 @charset "utf-8";
-@import './theme/layout.css';
-@import '../js/map/map1.js';
+@import '../theme/layout.css';
 
 /* 레이아웃 확인용 테두리 */
 /* * {

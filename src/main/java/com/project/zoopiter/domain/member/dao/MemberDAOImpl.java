@@ -34,12 +34,14 @@ public class MemberDAOImpl implements MemberDAO {
     sql.append(" user_id, ");
     sql.append(" user_pw, ");
     sql.append(" user_nick, ");
-    sql.append(" user_email ");
+    sql.append(" user_email, ");
+    sql.append(" user_photo ");
     sql.append(") values( ");
     sql.append(" :userId, ");
     sql.append(" :userPw, ");
     sql.append(" :userNick, ");
-    sql.append(" :userEmail ");
+    sql.append(" :userEmail, ");
+    sql.append(" member_user_photo_seq.nextval ");
     sql.append(" ) ");
 
     SqlParameterSource param = new BeanPropertySqlParameterSource(member);
@@ -57,13 +59,15 @@ public class MemberDAOImpl implements MemberDAO {
     sql.append(" user_pw, ");
     sql.append(" user_nick, ");
     sql.append(" user_email, ");
-    sql.append(" gubun ");
+    sql.append(" gubun, ");
+    sql.append(" user_photo ");
     sql.append(") values( ");
     sql.append(" :userId, ");
     sql.append(" :userPw, ");
     sql.append(" :userNick, ");
     sql.append(" :userEmail, ");
-    sql.append(" 'H0101' ");
+    sql.append(" 'H0101', ");
+    sql.append(" member_user_photo_seq.nextval ");
     sql.append(" ) ");
 
     SqlParameterSource param = new BeanPropertySqlParameterSource(member);

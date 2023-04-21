@@ -1,16 +1,10 @@
 @charset "utf-8";
 @import '../theme/layout.css';
-
-/* 전체 레이아웃 */
+/* * {
+  outline: 1px solid green;
+} */
 button {
   cursor: pointer;
-}
-/* 새로운 캘린더  */
-/* 캘린더 위의 해더 스타일(날짜가 있는 부분) */
-.fc-header-toolbar {
-  padding-top: 1em;
-  padding-left: 1em;
-  padding-right: 1em;
 }
 
 /* 레이아웃 조정 - 난경 */
@@ -32,7 +26,6 @@ button {
   flex: 2;
   background-color: var(--color-background);
   border-radius: 20px;
-  padding: 20px;
 }
 
 .container .mypage_content {
@@ -41,9 +34,7 @@ button {
   margin-left: 20px;
   background-color: var(--color-background);
   border-radius: 20px;
-  /* box-sizing: border-box; */
 }
-
 /*메인 컨텐츠 반응형 */
 @media screen and (768px >= width) {
   .container {
@@ -60,6 +51,7 @@ button {
   }
 }
 
+/* 메뉴 조정중*/
 .main-gnb .pc {
   width: 100%;
   /* height: 50px; */
@@ -70,6 +62,13 @@ button {
   padding: 10px;
 }
 
+.main-gnb .pc > a {
+  display: inline-block;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+}
+
 /* 마이페이지 메인부분 */
 .profile-list {
   display: flex;
@@ -77,23 +76,25 @@ button {
   justify-content: center;
   position: relative;
   margin: 10px;
-  box-sizing: border-box; /*반응형 추가*/
+  box-sizing: border-box; 
 }
-
 .user-profile .profile-area {
   display: flex;
   align-items: center;
   justify-content: space-evenly;
-  /* position: relative;
-  left: 180px;
-  top: -60px; */
   width: 300px;
   height: 150px;
   max-width: 100%;
   margin-bottom: 24px;
   border-radius: 5%;
   box-shadow: 0 3px 20px 0 rgb(0 0 0 / 6%);
+  /* 수정-난경 */
+  background-color: var(--color-background);
   box-sizing: border-box; /*반응형 추가*/
+}
+
+.user-profile p {
+  margin-bottom: 2rem;
 }
 
 .user-profile .profile-area .upload-area2 {
@@ -101,11 +102,13 @@ button {
   flex-direction: column;
   align-items: center;
 }
-
 .user-profile .profile-area .upload-area {
   min-width: 80px;
   height: auto;
 }
+/* .upload-area img{
+  width: 100%; height: 100%;
+} */
 
 .user-profile .profile-area .pet-name,
 .user-profile .profile-area .pet-info {
@@ -127,6 +130,10 @@ button {
   border-radius: 5%;
   box-shadow: 0 3px 20px 0 rgb(0 0 0 / 6%);
   opacity: 70%;
+
+  /* 레이아웃 조정 - 난경 */
+  background-color: var(--color-background);
+  margin-left: 20px;
 }
 
 /* 메인영역 */
@@ -138,14 +145,12 @@ button {
   background-color: #fff;
   font-weight: bold;
 }
-
 /* GNB */
 .main .main-gnb {
   flex: 3;
   margin: 30px;
   width: 100%;
 }
-
 .main .main-gnb a,
 li {
   line-height: 35px;
@@ -158,143 +163,79 @@ li {
 }
 
 /* 메인타이틀 */
-.main .mypage_content .myprofile-top {
-  padding-bottom: 20px;
-  border-bottom: 2px solid #222222;
-  font-size: 24px;
+.myprofile-top h3 {
+  margin-bottom: 2rem;
+}
+.myprofile-list {
+  /* display: flex; */
+  align-items: center;
+  border-bottom: 2px solid #858585;
   margin-bottom: 30px;
 }
-
-/* 달력 css */
-
-.sec_cal {
-  width: auto;
-  margin: 0 auto;
-}
-
-.sec_cal .cal_nav {
+.myprofile-list .list-frm {
   display: flex;
-  justify-content: center;
-  align-items: center;
-  font-weight: 30px;
-  font-size: 48px;
-  line-height: 78px;
+  /* flex-wrap: wrap; */
+  margin-bottom: 18px;
 }
-
-.sec_cal .cal_nav .year-month {
-  width: 300px;
-  text-align: center;
-  line-height: 1;
-}
-
-.sec_cal .cal_nav .nav {
+/* .myprofile-list .list-frm .list {
+  width: 10%;
+} */
+.myprofile-list .myprofile-list-image {
   display: flex;
-  border: 1px solid #333333;
-  border-radius: 5px;
+  flex-wrap: nowrap;
+  margin-bottom: 10px;
+  width: 200px;
+  height: 100px;
+  padding: 20px;
+  background-color: var(--color-main-background);
+  border-radius: 1.4rem;
 }
 
-.sec_cal .cal_nav .go-prev,
-.sec_cal .cal_nav .go-next {
-  display: block;
-  width: 50px;
-  height: 78px;
-  font-size: 0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+.myprofile-list .myprofile-list-image img {
+  width: 100%;
+  height: 100%;
 }
 
-.sec_cal .cal_nav .go-prev::before,
-.sec_cal .cal_nav .go-next::before {
-  content: '';
-  display: block;
-  width: 20px;
-  height: 20px;
-  border: 3px solid #000;
-  border-width: 3px 3px 0 0;
-  transition: border 0.1s;
-}
-
-.sec_cal .cal_nav .go-prev:hover::before,
-.sec_cal .cal_nav .go-next:hover::before {
-  border-color: #f26d3d;
-}
-
-.sec_cal .cal_nav .go-prev::before {
-  transform: rotate(-135deg);
-}
-
-.sec_cal .cal_nav .go-next::before {
-  transform: rotate(45deg);
-}
-
-.sec_cal .cal_wrap {
-  padding-top: 40px;
+.myprofile-list .myprofile-list-text {
+  margin: 30px;
   position: relative;
-  margin: 0 auto;
-  /*배경크기 추가*/
-  height: 500px;
-  max-width: 950px;
+  left: 30px;
+  font-size: 14px;
+}
+img {
+  object-fit: contain;
+  width: auto;
+  height: auto;
 }
 
-.sec_cal .cal_wrap .days {
-  display: flex;
-  margin-bottom: 20px;
-  padding-bottom: 20px;
-  border-bottom: 1px solid #ddd;
+.myprofile-list .list-frm .list {
+  width: 30%;
+  margin: inherit;
 }
 
-.sec_cal .cal_wrap::after {
-  top: 368px;
-}
-
-.sec_cal .cal_wrap .day {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: calc(100% / 7);
-  text-align: left;
-  color: #999;
-  font-size: 12px;
-  text-align: center;
-  border-radius: 5px;
-  box-sizing: border-box;
-}
-
-.cal_wrap .dates .day {
+/* 버튼 스타일 */
+.myprofile-button .btn-frm {
+  display: inline-block;
   cursor: pointer;
+  height: 30px;
+  width: 100px;
+  border: 1px solid #333;
+  line-height: 24px;
+  text-align: center;
+  font-weight: bold;
+  font-size: 13px;
+  background-color: #fff;
+  box-sizing: border-box;
+  margin: auto;
 }
 
-.cal_wrap .dates .day:hover {
-  border: 1px solid var(--color-main-point2);
+.myprofile-button .btn-frm:hover {
+  background: #333;
+  color: #fff;
+  /* #f26d3d; */
 }
-
-.current.today {
-  background: rgb(242 242 242);
-}
-
-.sec_cal .cal_wrap .dates {
-  display: flex;
-  flex-flow: wrap;
-  height: 370px;
-}
-
-.sec_cal .cal_wrap .day:nth-child(7n -1) {
-  color: #3c6ffa;
-}
-
-.sec_cal .cal_wrap .day:nth-child(7n) {
-  color: #ed2a61;
-}
-
-.sec_cal .cal_wrap .day.disable {
-  color: #ddd;
-}
-
-/* 달력 css 끝*/
 
 /* 활성화 된 메뉴 강조 */
-
 .main-gnb #mypagePcGnb li a.on {
   font-weight: bold;
 }

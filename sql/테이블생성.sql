@@ -13,6 +13,7 @@ drop table CODE CASCADE CONSTRAINTS;
 drop table UPLOADFILE CASCADE CONSTRAINTS;
 
 --시퀀스삭제
+drop sequence MEMBER_USER_PHOTO_seq;
 drop sequence C_BBSC_CC_ID_SEQ;
 drop sequence BBSC_BBSC_ID_seq;
 drop sequence C_BBSH_HC_ID_SEQ;
@@ -126,7 +127,7 @@ create table member (
     USER_NICK              varchar2(60),   --별칭
     USER_EMAIL             varchar2(40),  --이메일
     GUBUN                  varchar2(10) default 'M0101',    --회원구분(병원,일반) 일반회원 관리코드 M0101, 병원회원 관리코드 H0101
-    USER_PHOTO             BLOB,           --사진
+    USER_PHOTO             NUMBER,           --사진
     USER_CREATE_DATE       timestamp default systimestamp,         --생성일시
     USER_UPDATE            timestamp default systimestamp          --수정일시
 );
@@ -143,11 +144,13 @@ alter table member modify user_nick constraint member_user_nick_nn not null;
 alter table member modify user_email constraint member_user_email_nn not null;
 -- not null 제약조건은 add 대신 modify 명령문 사용
 
+create sequence MEMBER_USER_PHOTO_seq;
+
 desc member;
 
 --샘플데이터 of MEMBER
-insert into member (USER_ID , USER_PW, USER_NICK, USER_EMAIL, GUBUN)
-    values('test1', 'test1234', '별칭1', 'test1@gamil.com', 'M0101');
+insert into member (USER_ID , USER_PW, USER_NICK, USER_EMAIL, GUBUN, USER_PHOTO)
+    values('test1', 'test1234', '별칭1', 'test1@gamil.com', 'M0101', MEMBER_USER_PHOTO_seq.nextval);
 
 commit;
 

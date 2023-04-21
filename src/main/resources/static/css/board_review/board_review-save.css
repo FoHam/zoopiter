@@ -1,5 +1,5 @@
 @charset "utf-8";
-@import './theme/layout.css';
+@import '../theme/layout.css';
 * {
   /* outline: 1px solid green; */
   margin: 0;
@@ -618,7 +618,7 @@ textarea:focus {
 .complete {
   grid-area: complete;
   width: 100%;
-  text-align: end;
+  text-align: center;
 }
 .complete button {
   background-color: #ffd65f;

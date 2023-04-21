@@ -1,5 +1,5 @@
 @charset "utf-8";
-@import 'theme/layout.css';
+@import '../theme/layout.css';
 /* * {
   outline: 1px solid green;
 } */
@@ -196,6 +196,13 @@ input[type='tel'] {
 }
 #petTag input {
   margin: 0 10px;
+}
+
+/* 비밀번호 */
+.my-info .my-info-modify .input > label {
+  display: inline-block;
+  min-width: 165px;
+  line-height: 32px;
 }
 
 .myprofile-list .myprofile-list-image {

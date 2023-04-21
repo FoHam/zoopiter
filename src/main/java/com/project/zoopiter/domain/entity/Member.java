@@ -17,7 +17,7 @@ public class Member {
   private String userEmail;
   private String userNick;
   private String gubun;
-  private byte[] userPhoto;
+  private Long userPhoto;
   private LocalDateTime userCreateDate;
   private LocalDateTime userUpdate;
   //필수 입력사항 따로 표시

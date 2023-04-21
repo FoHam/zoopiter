@@ -82,7 +82,8 @@ public class RestMemverController {
         str.append("<p>인증번호는 " + checkNum + " 입니다. 인증을 진행해주세요!</p>");
         str.append("</html>");
 
-        mailService.sendMail(email,"인증번호",str.toString());
+        //이메일 인증 주석처리
+//        mailService.sendMail(email,"인증번호",str.toString());
 
         HttpSession session = httpServletRequest.getSession();
         session.setAttribute("checkNum", String.valueOf(checkNum));

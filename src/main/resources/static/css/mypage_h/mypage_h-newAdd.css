@@ -1,5 +1,5 @@
 @charset "utf-8";
-@import 'theme/layout.css';
+@import '../theme/layout.css';
 /* * {
   outline: 1px solid green;
 } */
@@ -76,12 +76,15 @@ button {
   justify-content: center;
   position: relative;
   margin: 10px;
-  box-sizing: border-box; 
+  box-sizing: border-box; /*반응형 추가*/
 }
 .user-profile .profile-area {
   display: flex;
   align-items: center;
   justify-content: space-evenly;
+  /* position: relative;
+  left: 180px;
+  top: -60px; */
   width: 300px;
   height: 150px;
   max-width: 100%;
@@ -106,9 +109,6 @@ button {
   min-width: 80px;
   height: auto;
 }
-/* .upload-area img{
-  width: 100%; height: 100%;
-} */
 
 .user-profile .profile-area .pet-name,
 .user-profile .profile-area .pet-info {
@@ -167,39 +167,46 @@ li {
   margin-bottom: 2rem;
 }
 .myprofile-list {
-  /* display: flex; */
-  align-items: center;
   border-bottom: 2px solid #858585;
   margin-bottom: 30px;
 }
+
+/* 병원등록 폼태그 */
+.myprofile-list__form {
+  display: flex;
+  flex-direction: column;
+}
+
 .myprofile-list .list-frm {
   display: flex;
   /* flex-wrap: wrap; */
   margin-bottom: 18px;
 }
-/* .myprofile-list .list-frm .list {
-  width: 10%;
-} */
+
+/* 병원등록 input 사이즈 */
+.list-frm input[type='text'],
+input[type='date'],
+input[type='tel'] {
+  width: 20rem;
+}
+
+#petTag {
+  display: flex;
+  align-items: center;
+}
+#petTag input {
+  margin: 0 10px;
+}
+
 .myprofile-list .myprofile-list-image {
   display: flex;
   flex-wrap: nowrap;
+  /* margin: 10px; */
   margin-bottom: 10px;
-  width: 200px;
-  height: 100px;
-  padding: 20px;
-  background-color: var(--color-main-background);
-  border-radius: 1.4rem;
 }
-
-.myprofile-list .myprofile-list-image img {
-  width: 100%;
-  height: 100%;
-}
-
 .myprofile-list .myprofile-list-text {
   margin: 30px;
   position: relative;
-  left: 30px;
   font-size: 14px;
 }
 img {
@@ -235,7 +242,102 @@ img {
   /* #f26d3d; */
 }
 
+/* 사진등록 */
+.contents {
+  display: flex;
+  flex-direction: row;
+  margin-top: 30px;
+}
+.contents .upload-box {
+  width: 100%;
+  margin-right: 30px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.contents .upload-box .drag-file {
+  position: relative;
+  width: 100%;
+  height: 300px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border: 3px dashed #dbdbdb;
+}
+.contents .upload-box .drag-file.highlight {
+  border: 3px dashed red;
+}
+.contents .upload-box .drag-file .image {
+  width: 40px;
+}
+.contents .upload-box .drag-file .message {
+  margin-bottom: 0;
+}
+.contents .upload-box .drag-file .preview {
+  display: none;
+  position: absolute;
+  left: 0;
+  height: 0;
+  width: 100%;
+  height: 100%;
+}
+.contents .upload-box .file-label {
+  margin-top: 15px;
+  background-color: #333;
+  color: #fff;
+  text-align: center;
+  padding: 10px 0;
+  width: 65%;
+  border-radius: 6px;
+  cursor: pointer;
+}
+.contents .upload-box .file {
+  display: none;
+}
+
+@media (max-width: 700px) {
+  .contents {
+    display: flex;
+    flex-direction: column;
+    margin-top: 30px;
+  }
+  .contents .upload-box {
+    width: 100%;
+    box-sizing: border-box;
+    margin-right: 0;
+  }
+  .contents .upload-box .drag-file {
+    height: 150px;
+  }
+  .contents .files {
+    width: 100%;
+    box-sizing: border-box;
+    margin-right: 0;
+    overflow: initial;
+  }
+}
+
 /* 활성화 된 메뉴 강조 */
 .main-gnb #mypagePcGnb li a.on {
   font-weight: bold;
+}
+
+/* .main-gnb #mypagePcGnb :nth-child(2) {
+  font-weight: bold;
+} */
+
+/* 병원 등록 신청 버튼*/
+#addHospital {
+  width: 20rem;
+  align-self: center;
+  margin: 20px;
+  padding: 10px;
+  border: 2px solid var(--color-main-point);
+  background-color: var(--color-background2);
+  border-radius: 2rem;
+  font-weight: bold;
+  color: var(--color-main-text);
 }
