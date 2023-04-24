@@ -6,14 +6,16 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Title</title>
-  <link rel="stylesheet" href="/css/mypage/pet_info.css">
+  <link rel="stylesheet" href="/css/mypage/pet_info">
 </head>
 <body>
 <th:block th:each="petInfo:${petInfos}" th:fragment="pet">
   <div class="profile-area" th:data-pet-num="${petInfo.petNum}" th:onclick="petModify(this)">
-    <div class="upload-area" >
+    <div class="upload-area">
       <img th:src="@{|/attach/view/${petInfo.uploadfileId}|}" alt=""
-           style="max-width: 100%; max-height: 100%; border-radius: 50%;" />
+           style="max-width: 100%; max-height: 100%; border-radius: 50%;" th:if="${petInfo.uploadfileId != null}" />
+      <img th:src="@{'/img/img_profile1.png'}" alt=""
+           style="max-width: 100%; max-height: 100%; border-radius: 50%;" th:unless="${petInfo.uploadfileId != null}" />
     </div>
     <div class="upload-area2" id="">
       <div class="pet-name" th:text="${petInfo.petName}">반려동물이름</div>
