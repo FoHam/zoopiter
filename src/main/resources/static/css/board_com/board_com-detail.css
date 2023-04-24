@@ -217,6 +217,7 @@ p {
   flex-direction: row;
   justify-content: flex-end;
   align-items: flex-end;
+  margin-top: 20px;
 }
 .btn .btn__che .btn__btn {
   display: flex;
@@ -229,18 +230,18 @@ p {
   font-size: 15px;
   font-weight: bold;
   padding: 5px 20px;
-  border-radius: 10px;
+  border-radius: 2rem;
   color: var(--color-main-text);
-  border: 2px solid #f26d3d;
+  border: 2px solid #ffd65f;
 }
 .btn .btn__che .btn__btn .modi button {
   background-color: #ffd65f;
   font-size: 15px;
   font-weight: bold;
   padding: 5px 20px;
-  border-radius: 10px;
+  border-radius: 2rem;
   color: var(--color-main-text);
-  border: 2px solid #f26d3d;
+  border: 2px solid #ffd65f;
   margin-left: 10px;
 }
 
@@ -250,17 +251,27 @@ p {
 }
 
 .btn .btn__che .btn__btn .del button {
-  background-color: #ffd65f;
+  background-color: var(--color-main-background);
   font-size: 15px;
   font-weight: bold;
   padding: 5px 20px;
-  border-radius: 10px;
+  border-radius: 2rem;
   color: var(--color-main-text);
-  border: 2px solid #f26d3d;
+  border: 2px solid var(--color-main-background);
   margin-left: 10px;
 }
 
 /* 댓글작성 */
+#ccContent {
+  margin-top: 20px;
+  height: 30px;
+}
+
+#ccContent:focus{
+ outline: 1px solid var(--color-main-point);
+ border-radius: 4px;
+}
+
 .comment-cnt {
   grid-area: comment-cnt;
   width: 100%;
@@ -276,6 +287,36 @@ p {
   margin-right: 5px;
 }
 
+/* 댓글목록  */
+#originComment {
+  height: 30px
+}
+
+#originComment:focus {
+  outline: 1px solid var(--color-main-point);
+  border-radius: 4px;
+}
+
+.updateArea {
+   justify-content: flex-end;
+   margin-top: 20px;
+}
+
+.comment__btn2 {
+  display: flex;
+}
+
+.comment__btn2 #replyUpdateBtn2,
+.comment__btn2 #replyCancleBtn {
+    background-color: var(--color-grey1);
+    border: 1px solid var(--color-grey1);
+    opacity: .8;
+}
+
+.comment__btn2 .btn1 {
+  margin-right: 10px;
+}
+
 .main-comment {
   grid-area: main-comment;
   width: 100%;
@@ -287,7 +328,7 @@ p {
   display: flex;
   flex-direction: row;
   padding: 10px;
-  outline: 1px solid black;
+  outline: 2px solid var(--color-grey1);
   border-radius: 4px;
 }
 .main-comment .input .main-comment__write {
@@ -299,6 +340,25 @@ p {
   margin: 0;
   border: 0;
 }
+
+.main-comment .input .main-comment__write .profiles {
+    display: flex;
+    align-items: center;
+}
+
+.main-comment .input .main-comment__write .profiles .img {
+    width: 60px;
+    height: 60px;
+    margin-right: 10px;
+}
+
+.main-comment .input .main-comment__write .profiles .img img{
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+}
+
+
 .main-comment .input .btn1 {
   display: flex;
   justify-content: flex-end;
@@ -315,7 +375,7 @@ p {
   text-align: center;
   border-radius: 5px;
   background-color: #ffd65f;
-  border: 2px solid #f26d3d;
+  border: 2px solid #ffd65f;
 }
 .main-comment .input .btn2 button {
   font-weight: bold;
@@ -325,11 +385,12 @@ p {
   text-align: center;
   border-radius: 5px;
   background-color: #ffd65f;
-  border: 2px solid #f26d3d;
+  border: 2px solid #ffd65f;
 }
 .main-comment .input .main-comment__write .re_btn {
   display: flex;
   justify-content: flex-end;
+  margin-top: 10px;
 }
 .main-comment .input .main-comment__write .re_btn div:nth-of-type(1) {
   margin-right: 10px;
@@ -355,6 +416,8 @@ p {
   /* width: 100%; */
 }
 .list-comment .input .comment__list {
+  display: flex;
+  justify-content: space-between;
   width: 100%;
 }
 .list-comment .input .comment__list div:nth-of-type(1) {
@@ -369,22 +432,51 @@ p {
   margin: 0;
   border: 0;
 }
-.list-comment .input .comment__list .re {
-  display: flex;
-  flex-direction: row;
+
+.comment__list .left{
+ display: flex;
+ flex-direction: column;
+ flex: 8;
 }
-.list-comment .input .comment__list .re div {
+
+/* 댓글 목록 프로필 */
+.comment__list-profile {
+   display: flex;
+   align-items: center;
+}
+
+.comment__list-profile .img {
+  width: 60px;
+  height: 60px;
   margin-right: 10px;
 }
-.list-comment .input .btn button {
-  font-weight: bold;
-  width: 80px;
-  height: 25px;
-  font-size: 13px;
-  text-align: center;
-  border-radius: 5px;
-  background-color: #ffd65f;
-  border: 2px solid #f26d3d;
+
+.comment__list-profile .img img {
+  width: 100%; height: 100%;
+  border-radius: 50%;
+  margin-right: 10px;
+}
+
+.comment__list .right{
+ display: flex;
+ flex-direction: column;
+ justify-content: space-between;
+}
+.comment__list .right .comment__btn{
+ display: flex;
+ justify-content: flex-end;
+ margin-top: 20px;
+}
+
+.comment__btn #replyUpdateBtn1,
+.comment__btn #replyDelBtn {
+    background-color: var(--color-grey1);
+    border: 1px solid var(--color-grey1);
+    opacity: .8;
+}
+
+.comment__btn .btn1 {
+  margin-right: 10px;
 }
 
 /* 모달 버튼 만들기 */

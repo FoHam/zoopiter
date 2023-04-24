@@ -20,6 +20,14 @@ p {
 
 /* 메인 컨텐츠 */
 
+/* 좋아요 표시 */
+#likeBtn {
+    display: flex;
+}
+#likeBtn i {
+  margin-right: 10px;
+}
+
 .main-list {
   grid-area: main-list;
   width: 100%;
@@ -257,7 +265,12 @@ p {
   font-weight: bold;
   padding: 5px 20px;
   border-radius: 10px;
-  border: 2px solid #f26d3d;
+  border: 2px solid #ffd65f;
+}
+
+.write-btn i{
+  font-size: 1.2rem;
+  color: var(--color-main-point)
 }
 
 /* 선택한 동물태그 */
@@ -319,6 +332,15 @@ p {
 
 .main-nick .post .info .pro .img {
   margin-right: 10px;
+  width: 80px;
+  height: 80px;
+}
+
+/* 회원프로필 사진 */
+.main-nick .post .info .pro .img img {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
 }
 
 /* 기본프로필 사진 */

@@ -68,6 +68,7 @@
         <div class="main-title">
           <div class="input">
             <input type="text" th:field="*{bcTitle}" placeholder="제목을 입력해주세요.">
+            <span class="field-error" th:errors="*{bcTitle}"></span>
           </div>
         </div>
         <div class="main-title-r"></div>
@@ -78,6 +79,7 @@
           <div class="input">
             <input type="text" th:field="*{bcContent}" placeholder="본문을 입력해주세요.">
           </div>
+            <span class="field-error" th:errors="*{bcContent}"></span>
         </div>
         <div class="body-write-r"></div>
 

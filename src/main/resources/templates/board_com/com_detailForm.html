@@ -125,54 +125,67 @@
       <div class="comment-cnt">
         <div class="comment-cnt__num">
           <div>댓글</div>
-          <div>2</div>
+          <div th:text="${cntOfReplies}">2</div>
         </div>
       </div>
       <div class="comment-cnt-r"></div>
       <div class="main-comment-l"></div>
       <div class="main-comment">
-        <div class="input">
+        <form class="input" method="post">
           <div class="main-comment__write">
-            <div th:text="${session.loginMember.userNick}">닉네임</div>
-            <div><input type="text" placeholder="댓글을 입력해주세요." /></div>
+            <div class="profiles">
+              <div class="img" th:each="file : ${loginProfiles}">
+                <th:block th:if="${#strings.contains(file.ftype,'image')}">
+                  <img th:src="@{|/attach/view/${file.uploadfileId}|}">
+                </th:block>
+                <img th:unless="${loginProfiles != null }" th:src="@{'/img/img_profile1.png'}" alt="basicProfile">
+              </div>
+              <div id="userNick" th:text="${session.loginMember.userNick}" style="font-weight: bold;">닉네임</div>
+            </div>
+            <div><input id="ccContent" type="text" placeholder="댓글을 입력해주세요." /></div>
             <div class="re_btn">
-              <div class="btn1"><button>취소</button></div>
-              <div class="btn2"><button>등록</button></div>
+              <div class="btn1"><button id="cancelBtn" type="button">취소</button></div>
+              <div class="btn2"><button id="addBtn" type="button">등록</button></div>
             </div>
           </div>
-        </div>
+        </form>
       </div>
       <div class="main-comment-r"></div>
 
       <!-- 댓글 리스트 -->
       <div class="list-comment-l"></div>
       <div class="list-comment">
-        <div class="input item1">
+        <div class="input item1" th:each="reply : ${findedReplies}">
           <div class="comment__list">
-            <div>닉네임</div>
-            <div>
-              Lorem ipsum dolor sit amet consectetur, adipisicing elit. Suscipit
-              iusto eveniet in inventore, magnam corrupti quae consequatur eos
-              assumenda necessitatibus impedit minima nihil qui, amet adipisci
-              voluptates tempore earum eius!
-            </div>
-            <div class="re2">
-              <div id="re2" style="color: black; font-size: 12px"></div>
-            </div>
-          </div>
-        </div>
-        <div class="input item2">
-          <div class="comment">
-            <div>닉네임</div>
-            <div>
-              Lorem ipsum dolor sit amet consectetur, adipisicing elit. Suscipit
-              iusto eveniet in inventore, magnam corrupti quae consequatur eos
-              assumenda necessitatibus impedit minima nihil qui, amet adipisci
-              voluptates tempore earum eius!
-            </div>
-            <div class="re3">
-              <div id="re3" style="color: black; font-size: 12px"></div>
-            </div>
+            <article class="left">
+              <div id="ccId" th:field="${reply.ccId}" th:text="${reply.ccId}" style="display: none;"></div>
+              <!-- 댓글 프로필 -->
+              <div class="comment__list-profile">
+                <div class="img">
+                  <!-- 프로필 있는 경우  -->
+                  <img th:if="${#maps.containsKey(profileMap, reply.userNick)}" th:src="@{|/attach/view/${profileMap[reply.userNick]}|}">
+                  <!-- 기본이미지 -->
+                  <img th:if="${not #maps.containsKey(profileMap, reply.userNick)}"th:src="@{'/img/img_profile1.png'}">
+                </div>
+                <div th:text="${reply.userNick}" style="font-weight: bold;">닉네임</div>
+              </div>
+              <input th:value="${reply.ccContent}" id="originComment" readonly>
+            </article>
+            <aside class="right">
+              <div th:text="${reply.ccUdate}">time</div>
+              <th:block th:if="${reply.userNick} == ${session.loginMember.userNick}">
+                <div class="comment__btn">
+                  <div class="btn1"><button id="replyUpdateBtn1">수정</button></div>
+                  <div class="btn2"><button id="replyDelBtn">삭제</button></div>
+                </div>
+                <div class="updateArea" style="display: none;" >
+                  <div class="comment__btn2">
+                    <div class="btn1"><button id="replyUpdateBtn2">확인</button></div>
+                    <div class="btn2"><button id="replyCancleBtn">취소</button></div>
+                  </div>
+                </div>
+              </th:block>
+            </aside>
           </div>
         </div>
       </div>
@@ -197,10 +210,8 @@
   <script src="/js/hambuger.js"></script>
   <!-- footer 개인정보처리방침 모달 구현 -->
   <script src="/js/ft_modal.js"></script>
-  <!-- 좋아요 구현 -->
-  <script src="/js/board/board_likeBtn.js"></script>
-  <!-- 수정, 삭제 버튼 이벤트 -->
-  <script src="/js/board_com/board_detailForm.js" charset='euc-kr'></script>
+
+  <script src="/js/board_com/board_detailForm.js" charset='euc-kr' type="module"></script>
 
 </body>
 

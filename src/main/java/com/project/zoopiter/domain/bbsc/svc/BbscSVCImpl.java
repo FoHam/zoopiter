@@ -160,6 +160,28 @@ public class BbscSVCImpl implements BbscSVC{
   }
 
   /**
+   * 좋아요수 증가
+   *
+   * @param bbscId 게시글 번호
+   * @return
+   */
+  @Override
+  public int increaseLikeCount(Long bbscId) {
+    return bbscDAO.increaseLikeCount(bbscId);
+  }
+
+  /**
+   * 좋아요수 감소
+   *
+   * @param bbscId 게시글 번호
+   * @return
+   */
+  @Override
+  public int decreaseLikeCount(Long bbscId) {
+    return bbscDAO.decreaseLikeCount(bbscId);
+  }
+
+  /**
    * 검색
    *
    * @param filterCondition 펫태그(강아지,고양이,소동물,기타)
@@ -179,6 +201,17 @@ public class BbscSVCImpl implements BbscSVC{
   @Override
   public List<Bbsc> findByFilter(BbscFilterCondition filterCondition) {
     return bbscDAO.findByFilter(filterCondition);
+  }
+
+  /**
+   * 필터&펫태그 검색
+   *
+   * @param filterCondition
+   * @return
+   */
+  @Override
+  public List<Bbsc> findByPetAndFilter(BbscFilterCondition filterCondition) {
+    return bbscDAO.findByPetAndFilter(filterCondition);
   }
 
   /**

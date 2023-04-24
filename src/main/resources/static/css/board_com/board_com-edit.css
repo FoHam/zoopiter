@@ -18,7 +18,10 @@ p {
 }
 
 /* 메인 컨텐츠 */
-
+/* 에러 문구 */
+.field-error{
+ color: red;
+}
 /* 선택한 펫태그가 추가될 영역 */
 .tag-list {
   display: flex;

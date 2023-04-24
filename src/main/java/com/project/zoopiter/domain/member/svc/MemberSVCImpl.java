@@ -88,6 +88,18 @@ public class MemberSVCImpl implements MemberSVC {
   }
 
   /**
+   * 조회 by user_nick
+   *
+   * @param userNick 닉네임
+   * @return
+   */
+  @Override
+  public Optional<Member> findByUserNick(String userNick) {
+    return memberDAO.findByUserNick(userNick);
+  }
+
+
+  /**
    * 전체 조회
    *
    * @return

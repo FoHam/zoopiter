@@ -187,6 +187,30 @@ public class MemberDAOImpl implements MemberDAO {
     }
   }
 
+  /**
+   * 조회 by user_nick
+   *
+   * @param userNick 닉네임
+   * @return
+   */
+  @Override
+  public Optional<Member> findByUserNick(String userNick) {
+    StringBuffer sql = new StringBuffer();
+    sql.append("select * from member where user_nick = :userNick ");
+
+    try{
+      Map<String, String> param = Map.of("userNick", userNick);
+      Member member = template.queryForObject(
+          sql.toString(),
+          param,
+          BeanPropertyRowMapper.newInstance(Member.class)
+      );
+      return Optional.of(member);
+    }catch (EmptyResultDataAccessException e){
+      return Optional.empty();
+    }
+
+  }
 
   /**
    * 전체 조회

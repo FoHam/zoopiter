@@ -31,19 +31,20 @@
     <div class="mn-l"></div>
     <main class="container">
       <!-- 메인 컨텐츠 -->
+    <form method="get" >
       <div class="main-list">
         <div class="list">
           <div class="main">커뮤니티</div>
-          <div class="selectBox">
-            <select class="select" id="searchType" th:field="${fc.searchType}">
-              <option value="bcHit">조회순</option>
-              <option value="bcUdate">최신순</option>
-              <option value="">좋아요</option>
-            </select>
-            <span class="icoArrow">
-              <i class="fa-solid fa-arrow-down"></i>
-            </span>
-          </div>
+              <div class="selectBox">
+                <select class="select" id="searchType" name="searchType" th:field="${fc.searchType}" >
+                  <option th:value="bcHit" name="searchType">조회순</option>
+                  <option th:value="bcUdate" name="searchType">최신순</option>
+    <!--              <option th:value="">좋아요</option>-->
+                </select>
+                <span class="icoArrow">
+                  <i class="fa-solid fa-arrow-down"></i>
+                </span>
+              </div>
         </div>
       </div>
 
@@ -52,20 +53,21 @@
           <!-- 동물 태그 선택 -->
           <div class="left">
             <div class="tag">동물태그</div>
-            <form th:field="${fc.category}" class="selectBox" name="pet">
-              <input type="checkbox" id="dog" class="petTag" name="pet" th:value="강아지">
+            <form th:field="${fc.category}" class="selectBox" id="categories" >
+              <input type="checkbox" id="dog" class="petTag" name="category" th:value="강아지">
               <label for="dog" >강아지</label>
-              <input type="checkbox" id="cat" class="petTag" name="pet" th:value="고양이">
+              <input type="checkbox" id="cat" class="petTag" name="category" th:value="고양이">
               <label for="cat">고양이</label>
-              <input type="checkbox"  id="small" class="petTag" name="pet" th:value="소동물">
+              <input type="checkbox"  id="small" class="petTag" name="category" th:value="소동물">
               <label for="small">소동물</label>
-              <input type="checkbox" id="other" class="petTag" name="pet" th:value="기타">
+              <input type="checkbox" id="other" class="petTag" name="category" th:value="기타">
               <label for="other" >기타</label>
-              <button id="checkBtn" type="button">적용</button>
+              <button id="checkBtn" type="submit">적용</button>
             </form>
           </div>
         </div>
       </div>
+    </form>
 
       <!-- 글쓰기버튼 -->
       <div class="write-btn-l"></div>
@@ -91,9 +93,13 @@
             <div class="info">
               <div class="pro">
                 <div class="img">
-                  <!--  기본프로필 이미지 -->
-                  <i class="fa-solid fa-circle-user" style="color: #d1d1d1;"></i>
+                  <!-- 프로필 있는 경우  -->
+                  <img th:if="${#maps.containsKey(profileMap, Bbsc.userNick)}" th:src="@{|/attach/view/${profileMap[Bbsc.userNick]}|}">
+                  <!-- 기본이미지 -->
+                  <img th:if="${not #maps.containsKey(profileMap, Bbsc.userNick)}"th:src="@{'/img/img_profile1.png'}">
                 </div>
+
+
                 <div class="name">
                   <div th:text="${Bbsc.userNick}">작성자명</div>
                   <div id="re3" style="color: black; font-size: 12px" th:text="${Bbsc.bcUdate}">clock</div>
@@ -105,12 +111,10 @@
                     조회수
                     <p th:text = "${Bbsc.bcHit}">0</p>
                   </div>
-                  <div class="like-icons" id="likeBtn">
-                    <!--  좋아요 누르기 전 아이콘 -->
-                    <i class="fa-regular fa-heart"></i>
-                    <!-- 좋아요 누른 후 아이콘 -->
-                    <!-- <i class="fa-solid fa-heart"></i> -->
-                  </div>
+                    <div class="like-icons" id="likeBtn">
+                      <i class="fa-solid fa-heart"></i>
+                      <p th:text = "${Bbsc.bcLike}"></p>
+                    </div>
                 </div>
                 <div class="tag" th:if="${not #strings.isEmpty(Bbsc.petType)}" th:text="${Bbsc.petType}">#강아지</div>
               </div>
@@ -193,12 +197,9 @@
   <script src="/js/hambuger.js"></script>
   <!-- footer 개인정보처리방침 모달 구현 -->
   <script src="/js/ft_modal.js"></script>
-  <!-- 좋아요 버튼 구현 -->
-  <script src="/js/board/board_likeBtn.js"></script>
   <!-- 펫 태그 체크박스 이벤트  -->
   <script src="/js/board/board_checkPet.js"></script>
-  <!-- 게시글 목록 -->
-  <script src="/js/board_com/board_list.js"></script>
+
 </body>
 
 </html>

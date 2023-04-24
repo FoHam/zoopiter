@@ -102,7 +102,7 @@ public class BbscDAOImpl implements BbscDAO{
         sql.append("bc_udate ");
         sql.append("from bbsc ");
         sql.append("where pet_type in ( ");
-        sql = dynamicQuery(filterCondition,sql);
+        sql = dynamicQuery1(filterCondition,sql);
         sql.append(")t1 ");
         sql.append("where t1.no between :startRc and :endRc");
 
@@ -123,7 +123,7 @@ public class BbscDAOImpl implements BbscDAO{
   public List<Bbsc> findByPetType(BbscFilterCondition filterCondition) {
     StringBuffer sql = new StringBuffer();
     sql.append("select * from bbsc where pet_type in ( ");
-    sql = dynamicQuery(filterCondition, sql);
+    sql = dynamicQuery1(filterCondition, sql);
 
     List<Bbsc> list = null;
 
@@ -143,7 +143,7 @@ public class BbscDAOImpl implements BbscDAO{
   public List<Bbsc> findByFilter(BbscFilterCondition filterCondition) {
     StringBuffer sql = new StringBuffer();
     sql.append("select * from bbsc order by ");
-    sql = dynamicQuery(filterCondition, sql);
+    sql = dynamicQuery2(filterCondition, sql);
 
     List<Bbsc> list = null;
 
@@ -152,22 +152,47 @@ public class BbscDAOImpl implements BbscDAO{
     return list;
   }
 
-  private StringBuffer dynamicQuery(BbscFilterCondition filterCondition, StringBuffer sql){
-    String[] petTypes = filterCondition.getCategory();
-    if(petTypes.length > 0){
-      for(int i = 0; i < petTypes.length; i++){
-        sql.append(" '" + petTypes[i] + "' ");
-        if(i != petTypes.length - 1){
+  /**
+   * 필터&펫태그 검색
+   *
+   * @param filterCondition
+   * @return
+   */
+  @Override
+  public List<Bbsc> findByPetAndFilter(BbscFilterCondition filterCondition) {
+    StringBuffer sql = new StringBuffer();
+    sql.append("select * from bbsc where pet_type in ( ");
+    sql = dynamicQuery1(filterCondition, sql);
+    sql.append(" order by ");
+    sql = dynamicQuery2(filterCondition, sql);
+
+    List<Bbsc> list = null;
+
+    list = template.query(sql.toString(),new BeanPropertyRowMapper<>(Bbsc.class));
+
+    return list;
+  }
+
+  private StringBuffer dynamicQuery1(BbscFilterCondition filterCondition, StringBuffer sql){
+    List<String> petTypes = filterCondition.getCategory();
+
+    if(petTypes.size() > 0){
+      for(int i = 0; i < petTypes.size(); i++){
+        sql.append(" '" + petTypes.get(i)  + "' ");
+        if(i != petTypes.size() - 1){
           sql.append(", ");
         }
       }
         sql.append(" ) ");
     }
+    return sql;
+  }
 
+  private StringBuffer dynamicQuery2(BbscFilterCondition filterCondition, StringBuffer sql){
     String searchType = filterCondition.getSearchType();
-    if(searchType == "bcHit"){
+    if("bcHit".equals(searchType)){
       sql.append("bc_hit desc ");
-    }else if(searchType == "bcUdate"){
+    }else if("bcUdate".equals(searchType)){
       sql.append("bc_udate desc ");
     }
     return sql;
@@ -253,6 +278,42 @@ public class BbscDAOImpl implements BbscDAO{
   }
 
   /**
+   * 좋아요수 증가
+   *
+   * @param id 게시글 번호
+   * @return
+   */
+  @Override
+  public int increaseLikeCount(Long id) {
+    StringBuffer sql = new StringBuffer();
+    sql.append("update bbsc  ");
+    sql.append("set bc_like = bc_like + 1 ");
+    sql.append("where bbsc_id = :bbscId ");
+
+    Map<String, Long> param = Map.of("bbscId", id);
+
+    return template.update(sql.toString(), param);
+  }
+
+  /**
+   * 좋아요수 감소
+   *
+   * @param id 게시글 번호
+   * @return
+   */
+  @Override
+  public int decreaseLikeCount(Long id) {
+    StringBuffer sql = new StringBuffer();
+    sql.append("update bbsc  ");
+    sql.append("set bc_like = bc_like - 1 ");
+    sql.append("where bbsc_id = :bbscId ");
+
+    Map<String, Long> param = Map.of("bbscId", id);
+
+    return template.update(sql.toString(), param);
+  }
+
+  /**
    * 전체건수
    *
    * @return 게시글 전체건수
@@ -269,7 +330,7 @@ public class BbscDAOImpl implements BbscDAO{
   public int totalCount(BbscFilterCondition filterCondition) {
     StringBuffer sql = new StringBuffer();
     sql.append("select count(*) from bbsc where pet_type in ( ");
-    sql = dynamicQuery(filterCondition, sql);
+    sql = dynamicQuery1(filterCondition, sql);
     SqlParameterSource param = new EmptySqlParameterSource();
     Integer cntOfFindedBypetType = template.queryForObject(sql.toString(), param, Integer.class);
 

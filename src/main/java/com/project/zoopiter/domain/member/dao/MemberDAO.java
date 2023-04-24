@@ -55,6 +55,13 @@ public interface MemberDAO {
   Optional<Member> findById(String userId);
 
   /**
+   * 조회 by user_nick
+   * @param userNick 닉네임
+   * @return
+   */
+  Optional<Member> findByUserNick(String userNick);
+
+  /**
    * 전체 조회
    * @return
    */
