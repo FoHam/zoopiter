@@ -163,11 +163,10 @@ public class PetInfoDAOImpl implements PetInfoDAO{
   @Override
   public List<PetInfoDTO> findPetByuserId(String userId) {
     StringBuffer sb = new StringBuffer();
-    sb.append("select t1.*, t3.uploadfile_id ");
-    sb.append("  from pet_info t1, member t2, uploadfile t3 ");
-    sb.append(" where t1.user_id = t2.user_id ");
-    sb.append("   and t1.pet_num = t3.rid ");
-    sb.append("   and t2.user_id = :userId ");
+    sb.append("SELECT t1.*, t3.uploadfile_id ");
+    sb.append("FROM pet_info t1 ");
+    sb.append("INNER JOIN member t2 ON t1.user_id = t2.user_id ");
+    sb.append("LEFT JOIN uploadfile t3 ON t1.pet_num = t3.rid AND t2.user_id = :userId ");
 
     Map<String, String> param = Map.of("userId", userId);
 

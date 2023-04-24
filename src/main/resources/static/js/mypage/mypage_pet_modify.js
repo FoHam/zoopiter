@@ -1,3 +1,12 @@
+deleteImageBtn.addEventListener('click',deleteImage_f);
+// 등록된 이미지 삭제
+function deleteImage_f(e){
+  changeServerImg(null);
+  pic.src='/img/img_profile1.jpg';
+  var previewImage = document.querySelector(".preview");
+    previewImage.src = "location.replace(`/mypage/${dataset.petNum}/edit`);"; // 미리보기 이미지 초기화
+}
+
 /* 사진업로드 */
 function DropFile(dropAreaId, fileListId) {
   let dropArea = document.getElementById(dropAreaId);

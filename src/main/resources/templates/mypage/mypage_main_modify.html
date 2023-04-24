@@ -46,7 +46,7 @@
           </th:block>
         </div>
         <div class="profile-make" onclick="location.replace(`/mypage/petreg`)">
-          <img src="../img/add_circle.png" alt=""/>
+          <img src="/img/add_circle.png" alt=""/>
           </a>
         </div>
       </div>
@@ -76,36 +76,51 @@
     </div>
     <!-- 메인컨텐츠 -->
     <div class="mypage_content">
-      <form method="post" th:object="${modifyForm}" onsubmit="return false">
+      <form method="post" th:object="${modifyForm}" onsubmit="return false" enctype="multipart/form-data">
         <div class="myprofile-top">보호자 정보관리</div>
         <div class="myprofile-list">
           <ul class="list-frm">
             <div class="list">사진</div>
             <div class="list-frm">
               <div class="myprofile-list-image">
-                <!-- <img src="" alt="" /> -->
                 <div class="contents">
                   <div class="upload-box">
                     <div id="dropFile" class="drag-file">
-                      <img
-                          src="../img/img_profile1.png"
-                          alt=""
-                          class="image"
-                      />
-                      <li>
-                        <div class="myprofile-list-text">
-                          회원님을 알수있는 사진을 등록해주세요
-                        </div>
-                      </li>
+<!--                      <img-->
+<!--                          src="../img/img_profile1.png"-->
+<!--                          alt=""-->
+<!--                          class="image"-->
+<!--                      />-->
+
                       <img src="" alt="미리보기 이미지" class="preview"/>
+
+                      <!--이미지 출력부분-->
+                      <div class="content__view-imgs">
+                        <div th:each="file : ${imagedFiles}" class="view__img">
+                          <th:block th:if="${#strings.contains(file.ftype,'image')}">
+                            <img th:src="@{|/attach/view/${file.uploadfileId}|}"
+                                 style="max-width: 100%; max-height: 100%;">
+                          </th:block>
+                        </div>
+                      </div>
+                      <th:block th:if="${not #lists.isEmpty(imageFiles)}">
+                        <li>
+                          <div class="myprofile-list-text">
+                            회원님을 알수있는 사진을 등록해주세요
+                          </div>
+                        </li>
+                      </th:block>
+
                     </div>
                     <label class="file-label" for="chooseFile">사진업로드</label>
+                    <!-- 이미지 파일 업로드 부분 -->
                     <input
                         class="file"
                         id="chooseFile"
                         type="file"
                         onchange="dropFile.handleFiles(this.files)"
                         accept="image/png, image/jpeg, image/gif"
+                        name="imageFiles"
                     />
                   </div>
                 </div>
@@ -127,7 +142,7 @@
           </div>
           <div class="list-frm">
             <div class="list">이메일</div>
-            <div class="my-info" th:text="${userEmail}" ></div>
+            <div class="my-info" th:text="${modifyForm.userEmail}" ></div>
           </div>
 
           <div class="list-frm">

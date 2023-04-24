@@ -12,5 +12,5 @@ public class DetailForm {
   private String userNick;
   @NotBlank
   private String userEmail;
-//  private byte[] userPhoto;
+  private byte[] userPhoto;
 }

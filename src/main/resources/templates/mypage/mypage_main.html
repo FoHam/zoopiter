@@ -46,7 +46,7 @@
         </div>
 
         <div class="profile-make" onclick="location.replace(`/mypage/petreg`)">
-          <img src="../img/add_circle.png" alt=""/>
+          <img src="/img/add_circle.png" alt=""/>
         </div>
 
       </div>
@@ -76,16 +76,23 @@
     </div>
     <!-- 메인컨텐츠 -->
     <div class="mypage_content">
-      <form method="post" th:object="${DetailForm}">
+      <form method="post" th:object="${DetailForm}" enctype="multipart/form-data">
         <div class="myprofile-top">보호자 정보관리</div>
         <div class="myprofile-list">
           <ul class="list-frm">
             <div class="list">사진</div>
             <div class="list-frm">
-              <div class="myprofile-list-image">
-                <img src="../img/img_profile1.png" alt=""/>
-                <!-- th:field="*{userPhoto}"-->
-                <li>
+              <div class="myprofile-list-image" >
+                <div th:each="file : ${imagedFiles}" class="view__img">
+                  <th:block th:if="${#strings.contains(file.ftype,'image')}">
+                    <img th:src="@{|/attach/view/${file.uploadfileId}|}"
+                         style="width: 200px; height: 200px; border-radius: 50%;"/>
+                    <!--     th:if="${imagedFiles != null }" -->
+                  </th:block>
+                </div>
+                <img th:src="@{'/img/img_profile1.png'}" alt="" style="max-width: 100%; max-height: 100%; border-radius: 50%;"
+                     th:unless="${imagedFiles != null }" />
+                <li th:unless="${imagedFiles != null }">
                   <div class="myprofile-list-text">
                     회원님을 알수있는 사진을 등록해주세요 <br/>
                     등록된 사진은 회원님의 게시물이나 댓글들에 사용됩니다

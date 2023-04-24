@@ -195,8 +195,7 @@ img {
 }
 .myprofile-list .myprofile-list-text {
   margin: 20px;
-  /* position: relative;
-  left: 30px; */
+  width: 400px;
   font-size: 14px;
 }
 

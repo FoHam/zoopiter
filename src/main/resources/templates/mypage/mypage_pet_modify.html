@@ -46,7 +46,7 @@
           <th:block th:replace="~{fragment/pet_info::pet}"></th:block>
         </div>
         <div class="profile-make" onclick="location.replace(`/mypage/petreg`)">
-            <img src="../img/add_circle.png" alt=""/>
+            <img src="/img/add_circle.png" alt=""/>
         </div>
       </div>
     </div>
@@ -113,7 +113,10 @@
                         </li>
                       </th:block>
                     </div>
-                    <label class="file-label" for="chooseFile">사진업로드</label>
+                    <div class="imageBtn">
+                      <label class="file-label" for="chooseFile">사진업로드</label>
+                      <button class="deleteImageBtn" id="deleteImageBtn" type="button">사진삭제</button>
+                    </div>
                     <!-- 이미지 파일 업로드 부분 -->
                     <input
                         class="file"
@@ -272,8 +275,8 @@
 <!-- 햄버거 메뉴 구현 -->
 <script src="/js/hambuger.js" th:src="@{/js/hambuger.js}"></script>
 <!-- my page -->
-<script src="/js/mypage_pet_modify.js" th:src="@{/js/mypage_pet_modify.js}"></script>
-<script src="/js/mypage_main.js" th:src="@{/js/mypage_main.js}"></script>
+<script src="/js/mypage/mypage_pet_modify.js" th:src="@{/js/mypage/mypage_pet_modify.js}"></script>
+<script src="/js/mypage/mypage_main.js" th:src="@{/js/mypage/mypage_main.js}"></script>
 <!-- footer 모달 구현 -->
 <script src="/js/ft_modal.js"></script>
 <!--사이드메뉴 강조-->

@@ -20,6 +20,7 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -71,6 +72,15 @@ public class PetInfoController {
     detailForm.setUserNick(userNick);
     detailForm.setUserId(userId);
     model.addAttribute("DetailForm", detailForm);
+
+    Long photoNum = member.get().getUserPhoto();
+
+    // 프로필사진 정보
+    List<UploadFile> imagedFiles = uploadFileSVC.findFilesByCodeWithRid(AttachFileType.F0104, photoNum);
+    if(imagedFiles.size()>0){
+      log.info("imagedFiles={}",imagedFiles);
+      model.addAttribute("imagedFiles",imagedFiles);
+    }
 
     return "mypage/mypage_main";
   }
@@ -220,7 +230,6 @@ public class PetInfoController {
     PetInfo petInfo = new PetInfo();
     petInfo.setPetNum(petNum);
 
-
     petInfo.setPetImg(petUpdateForm.getPetImg());
     petInfo.setPetType(petUpdateForm.getPetType());
     petInfo.setPetBirth(petUpdateForm.getPetBirth());
@@ -239,7 +248,7 @@ public class PetInfoController {
       //넣기
       List<UploadFile> imageFiles = uploadFileSVC.convert(petUpdateForm.getImageFiles(),AttachFileType.F0103);
       petInfoSVC.updateInfo(petNum, petInfo, imageFiles);
-    }else {
+    } else {
       List<UploadFile> imageFiles = uploadFileSVC.convert(petUpdateForm.getImageFiles(),AttachFileType.F0103);
       petInfoSVC.updateInfo(petNum, petInfo, imageFiles);
     }
@@ -290,15 +299,20 @@ public class PetInfoController {
     Member member = optionalMember.get();
 
     ModifyForm modifyForm = new ModifyForm();
-    modifyForm.setUserId(member.getUserId());
-    modifyForm.setUserNick(member.getUserNick());
-
-    // modifyForm.setUserPhoto(member.getUserPhoto());
+    BeanUtils.copyProperties(member,modifyForm);
     model.addAttribute("modifyForm",modifyForm);
-    model.addAttribute("userEmail",member.getUserEmail());
+//    modifyForm.setUserId(member.getUserId());
+//    modifyForm.setUserNick(member.getUserNick());
+
+    Long PhotoNum = member.getUserPhoto();
+
+    List<UploadFile> imagedFiles = uploadFileSVC.findFilesByCodeWithRid(AttachFileType.F0104, PhotoNum);
+    if(imagedFiles.size()>0){
+      log.info("ImagedFiles={}",imagedFiles);
+      model.addAttribute("imagedFiles",imagedFiles);
+    }
 
     return "mypage/mypage_main_modify";
-
   }
 
   //rest로 이동
@@ -337,7 +351,7 @@ public class PetInfoController {
 ////    redirectAttributes.addAttribute("id", modifyForm.getUserId());
 //    return "redirect:/mypage";
 //  }
-  //   회원 불러오기
+  //   회원 정보 불러오기
   @GetMapping("/{id}/memberdetail")
   public String detail(@PathVariable("id") String userId, Model model){
     Optional<Member> member = memberSVC.findById(userId);
@@ -350,6 +364,14 @@ public class PetInfoController {
 
     model.addAttribute("detailForm", detailForm);
 
+    Long photoNum = member.get().getUserPhoto();
+
+    // 사용자의 프로필 사진 정보
+    List<UploadFile> imagedFiles = uploadFileSVC.findFilesByCodeWithRid(AttachFileType.F0104, photoNum);
+    if(imagedFiles.size() > 0){
+      log.info("ImagedFiles={}", imagedFiles);
+      model.addAttribute("imagedFiles", imagedFiles);
+    }
     return "mypage/mypage_main";
   }
 
