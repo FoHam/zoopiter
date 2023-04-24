@@ -164,6 +164,7 @@ public class BBSHDAOImpl implements BBSHDAO {
     sb.append("from( ");
     sb.append("    SELECT ");
     sb.append("    rownum no, ");
+    sb.append("       BBSH_ID, ");
     sb.append("       BH_TITLE, ");
     sb.append("       BH_CONTENT, ");
     sb.append("       PET_TYPE,   ");

@@ -1,15 +1,20 @@
 package com.project.zoopiter.web;
 
 import com.project.zoopiter.domain.BBSH.svc.BBSHSVC;
+import com.project.zoopiter.domain.BBSHReply.svc.BBSHReplySVC;
 import com.project.zoopiter.domain.common.file.svc.UploadFileSVC;
 import com.project.zoopiter.domain.common.pagingView.FindCriteriaView;
 import com.project.zoopiter.domain.entity.BBSH;
+import com.project.zoopiter.domain.entity.BBSHReply;
 import com.project.zoopiter.domain.entity.UploadFile;
 import com.project.zoopiter.web.common.AttachFileType;
+import com.project.zoopiter.web.common.LoginMember;
 import com.project.zoopiter.web.form.BBSH.BbshDetailForm;
 import com.project.zoopiter.web.form.BBSH.BbshListForm;
 import com.project.zoopiter.web.form.BBSH.BbshSaveForm;
 import com.project.zoopiter.web.form.BBSH.BbshUpdateForm;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -34,6 +39,7 @@ public class NoticeController {
 
   private final BBSHSVC BBSHSVC;
   private final UploadFileSVC uploadFileSVC;
+  private final BBSHReplySVC bbshReplySVC;
 
   @Autowired
   @Qualifier("fc10View") //동일한 타입의 객체가 여러개있을때 빈이름을 명시적으로 지정해서 주입받을때
@@ -47,35 +53,26 @@ public class NoticeController {
     return "board_review/review_saveForm";
   }
 
-//  public String addForm(
-//      Model model,
-//      @RequestParam(required = false) Optional<String> category,
-//      HttpSession session) {
-//
-//    String cate = getCategory(category);
-//
-//    LoginMember loginMember = (LoginMember) session.getAttribute(SessionConst.LOGIN_MEMBER);
-//
-//    AddForm addForm = new AddForm();
-//    addForm.setEmail(loginMember.getEmail());
-//    addForm.setNickname(loginMember.getNickname());
-//    model.addAttribute("addForm", addForm);
-//    model.addAttribute("category", cate);
-//
-//    return "bbs/addForm";
-
-//  }
-
   // 등록처리
   @PostMapping("/add")
   public String save(
       @Valid @ModelAttribute BbshSaveForm bbshSaveForm,
       BindingResult bindingResult,
-      RedirectAttributes redirectAttributes
+      RedirectAttributes redirectAttributes,
+      HttpServletRequest request
   ) {
-    log.info("saveForm={}", bbshSaveForm);
+    BBSH bbsh = new BBSH();
 
-    // 데이터 검증
+    String userNick = null;
+    HttpSession session = request.getSession(false);
+    if(session != null) {
+      LoginMember loginMember = (LoginMember)session.getAttribute(SessionConst.LOGIN_MEMBER);
+      userNick = loginMember.getUserNick();
+      bbsh.setUserNick(userNick);
+    }else{
+      return "redirect:/login";
+    }
+
     // 어노테이션 기반 검증
     if (bindingResult.hasErrors()) {
       log.info("bindingResult={}", bindingResult);
@@ -83,18 +80,13 @@ public class NoticeController {
     }
 
     // 등록
-    BBSH bbsh = new BBSH();
-//    bbsh.setBbshId(saveForm.getBbshId());
     bbsh.setBhTitle(bbshSaveForm.getBhTitle());
     bbsh.setBhContent(bbshSaveForm.getBhContent());
     bbsh.setPetType(bbshSaveForm.getPetType());
     bbsh.setBhStar(bbshSaveForm.getBhStar());
 
-
     // 파일첨부에 대한 메타정보추출 & 물리파일저장
-//    UploadFile attachFile = uploadFileSVC.convert(saveForm.getAttachFile(), AttachFileType.F010201);
     List<UploadFile> imageFiles = uploadFileSVC.convert(bbshSaveForm.getImageFiles(), AttachFileType.F010202);
-//    if(attachFile != null) imageFiles.add(attachFile);
 
     Long saveId = BBSHSVC.save(bbsh, imageFiles);
     redirectAttributes.addAttribute("bbshId", saveId);
@@ -118,7 +110,6 @@ public class NoticeController {
     bbshDetailForm.setPetType(bbsh.getPetType());
     bbshDetailForm.setBhHit(bbsh.getBhHit());
     bbshDetailForm.setBhStar(bbsh.getBhStar());
-//    detailForm.setAuthor(BBSH.getAuthor());
     bbshDetailForm.setBhCdate(bbsh.getBhCdate());
     bbshDetailForm.setBhUdate(bbsh.getBhUdate());
 
@@ -128,7 +119,14 @@ public class NoticeController {
       log.info("ImagedFiles={}", imagedFiles);
       model.addAttribute("imagedFiles", imagedFiles);
     }
-//    detailForm.setImagedFiles(imagedFiles);
+
+    // 댓글 총갯수
+    int cntOfReplies = bbshReplySVC.countOfReplies(bbshId);
+    model.addAttribute("cntOfReplies",cntOfReplies);
+    // 댓글 조회
+    Optional<List<BBSHReply>> bbshReplies = bbshReplySVC.findByBBSHId(bbshId);
+    List<BBSHReply> findedReplies = bbshReplies.get();
+    model.addAttribute("findedReplies",findedReplies);
 
     model.addAttribute("detailForm", bbshDetailForm);
     return "board_review/review_detailForm";
@@ -144,12 +142,7 @@ public class NoticeController {
     BBSH bbsh = findedNotice.orElseThrow();
 
     BbshUpdateForm bbshUpdateForm = new BbshUpdateForm();
-//    updateForm.setBhStar(bbsh.getBhStar());
-//    updateForm.setPetType(bbsh.getPetType());
-//    updateForm.setBhTitle(bbsh.getBhTitle());
-//    updateForm.setBhContent(bbsh.getBhContent());
     BeanUtils.copyProperties(bbsh, bbshUpdateForm);
-
     model.addAttribute("updateForm", bbshUpdateForm);
 
 
@@ -176,18 +169,6 @@ public class NoticeController {
       log.info("bindingResult={}", bindingResult);
       return "board_review/review_updateForm";
     }
-
-//    // 정상처리
-//    BBSH bbsh = new BBSH();
-//    bbsh.setBbshId(bbshId);
-//    bbsh.setBhTitle(updateForm.getBhTitle());
-//    bbsh.setBhContent(updateForm.getBhContent());
-//    bbsh.setBhStar(updateForm.getBhStar());
-//    bbsh.setPetType(updateForm.getPetType());
-//
-//    BBSHSVC.update(bbshId, bbsh);
-//
-//    redirectAttributes.addAttribute("bbshId", bbshId);
 
     // 정상처리
     BBSH bbsh = new BBSH();
@@ -335,17 +316,16 @@ public class NoticeController {
 
     List<BbshListForm> partOfList = new ArrayList<>();
     for (BBSH bbsh : bbshListsPaging) {
-      BbshListForm bbshListForm = new BbshListForm();
-//      BeanUtils.copyProperties(bbsh, listForm);
-      bbshListForm.setTId(bbsh.getBbshId());
-      bbshListForm.setBcategory(bbsh.getPetType());
-      bbshListForm.setTitle(bbsh.getBhTitle());
-      bbshListForm.setBcontent(bbsh.getBhContent());
-      bbshListForm.setNickname(bbsh.getUserNick());
-      bbshListForm.setCDate(bbsh.getCDate());
-      bbshListForm.setUDate(bbsh.getBhUdate());
-      bbshListForm.setHit(bbsh.getBhHit());
-      partOfList.add(bbshListForm);
+      BbshListForm listForm = new BbshListForm();
+      BeanUtils.copyProperties(bbsh, listForm);
+//      listForm.setBbshId(bbsh.getBbshId());
+//      listForm.setPetType(bbsh.getPetType());
+//      listForm.setBhContent(bbsh.getBhContent());
+//      listForm.setUserNick(bbsh.getUserNick());
+//      listForm.setBhCdate(bbsh.getBhCdate());
+//      listForm.setBhUdate(bbsh.getBhUdate());
+//      listForm.setBhHit(bbsh.getBhHit());
+      partOfList.add(listForm);
     }
     log.info("partOfList={}", partOfList);
     model.addAttribute("bbshLists", partOfList);

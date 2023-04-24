@@ -234,16 +234,16 @@
           type="file"
           id="ex_filename"
           class="upload-hidden"
-          th:field="*{imageFiles}" multiple
-      />
-      <!--      <div th:each="file : ${imagedFiles}" class="view__img">-->
-      <!--        <th:block th:if="${#strings.contains(file.ftype,'image')}">-->
-      <!--          &lt;!&ndash;     파일명      &ndash;&gt;-->
-      <!--          <p th:text="${file.upload_filename}" style="font-size: 14px; margin-right: 10px;"></p>-->
-      <!--          <img th:src="@{|/attach/view/${file.uploadfileId}|}" th:width="30px" th:height="30px">-->
-      <!--        </th:block>-->
-      <!--        <i class="fa-solid fa-trash-can" th:data-rid="${file.uploadfileId}"></i>-->
-      <!--      </div>-->
+          th:field="*{imageFiles}" multiple/>
+
+      <div th:each="file : ${imagedFiles}" class="view__img">
+        <th:block th:if="${#strings.contains(file.ftype,'image')}">
+          <!--     파일명      -->
+          <p th:text="${file.upload_filename}" style="font-size: 14px; margin-right: 10px;"></p>
+          <img th:src="@{|/attach/view/${file.uploadfileId}|}" th:width="30px" th:height="30px">
+        </th:block>
+        <i class="fa-solid fa-trash-can" th:data-rid="${file.uploadfileId}"></i>
+      </div>
     </div>
     <div class="alarm-r"></div>
 
@@ -259,36 +259,61 @@
 </div>
 
 <script>
-      const $bbshId = document.getElementById('bbshId');
-      const $btnDelete = document.getElementById('btnDelete');
+<!--      const $bbshId = document.getElementById('bbshId');-->
+<!--      const $btnDelete = document.getElementById('btnDelete');-->
 
-      const btnDelete_h = e => {
-        if (confirm('취소 하시겠습니까?')) {
-          globalThis.location.href = `/BBSH/${$bbshId.value}/detail`;
-          return true; // return true;로 수정
-        }
-      };
+<!--      const btnDelete_h = e => {-->
+<!--        if (confirm('취소 하시겠습니까?')) {-->
+<!--          globalThis.location.href = `/BBSH/${$bbshId.value}/detail`;-->
+<!--          return true; // return true;로 수정-->
+<!--        }-->
+<!--      };-->
 
-      $btnDelete.addEventListener('click', btnDelete_h, false);
+<!--      $btnDelete.addEventListener('click', btnDelete_h, false);-->
 
-      // 파일명 클릭 시 파일 선택 창 띄우기
-      $('.alarm .upload-name').click(function () {
-        $(this).siblings('.upload-hidden').trigger('click');
-      });
-      const open = () => {
-        document.querySelector('.modal').classList.remove('hidden');
-      };
+<!--      // 파일명 클릭 시 파일 선택 창 띄우기-->
+<!--      $('.alarm .upload-name').click(function () {-->
+<!--        $(this).siblings('.upload-hidden').trigger('click');-->
+<!--      });-->
+<!--      const open = () => {-->
+<!--        document.querySelector('.modal').classList.remove('hidden');-->
+<!--      };-->
 
-      const close = () => {
-        document.querySelector('.modal').classList.add('hidden');
-      };
+<!--      const close = () => {-->
+<!--        document.querySelector('.modal').classList.add('hidden');-->
+<!--      };-->
 
-      document.querySelector('.openBtn').addEventListener('click', open);
-      document.querySelector('.closeBtn1').addEventListener('click', close);
-      document.querySelector('.closeBtn2').addEventListener('click', close);
-      document.querySelector('.bg').addEventListener('click', close);
+<!--      document.querySelector('.openBtn').addEventListener('click', open);-->
+<!--      document.querySelector('.closeBtn1').addEventListener('click', close);-->
+<!--      document.querySelector('.closeBtn2').addEventListener('click', close);-->
+<!--      document.querySelector('.bg').addEventListener('click', close);-->
+<!--}-->
+// 첨부파일 삭제
+const $files = document.querySelector('.file');
+$files?.addEventListener('click', e => {
+    if(e.target.tagName != 'I') return;
+    if(!confirm('삭제하시겠습니까?')) return;
 
-
+    const $icon = e.target;
+    const url = `/attach/${$icon.dataset.rid}`;
+    ajax
+        .delete(url)
+        .then(res => res.json())
+        .then(res => {
+            if(res.header.rtcd == '00'){
+                //첨부파일 정보 화면에서 제거
+                removeAttachFileFromView(e);
+            }else{
+                console.log(res.rtmsg);
+            }
+        })
+        .catch(console.error); //err=>console.error(err)
+});
+function removeAttachFileFromView(e){
+    const $parent = document.getElementById('files');
+    const $child = e.target.closest('.view__img');
+    $parent.removeChild($child);
+}
 
     </script>
 </body>

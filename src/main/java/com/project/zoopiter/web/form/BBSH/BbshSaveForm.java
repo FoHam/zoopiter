@@ -17,16 +17,9 @@ public class BbshSaveForm {
   private Long bhStar;        // 별점
   private String petType; // 반려동물 품종(카테고리)
   private Long bhHit;       // 조회수
+  private String userNick;    //별칭
 
   private List<MultipartFile> imageFiles;
 
-  //  private MultipartFile attachFile;
-//  @NotNull
-//  private String author;      // 작성자
-//  @Positive // 양수
-//  private Long hit;           // 조회수
-//  @NotNull
-//  private Long cDate;         // 생성일시
-//  @NotNull
-//  private Long uDate;         // 변경일시
+
 }

@@ -1,17 +1,19 @@
 package com.project.zoopiter.web.form.BBSH;
 
+import com.project.zoopiter.domain.entity.UploadFile;
 import lombok.Data;
+
+import java.util.List;
 
 @Data
 public class BbshListForm {
-  private Long tId;
-  private String bcategory;
-  private String title;
-//  private String email;
-  private String bcontent;
-  private String nickname;
-  private String cDate;
-  private String uDate;
-  private Long hit;
-//  private int bindent;
+  private Long bbshId;
+  private String petType;
+  private String bhContent;
+  private String userNick;
+  private String bhCdate;
+  private String bhHname;
+  private String bhUdate;
+  private Long bhHit;
+  private List<UploadFile> imagedFiles;
 }

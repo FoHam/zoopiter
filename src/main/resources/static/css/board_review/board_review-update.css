@@ -615,6 +615,17 @@ textarea:focus {
   display: flex;
   align-items: center;
 }
+
+.alarm .view__img {
+    margin-top: 10px;
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+}
+.alarm .view__img img {
+    margin-right: 5px
+}
+
 .complete {
   grid-area: complete;
   width: 100%;

@@ -40,7 +40,7 @@ const checkbox_h = e => {
             $selectBox.removeChild(addBtn);
         }
     }, false);
-}
+};
 
 //const sendValues_h = e => {
 //    e.preventDefault();
