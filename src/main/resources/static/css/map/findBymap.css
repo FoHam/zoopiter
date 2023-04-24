@@ -250,7 +250,10 @@
 }
 
 /* 병원 상세정보 팝업 */
-.list-details {
+.list-details1,
+.list-details2,
+.list-details3,
+.list-details4 {
   padding: 0;
   border: 1px solid var(--color-background);
   border-radius: 1.2rem;
@@ -311,11 +314,15 @@
   flex: 5;
   align-self: flex-start;
   margin: 0;
+  width: 60px;
 }
 
 /* 영업시간 컨텐츠 */
 .details__left__time ul {
   flex: 5;
+}
+.details__left__time li {
+  width: 200px;
 }
 
 .details__info {
@@ -361,20 +368,6 @@
   margin-bottom: 30px;
 }
 
-/* 인포윈도우 스타일 */
-/* .infosty {
-  background: #ffeeb4;
-  color: #000;
-  text-align: center;
-  height: auto;
-  width: auto;
-  line-height:130%;
-  border-radius:5px;
-  padding:5px;
-  z-index:1;
-} */
-
-
 
 /* ---------------------------------------------------------------------- */
 .container{
@@ -407,7 +400,7 @@
 }
 #menu_wrap hr {display: block; height: 1px;border: 0; border-top: 2px solid #5F5F5F;margin:3px 0;}
 #menu_wrap .option{text-align: center;}
-#menu_wrap .option p {margin:10px 0;}  
+#menu_wrap .option p {margin:10px 0;}
 #menu_wrap .option button {margin-left:5px;}
 #placesList li {list-style: none;}
 #placesList .item {position:relative;border-bottom:1px solid #888;overflow: hidden;cursor: pointer;min-height: 65px;}
@@ -441,3 +434,4 @@
 #pagination {margin:10px auto;text-align: center;}
 #pagination a {display:inline-block;margin-right:10px;}
 #pagination .on {font-weight: bold; cursor: default;color:#777;}
+

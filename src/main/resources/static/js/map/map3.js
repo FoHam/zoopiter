@@ -1,11 +1,11 @@
 //map3.js
-// 검색결과 목록 하단에 페이지번호를 표시하는 함수입니다
+// 검색결과 목록 하단에 페이지번호를 표시하는 함수
 function displayPagination(pagination) {
     var paginationEl = document.getElementById('pagination'),
         fragment = document.createDocumentFragment(),
         i;
 
-    // 기존에 추가된 페이지번호를 삭제합니다
+    // 기존에 추가된 페이지번호를 삭제
     while (paginationEl.hasChildNodes()) {
         paginationEl.removeChild(paginationEl.lastChild);
     }
@@ -32,7 +32,7 @@ function displayPagination(pagination) {
 }
 
 
-// 검색결과 목록 또는 마커에 마우스오버 했을 때 호출되는 함수입니다
+// 검색결과 목록 또는 마커에 마우스오버 했을 때 호출되는 함수
 // 인포윈도우에 장소명을 표시합니다
 function displayInfowindow(marker, title, distance) {
     var content = '<div style="padding:5px;z-index:1;">' + title + '<br><span style="font-size:12px;">(거리: ' + distance.toFixed(1) + 'km)</span></div>';
@@ -41,24 +41,14 @@ function displayInfowindow(marker, title, distance) {
     infowindow.open(map, marker);
 }
 
-// 스타일
-// function displayInfowindow(marker, title, distance) {
-//     var content = '<div class="infosty">' + title + '<br> 현재위치에서: <span style="white-space: nowrap;">' + distance.toFixed(1) + 'km</span></div>';
-
-//     infowindow.setContent(content);
-//     infowindow.open(map, marker);
-// }
-
-
-
- // 검색결과 목록의 자식 Element를 제거하는 함수입니다
+ // 검색결과 목록의 자식 Element를 제거하는 함수
 function removeAllChildNods(el) {   
     while (el.hasChildNodes()) {
         el.removeChild (el.lastChild);
     }
 }
 
-    // 현재 위치를 얻어내는 함수입니다
+    // 현재 위치를 얻어내는 함수
     function getCurrentLocation() {
         if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition(function(position) {
@@ -67,8 +57,8 @@ function removeAllChildNods(el) {
                 currentLocation = new kakao.maps.LatLng(lat, lon);
                 var locPosition = new kakao.maps.LatLng(lat, lon);
                 map.setCenter(locPosition);
-                searchPlaces(locPosition); // 변경된 부분: 위치 정보를 전달합니다.
-                addRedMarker(locPosition); // 현재 위치에 마커 추가
+                searchPlaces(locPosition);
+                addRedMarker(locPosition); // 현재 위치 마커 추가
             }, function() {
                 alert('Geolocation을 지원하지 않으므로, 기본 위치를 중심으로 검색합니다.');
                 searchPlaces();
@@ -106,7 +96,7 @@ function removeAllChildNods(el) {
 
     //지역검색
     document.getElementById("regionBtn").addEventListener("click", function(event) {
-    event.preventDefault(); // 이벤트 전파를 차단합니다.
+    event.preventDefault(); // 이벤트 전파를 차단
 
     var sido = document.getElementById("sido").value;
     var gugun = document.getElementById("gugun").value;
@@ -128,11 +118,9 @@ function removeAllChildNods(el) {
     }
 });
   
-    // searchPlaces 함수에서 매개변수 center가 없을 때 현재 위치를 사용하도록 수정합니다.
+    // searchPlaces 함수에서 매개변수 center가 없을 때 현재 위치를 사용하도록 수정
     function searchPlaces(center) {
-        // if (!center && !currentLocation) {
-        //     return; // 현재 위치가 설정되지 않은 경우 함수를 종료합니다.
-        // }
+
         removeAllChildNods(document.getElementById('placesList'));
         removeMarker();
         var keyword = '동물병원';
@@ -143,14 +131,14 @@ function removeAllChildNods(el) {
         if (center) {
             searchOptions.location = center;
         } else {
-            searchOptions.location = map.getCenter(); // map.getCenter()를 다시 사용합니다.
+            searchOptions.location = map.getCenter(); // map.getCenter()를 다시 사용
         }
     
         ps.keywordSearch(keyword, placesSearchCB, searchOptions);
     }
     
     
-        // 현재 위치 마커를 생성하고 지도 위에 표시하는 함수입니다
+        // 현재 위치 마커를 생성, 지도 위에 표시하는 함수
         function addRedMarker(position) {
         var imageSrc = 'http://t1.daumcdn.net/localimg/localimages/07/2018/pc/img/marker_spot.png', // 마커 이미지 url
             imageSize = new kakao.maps.Size(30, 40), // 마커 이미지의 크기
@@ -161,10 +149,10 @@ function removeAllChildNods(el) {
                 image: markerImage
             });
 
-        marker.setMap(map); // 지도 위에 마커를 표출합니다
+        marker.setMap(map); // 지도 위에 마커를 표출
     }
 
-      // 지도를 생성하고 현재 위치를 얻어옵니다
+      // 지도생성 후 현재 위치
       getCurrentLocation();
 
 

@@ -29,8 +29,40 @@
 <div class="wrap">
   <div class="hd-l"></div>
   <header class="hd">
-    <!-- 프레그먼트 반영:menu  -->
-    <th:block th:replace="~{fragment/menu::gnb}"></th:block>
+    <nav class="hd__menu">
+      <ul class="hd__menu__list1">
+        <li id="logo">
+          <a href="index.html" th:href="@{/}">
+            <i class="fa-solid fa-dog fa-2x"></i>
+            <h3>슬기로운 반려생활</h3>
+          </a>
+        </li>
+        <li class="hd__menu__list1__item list1-item1">
+          <a href="#">펫병원</a>
+          <ul class="hd__menu__list1__item__submenu">
+            <li><a href="#">병원찾기</a></li>
+          </ul>
+        </li>
+        <li class="hd__menu__list1__item list1-item2">
+          <a href="#">게시판</a>
+          <ul class="hd__menu__list1__item__submenu">
+            <li><a href="#">커뮤니티</a></li>
+            <li><a href="./board_review.html">병원후기</a></li>
+          </ul>
+        </li>
+        <li class="hd__menu__list1__item list1-item3" id="myPage">
+          <a href="./mypage_main.html">마이페이지</a>
+        </li>
+        <div class="hd__menu__list1__item list1-item4" id="join">
+          <li><a href="./member_login.html">로그인</a></li>
+          |
+          <li><a href="./member_join.html">회원가입</a></li>
+        </div>
+      </ul>
+      <a href="#" id="hamburger">
+        <i class="fa-solid fa-bars"></i>
+      </a>
+    </nav>
   </header>
   <div class="hd-r"></div>
 
@@ -92,20 +124,19 @@
     </div>
 
 
-    <!-- 동물 필터 및 병원목록 필터 메뉴 -->
     <div class="bottom-menu">
-      <!-- 동물필터 -->
-      <form action="" class="select-tag" name="petTag">
-        <input type="checkbox" name="dog">
+    <!-- 동물필터 -->
+    <form action="" class="select-tag" name="petTag">
+        <input type="checkbox" name="dog" id="dogCheckbox">
         <label for="dog">강아지</label>
-        <input type="checkbox" name="cat">
+        <input type="checkbox" name="cat" id="catCheckbox">
         <label for="cat">고양이</label>
-        <input type="checkbox" name="small">
+        <input type="checkbox" name="small" id="smallCheckbox">
         <label for="small">소동물</label>
-        <input type="checkbox" name="other">
+        <input type="checkbox" name="other" id="otherCheckbox">
         <label for="other">기타</label>
         <button id="petTagBtn">적용</button>
-      </form>
+    </form>
       <!-- 병원목록 필터 -->
       <select name="listFilter" id="listFilter">
         <option value="distance">거리순</option>
@@ -143,20 +174,18 @@
           </div>
           <!-- 진료 동물 -->
           <div class="info__petTag">
-            <p>#강아지</p>
-            <p>#고양이</p>
-            <p>#소동물</p>
+            <p class="petTag">실패</p>
           </div>
           <!-- 기타정보 -->
           <div class="info__other">
-            <p>주차장,예약가능,무선인터넷</p>
+            <p class="addInfo">실패</p>
           </div>
         </div>
         <!-- 병원 상세정보 버튼 -->
         <button class="list-content__btn" id="infoBtn1">자세히보기</button>
       </div>
       <!-- 병원 상세정보 팝업 -->
-      <dialog class="list-details" id="list-details1">
+      <dialog class="list-details1" id="list-details1">
         <!-- 팝업창 상단 -->
         <div class="list-details__header">
           <!-- 타이틀 -->
@@ -175,9 +204,7 @@
             <div class="details__left__time">
               <h4>영업시간</h4>
               <ul>
-                <li>주간진료 10:00~19:00</li>
-                <li>야간진료 19:00~10:00</li>
-                <li>응급진료 22:00~09:00</li>
+                <li class="infoTime">실패</li>
               </ul>
             </div>
           </article>
@@ -197,18 +224,16 @@
             </div>
             <!-- 진료 동물 -->
             <div class="details__info__petTag">
-              <p>#강아지</p>
-              <p>#고양이</p>
-              <p>#소동물</p>
+              <p class="petTag">실패</p>
             </div>
             <!-- 기타정보 -->
             <div class="details__info__other">
-              <p>주차장,예약가능,무선인터넷</p>
+              <p class="addInfo">실패</p>
             </div>
 
             <div class="details__info__inst">
               <h4>이용안내</h4>
-              <p>반려동물에게도 사람과 같은 전문적인 치료를 24시간 운영하고 있습니다.</p>
+              <p class="instInfo">실패</p>
             </div>
           </aside>
         </div>
@@ -217,7 +242,6 @@
       <!--  -->
 
 
-ㅋ
       <!-- 목록2 -->
       <div class="list-content2">
         <!-- 병원 이미지-->
@@ -247,20 +271,18 @@
           </div>
           <!-- 진료 동물 -->
           <div class="info__petTag">
-            <p>#강아지</p>
-            <p>#고양이</p>
-            <p>#소동물</p>
+            <p class="petTag">실패</p>
           </div>
           <!-- 기타정보 -->
           <div class="info__other">
-            <p>주차장,예약가능,무선인터넷</p>
+            <p class="addInfo">실패</p>
           </div>
         </div>
         <!-- 병원 상세정보 버튼 -->
         <button class="list-content__btn" id="infoBtn2">자세히보기</button>
       </div>
       <!-- 병원 상세정보 팝업 -->
-      <dialog class="list-details" id="list-details2">
+      <dialog class="list-details2" id="list-details2">
         <!-- 팝업창 상단 -->
         <div class="list-details__header">
           <!-- 타이틀 -->
@@ -279,9 +301,7 @@
             <div class="details__left__time">
               <h4>영업시간</h4>
               <ul>
-                <li>주간진료 10:00~19:00</li>
-                <li>야간진료 19:00~10:00</li>
-                <li>응급진료 22:00~09:00</li>
+                <li class="infoTime">실패</li>
               </ul>
             </div>
           </article>
@@ -301,18 +321,16 @@
             </div>
             <!-- 진료 동물 -->
             <div class="details__info__petTag">
-              <p>#강아지</p>
-              <p>#고양이</p>
-              <p>#소동물</p>
+              <p class="petTag">실패</p>
             </div>
             <!-- 기타정보 -->
             <div class="details__info__other">
-              <p>주차장,예약가능,무선인터넷</p>
+              <p class="addInfo">실패</p>
             </div>
 
             <div class="details__info__inst">
               <h4>이용안내</h4>
-              <p>반려동물에게도 사람과 같은 전문적인 치료를 24시간 운영하고 있습니다.</p>
+              <p class="instInfo">실패</p>
             </div>
           </aside>
         </div>
@@ -352,20 +370,18 @@
           </div>
           <!-- 진료 동물 -->
           <div class="info__petTag">
-            <p>#강아지</p>
-            <p>#고양이</p>
-            <p>#소동물</p>
+            <p class="petTag">실패</p>
           </div>
           <!-- 기타정보 -->
           <div class="info__other">
-            <p>주차장,예약가능,무선인터넷</p>
+            <p class="addInfo">실패</p>
           </div>
         </div>
         <!-- 병원 상세정보 버튼 -->
         <button class="list-content__btn" id="infoBtn3">자세히보기</button>
       </div>
       <!-- 병원 상세정보 팝업 -->
-      <dialog class="list-details" id="list-details3">
+      <dialog class="list-details3" id="list-details3">
         <!-- 팝업창 상단 -->
         <div class="list-details__header">
           <!-- 타이틀 -->
@@ -384,9 +400,7 @@
             <div class="details__left__time">
               <h4>영업시간</h4>
               <ul>
-                <li>주간진료 10:00~19:00</li>
-                <li>야간진료 19:00~10:00</li>
-                <li>응급진료 22:00~09:00</li>
+                <li class="infoTime">실패</li>
               </ul>
             </div>
           </article>
@@ -406,18 +420,16 @@
             </div>
             <!-- 진료 동물 -->
             <div class="details__info__petTag">
-              <p>#강아지</p>
-              <p>#고양이</p>
-              <p>#소동물</p>
+              <p class="petTag">실패</p>
             </div>
             <!-- 기타정보 -->
             <div class="details__info__other">
-              <p>주차장,예약가능,무선인터넷</p>
+              <p class="addInfo">실패</p>
             </div>
 
             <div class="details__info__inst">
               <h4>이용안내</h4>
-              <p>반려동물에게도 사람과 같은 전문적인 치료를 24시간 운영하고 있습니다.</p>
+              <p class="instInfo">실패</p>
             </div>
           </aside>
         </div>
@@ -454,20 +466,18 @@
           </div>
           <!-- 진료 동물 -->
           <div class="info__petTag">
-            <p>#강아지</p>
-            <p>#고양이</p>
-            <p>#소동물</p>
+            <p class="petTag">실패</p>
           </div>
           <!-- 기타정보 -->
           <div class="info__other">
-            <p>주차장,예약가능,무선인터넷</p>
+            <p class="addInfo">실패</p>
           </div>
         </div>
         <!-- 병원 상세정보 버튼 -->
         <button class="list-content__btn" id="infoBtn4">자세히보기</button>
       </div>
       <!-- 병원 상세정보 팝업 -->
-      <dialog class="list-details" id="list-details4">
+      <dialog class="list-details4" id="list-details4">
         <!-- 팝업창 상단 -->
         <div class="list-details__header">
           <!-- 타이틀 -->
@@ -486,9 +496,7 @@
             <div class="details__left__time">
               <h4>영업시간</h4>
               <ul>
-                <li>주간진료 10:00~19:00</li>
-                <li>야간진료 19:00~10:00</li>
-                <li>응급진료 22:00~09:00</li>
+                <li class="infoTime">실패</li>
               </ul>
             </div>
           </article>
@@ -508,18 +516,16 @@
             </div>
             <!-- 진료 동물 -->
             <div class="details__info__petTag">
-              <p>#강아지</p>
-              <p>#고양이</p>
-              <p>#소동물</p>
+              <p class="petTag">실패</p>
             </div>
             <!-- 기타정보 -->
             <div class="details__info__other">
-              <p>주차장,예약가능,무선인터넷</p>
+              <p class="addInfo">실패</p>
             </div>
 
             <div class="details__info__inst">
               <h4>이용안내</h4>
-              <p>반려동물에게도 사람과 같은 전문적인 치료를 24시간 운영하고 있습니다.</p>
+              <p class="instInfo">실패</p>
             </div>
           </aside>
         </div>
