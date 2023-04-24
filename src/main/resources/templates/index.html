@@ -33,22 +33,15 @@
 
   <div class="fg-l"></div>
   <figure class="fg-banner">
-    <div><img src="../img/banner1.png" alt="" /></div>
-    <div><img src="../img/banner2.png" alt="" /></div>
-    <div><img src="../img/banner3.png" alt="" /></div>
-    <div><img src="../img/banner4.png" alt="" /></div>
+    <div><img src="/img/banner1.png" alt="" /></div>
+    <div><img src="/img/banner2.png" alt="" /></div>
+    <div><img src="/img/banner3.png" alt="" /></div>
+    <div><img src="/img/banner4.png" alt="" /></div>
   </figure>
   <div class="fg-r"></div>
 
   <div class="mn-l"></div>
   <main class="container">
-    <!-- 개인정보 약관 -->
-    <th:block th:replace="~{fragment/footer::ft-modal1}"></th:block>
-    <!-- 이용 약관 -->
-    <th:block th:replace="~{fragment/footer::ft-modal2}"></th:block>
-    <!-- 광고 문의 -->
-    <th:block th:replace="~{fragment/footer::ft-modal3}"></th:block>
-
     <section class="container__content item1">
       <article>
         <p id="subTitle">펫 병원</p>
@@ -62,15 +55,15 @@
           품종을 진료하는 병원을 보여드려요.
         </p>
         <div class="item1__button">
-          <a href="findBymap.html">병원 더 찾아보기</a>
+          <a href="/findBymap" th:href="@{/findBymap}">병원 더 찾아보기</a>
         </div>
       </article>
       <aside>
         <div class="item1__contents content1">
-          <img src="../img/img_hospital01.png" alt="hospital_img1" />
+          <img src="/img/img_hospital01.png" alt="hospital_img1" />
         </div>
         <div class="item1__contents content2">
-          <img src="../img/img_hospital02.png" alt="hospital_img2" />
+          <img src="/img/img_hospital02.png" alt="hospital_img2" />
         </div>
       </aside>
     </section>
@@ -85,29 +78,29 @@
           정확한 후기로 펫오너님들과 아이들의 건강과 안전을 지켜드릴게요!
         </p>
         <div class="item2__button">
-          <a href="./board_review.html">펫 병원후기 더보기</a>
+          <a href="/BBSH" th:href="@{/BBSH}">펫 병원후기 더보기</a>
         </div>
       </article>
       <aside>
         <div class="item2__slider">
           <div>
-            <a href="./board_review.html">
-              <img src="../img/img_review01.jpg" alt="review01" />
+            <a href="/BBSH" th:href="@{/BBSH}">
+              <img src="/img/img_review01.jpg" alt="review01" />
             </a>
           </div>
           <div>
-            <a href="./board_review.html">
-              <img src="../img/img_review02.jpg" alt="review02" />
+            <a href="/BBSH" th:href="@{/BBSH}">
+              <img src="/img/img_review02.jpg" alt="review02" />
             </a>
           </div>
           <div>
-            <a href="./board_review.html">
-              <img src="../img/img_review03.jpg" alt="review03" />
+            <a href="/BBSH" th:href="@{/BBSH}">
+              <img src="/img/img_review03.jpg" alt="review03" />
             </a>
           </div>
           <div>
-            <a href="./board_review.html">
-              <img src="../img/img_review04.jpg" alt="review04" />
+            <a href="/BBSH" th:href="@{/BBSH}">
+              <img src="/img/img_review04.jpg" alt="review04" />
             </a>
           </div>
         </div>
@@ -125,7 +118,7 @@
           우리 아이들과의 이야기를 함께 나눠보세요 !
         </p>
         <div class="item3__button">
-          <a href="#">추억 엿보기</a>
+          <a href="/bbsc/list" th:href="@{/bbsc/list}">추억 엿보기</a>
         </div>
       </article>
       <aside>
@@ -135,15 +128,23 @@
   </main>
   <div class="mn-r"></div>
 
+  <!-- 푸터 -->
   <div class="ft-l"></div>
   <!-- 프레그먼트 반영 footer -->
   <th:block th:replace="~{fragment/footer::fnb}"></th:block>
   <div class="ft-r"></div>
+  <!-- 푸터 팝업 -->
+  <!-- 개인정보 약관 -->
+  <th:block th:replace="~{fragment/footer::ft-modal1}"></th:block>
+  <!-- 이용 약관 -->
+  <th:block th:replace="~{fragment/footer::ft-modal2}"></th:block>
+  <!-- 광고 문의 -->
+  <th:block th:replace="~{fragment/footer::ft-modal3}"></th:block>
 </div>
 <!-- 햄버거 메뉴 구현 -->
-<script src="../js/hambuger.js"></script>
+<script src="/js/hambuger.js"></script>
 <!-- footer 모달 구현 -->
-<script src="../js/ft_modal.js"></script>
+<script src="/js/ft_modal.js"></script>
 </body>
 
 </html>

@@ -199,6 +199,7 @@ img {
   display: flex;
   align-items: center;
   margin: auto;
+  justify-content: center;
 }
 
 /* 버튼 스타일 */
@@ -215,7 +216,7 @@ img {
   background-color: #fff;
   box-sizing: border-box;
   border-radius: 6px;
-  margin: auto;
+  margin-right: 6px;
 }
 
 .list-frm .my-info .myprofile-button .btn-frm:hover {
