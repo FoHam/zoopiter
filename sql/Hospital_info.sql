@@ -5,7 +5,7 @@ insert into hospital_info (H_NUM , HD_ID, H_ID, H_NAME, H_TEL, H_PLIST, H_TIME, 
     'htest120',
     '사랑동물병원',
     '052-273-0075',
-    '강아지, 고양이',
+    '강아지, 고양이, 기타',
     '월 09:30 - 19:00
      화 09:30 - 19:00
      수 09:30 - 19:00
@@ -46,7 +46,7 @@ insert into hospital_info (H_NUM , HD_ID, H_ID, H_NAME, H_TEL, H_PLIST, H_TIME, 
     'htest116',
     '에스동물메디컬센터 울산점',
     '052-707-2475',
-    '강아지, 고양이',
+    '강아지, 고양이, 소동물',
     '매일
      00:00 - 24:00
      13:00 - 14:30 휴게시간
@@ -67,7 +67,7 @@ insert into hospital_info (H_NUM , HD_ID, H_ID, H_NAME, H_TEL, H_PLIST, H_TIME, 
     'htest122',
     '대공원동물병원',
     '052-258-2520',
-    '강아지, 고양이',
+    '강아지, 고양이, 소동물, 기타',
     '평일 09:30 - 19:00
      수술 및 점심시간 : 오후 12시30분~2시30분
      토요일 09:30 - 14:00 토요일 점심시간 없음
@@ -84,7 +84,7 @@ insert into hospital_info (H_NUM , HD_ID, H_ID, H_NAME, H_TEL, H_PLIST, H_TIME, 
     'htest310',
     '리버동물의료센터',
     '052-713-7575',
-    '고양이, 강아지',
+    '강아지, 고양이, 기타',
     '매일 10:00 - 23:00
      일요일 한시적으로 휴진(응급 유선상담예약후 진료가능)',
     '주차, 무선 인터넷, 반려동물 동반',
@@ -106,7 +106,7 @@ insert into hospital_info (H_NUM , HD_ID, H_ID, H_NAME, H_TEL, H_PLIST, H_TIME, 
     'htest102',
     '강남동물병원',
     '052-271-0075',
-    '강아지, 고양이',
+    '소동물, 기타',
     ' ',
     ' ',
     ' '
@@ -120,7 +120,7 @@ insert into hospital_info (H_NUM , HD_ID, H_ID, H_NAME, H_TEL, H_PLIST, H_TIME, 
     'htest106',
     '강일웅동물메디컬센터',
     '052-257-5887',
-    '강아지, 고양이',
+    '강아지, 소동물, 기타',
     '월 09:30 - 19:00
      화 09:30 - 19:00
      수 09:30 - 19:00
@@ -147,7 +147,7 @@ insert into hospital_info (H_NUM , HD_ID, H_ID, H_NAME, H_TEL, H_PLIST, H_TIME, 
     'htest94',
     '태화동물병원',
     '052-211-2399',
-    '강아지, 고양이',
+    '고양이, 기타',
     '월 09:30 - 19:00
      화 09:30 - 19:00
      수 09:30 - 19:00
@@ -167,7 +167,7 @@ insert into hospital_info (H_NUM , HD_ID, H_ID, H_NAME, H_TEL, H_PLIST, H_TIME, 
     'htest87',
     '라온동물메디컬센터',
     '052-286-5050',
-    '강아지, 고양이',
+    '고양이, 소동물, 기타',
     '월 09:30 - 23:00
         13:00 - 14:00 휴게시간
      화 09:30 - 23:00
@@ -205,7 +205,7 @@ insert into hospital_info (H_NUM , HD_ID, H_ID, H_NAME, H_TEL, H_PLIST, H_TIME, 
     'htest88',
     '전영호동물병원',
     '052-292-4112',
-    '강아지, 고양이',
+    '고양이, 기타',
     ' ',
     ' ',
     ' '
@@ -219,7 +219,7 @@ insert into hospital_info (H_NUM , HD_ID, H_ID, H_NAME, H_TEL, H_PLIST, H_TIME, 
     'htest105',
     '원헬스동물의료센터',
     '052-247-7975',
-    '강아지, 고양이',
+    '강아지, 기타',
     '월 09:30 - 21:00
         13:00 - 14:00 휴게시간
      화 09:30 - 21:00
@@ -258,7 +258,7 @@ insert into hospital_info (H_NUM , HD_ID, H_ID, H_NAME, H_TEL, H_PLIST, H_TIME, 
     'htest101',
     '남산동물병원',
     '052-224-8275',
-    '강아지, 고양이',
+    '강아지, 소동물, 기타',
     '월 09:00 - 19:00
         12:30 - 13:30 휴게시간
      화 09:00 - 19:00
@@ -282,7 +282,7 @@ insert into hospital_info (H_NUM , HD_ID, H_ID, H_NAME, H_TEL, H_PLIST, H_TIME, 
     'htest171',
     '해든동물병원',
     '051-343-3834',
-    '강아지, 고양이',
+    '소동물, 기타',
     '월 10:00 - 18:30
         13:00 - 14:00 휴게시간
      화 10:00 - 18:30
@@ -310,7 +310,7 @@ insert into hospital_info (H_NUM , HD_ID, H_ID, H_NAME, H_TEL, H_PLIST, H_TIME, 
     'htest321',
     '동행동물의료센터',
     '051-908-7575',
-    '강아지, 고양이',
+    '기타',
     '24시간 영업연중무휴연중무휴
     매일 00:00 - 24:00
     - 토, 일, 공휴일 정상진료',
@@ -375,7 +375,7 @@ insert into hospital_info (H_NUM , HD_ID, H_ID, H_NAME, H_TEL, H_PLIST, H_TIME, 
     'htest176',
     '유동물의료센터',
     '051-343-7566',
-    '강아지, 고양이',
+    '강아지, 고양이, 기타',
     '24시간 영업연중무휴연중무휴
      매일 00:00 - 24:00
          12:30 - 13:30 휴게시간',
@@ -396,7 +396,7 @@ insert into hospital_info (H_NUM , HD_ID, H_ID, H_NAME, H_TEL, H_PLIST, H_TIME, 
     'htest154',
     '모라동물병원',
     '051-325-1638',
-    '강아지, 고양이',
+    '강아지, 기타',
     ' ',
     ' ',
     ' '
@@ -410,7 +410,7 @@ insert into hospital_info (H_NUM , HD_ID, H_ID, H_NAME, H_TEL, H_PLIST, H_TIME, 
     'htest330',
     '허그동물의료센터',
     '051-714-5251',
-    '강아지, 고양이',
+    '고양이, 소동물',
     '월 10:00 - 20:00
         13:00 - 14:00 휴게시간
      화 10:00 - 20:00
@@ -521,7 +521,7 @@ insert into hospital_info (H_NUM , HD_ID, H_ID, H_NAME, H_TEL, H_PLIST, H_TIME, 
     'htest175',
     '그랜드동물병원',
     '051-365-7588',
-    '강아지, 고양이',
+    '강아지, 고양이, 소동물, 기타',
     '월 10:00 - 19:00
         13:00 - 14:00 휴게시간
      화 10:00 - 19:00
@@ -554,7 +554,7 @@ insert into hospital_info (H_NUM , HD_ID, H_ID, H_NAME, H_TEL, H_PLIST, H_TIME, 
     'htest262',
     '풍경동물병원',
     '051-818-1101',
-    '강아지, 고양이',
+    '강아지, 고양이, 기타',
     '월 10:30 - 19:30
         13:00 - 14:00 휴게시간
      화 10:30 - 19:30
@@ -580,7 +580,7 @@ insert into hospital_info (H_NUM , HD_ID, H_ID, H_NAME, H_TEL, H_PLIST, H_TIME, 
     'htest275',
     '노블동물병원',
     '051-982-2580',
-    '강아지, 고양이',
+    '강아지, 고양이, 소동물',
     '월 10:00 - 19:00
         12:30 - 14:00 휴게시간
      화 10:00 - 19:00
@@ -612,7 +612,7 @@ insert into hospital_info (H_NUM , HD_ID, H_ID, H_NAME, H_TEL, H_PLIST, H_TIME, 
     'htest318',
     '24시더휴동물의료센터',
     '051-513-6060',
-    '강아지, 고양이',
+    '강아지, 기타',
     '24시간 영업연중무휴연중무휴
     매일
     00:00 - 24:00
@@ -635,7 +635,7 @@ insert into hospital_info (H_NUM , HD_ID, H_ID, H_NAME, H_TEL, H_PLIST, H_TIME, 
     'htest275',
     '사직삼보동물병원',
     '051-504-1813',
-    '강아지, 고양이',
+    '고양이, 소동물',
     '월 09:30 - 23:00
      화 09:30 - 23:00
      수 09:30 - 23:00
@@ -647,8 +647,6 @@ insert into hospital_info (H_NUM , HD_ID, H_ID, H_NAME, H_TEL, H_PLIST, H_TIME, 
     '24시 응급 진료 / 각종 수술 전문병원 / 최신 의료장비 구비 / 개,고양이 중성화전문'
     );
 --------------------------------------------------------------------
-commit;
-
 insert into hospital_info (H_NUM , HD_ID, H_ID, H_NAME, H_TEL, H_PLIST, H_TIME, H_INFO, H_ADDINFO)
     values(
     hospital_info_h_num_seq.nextval,
@@ -656,19 +654,19 @@ insert into hospital_info (H_NUM , HD_ID, H_ID, H_NAME, H_TEL, H_PLIST, H_TIME, 
     'htest123',
     '미래펫동물병원',
     '052-273-5911',
-    '강아지, 고양이',
+    '강아지, 고양이, 기타',
     ' 월 09:00 - 18:00
           12:00 - 13:00 휴게시간
-	화 09:00 - 18:00
-	    12:00 - 13:00 휴게시간
-	수 09:00 - 18:00
-	    12:00 - 13:00 휴게시간
-	목 09:00 - 18:00
-	    12:00 - 13:00 휴게시간
-	금 09:00 - 18:00
-	    12:00 - 13:00 휴게시간
-	토 09:00 - 15:00
-	일 정기휴무 (매주 일요일)',
+   화 09:00 - 18:00
+       12:00 - 13:00 휴게시간
+   수 09:00 - 18:00
+       12:00 - 13:00 휴게시간
+   목 09:00 - 18:00
+       12:00 - 13:00 휴게시간
+   금 09:00 - 18:00
+       12:00 - 13:00 휴게시간
+   토 09:00 - 15:00
+   일 정기휴무 (매주 일요일)',
      '주차',
      ' '
     );
@@ -680,7 +678,7 @@ insert into hospital_info (H_NUM , HD_ID, H_ID, H_NAME, H_TEL, H_PLIST, H_TIME, 
     'htest89',
     '이박사동물병원',
     '052-211-0023',
-    '강아지, 고양이',
+    '강아지, 고양이, 기타',
     ' 일
 정기휴무 (매주 일요일)
 월
@@ -710,7 +708,7 @@ insert into hospital_info (H_NUM , HD_ID, H_ID, H_NAME, H_TEL, H_PLIST, H_TIME, 
     'htest114',
     '숲동물병원',
     '052-977-2405',
-    '강아지, 고양이',
+    '강아지, 고양이, 소동물',
     ' 일
 정기휴무 (매주 일요일)
 월
@@ -749,7 +747,7 @@ insert into hospital_info (H_NUM , HD_ID, H_ID, H_NAME, H_TEL, H_PLIST, H_TIME, 
     'htest121',
     '현대동물병원',
     '052-257-3669',
-    '강아지, 고양이',
+    '강아지, 기타',
     ' 일요일 휴무
 평일 09:30 - 19:00 점심시간 13:00~14:00
 토요일 09:30 - 17:00 공휴일 포함
@@ -765,7 +763,7 @@ insert into hospital_info (H_NUM , HD_ID, H_ID, H_NAME, H_TEL, H_PLIST, H_TIME, 
     'htest3',
     '메이동물병원',
     '052-257-3669',
-    '강아지, 고양이',
+    '강아지, 고양이, 기타',
     ' 일
 정기휴무 (매주 일요일)
 월
@@ -798,7 +796,7 @@ insert into hospital_info (H_NUM , HD_ID, H_ID, H_NAME, H_TEL, H_PLIST, H_TIME, 
     'htest92',
     '산타클라라 동물병원',
     '052-257-3669',
-    '강아지, 고양이',
+    '강아지, 고양이, 소동물',
     ' ',
      ' ',
      ' '
@@ -811,7 +809,7 @@ insert into hospital_info (H_NUM , HD_ID, H_ID, H_NAME, H_TEL, H_PLIST, H_TIME, 
     'htest86',
     '울산동물병원',
     '052-297-0979',
-    '강아지, 고양이',
+    '강아지, 고양이, 소동물, 기타',
     '일
 09:00 - 19:00
 12:00 - 13:00 휴게시간
@@ -853,7 +851,7 @@ insert into hospital_info (H_NUM , HD_ID, H_ID, H_NAME, H_TEL, H_PLIST, H_TIME, 
     'htest115',
     '위즈펫동물병원',
     '052-268-3567',
-    '강아지, 고양이',
+    '소동물, 기타',
     '일
 14:00 - 17:00
 월
@@ -939,7 +937,7 @@ insert into hospital_info (H_NUM , HD_ID, H_ID, H_NAME, H_TEL, H_PLIST, H_TIME, 
     'htest324',
     '잘하는동물메디컬센터',
     '052-713-7582',
-    '강아지, 고양이',
+    '기타',
     '일요일 10:00 - 19:00 한시적으로 단축진료합니다
 매일 10:00 - 21:00 연중무휴 진료
 매일 21:00 - 10:00 유선상담 후 응급진료가능',
@@ -989,7 +987,7 @@ insert into hospital_info (H_NUM , HD_ID, H_ID, H_NAME, H_TEL, H_PLIST, H_TIME, 
     'htest91',
     '닥터강 동물병원',
     '052-246-3123',
-    '강아지, 고양이',
+    '강아지, 소동물',
     '일
 정기휴무 (매주 일요일)
 월
@@ -1017,7 +1015,7 @@ insert into hospital_info (H_NUM , HD_ID, H_ID, H_NAME, H_TEL, H_PLIST, H_TIME, 
     'htest78',
     '이솝동물병원',
     '052-295-8875',
-    '강아지, 고양이',
+    '강아지, 고양이, 기타',
     '일
 정기휴무 (매주 일요일)
 월
@@ -1053,7 +1051,7 @@ insert into hospital_info (H_NUM , HD_ID, H_ID, H_NAME, H_TEL, H_PLIST, H_TIME, 
     'htest343',
     '척척동물의료센터',
     '052-232-7575',
-    '강아지, 고양이',
+    '강아지, 고양이, 소동물, 기타',
     '매일 09:00 - 22:00',
      '주차, 무선 인터넷, 반려동물 동반, 남/녀 화장실 구분',
      '*연중무휴 / 야간진료* 울산페이 (울산사랑카드) 재난지원금 사용가능-
@@ -1074,7 +1072,7 @@ insert into hospital_info (H_NUM , HD_ID, H_ID, H_NAME, H_TEL, H_PLIST, H_TIME, 
     'htest111',
     '손대하동물병원',
     '052-234-7576',
-    '강아지, 고양이',
+    '강아지, 고양이, 기타',
     '일
 정기휴무 (매주 일요일)
 월
@@ -1107,7 +1105,7 @@ insert into hospital_info (H_NUM , HD_ID, H_ID, H_NAME, H_TEL, H_PLIST, H_TIME, 
     'htest109',
     '일산동물의료센타',
     '052-252-5878',
-    '강아지, 고양이',
+    '강아지, 고양이, 소동물',
     '평일 09:00 - 07:00 토
 토요일 09:00 - 13:00
 ',
@@ -1123,7 +1121,7 @@ insert into hospital_info (H_NUM , HD_ID, H_ID, H_NAME, H_TEL, H_PLIST, H_TIME, 
     'htest112',
     '쿨펫동물병원 동구점',
     '052-232-3567',
-    '강아지, 고양이',
+    '강아지, 고양이, 기타',
     '일
 10:00 - 17:00
 13:00 - 14:00 휴게시간
@@ -1209,7 +1207,7 @@ insert into hospital_info (H_NUM , HD_ID, H_ID, H_NAME, H_TEL, H_PLIST, H_TIME, 
     'htest79',
     '정철종합동물병원',
     '052-287-0348',
-    '강아지, 고양이',
+    '강아지, 고양이, 소동물, 기타',
     ' ',
      ' ',
      ' '
@@ -1223,7 +1221,7 @@ insert into hospital_info (H_NUM , HD_ID, H_ID, H_NAME, H_TEL, H_PLIST, H_TIME, 
     'htest99',
     '메디펫우리동물병원',
     '052-257-7582',
-    '강아지, 고양이',
+    '강아지, 고양이, 기타',
     '일
 정기휴무 (매주 일요일)
 월

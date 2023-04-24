@@ -136,8 +136,8 @@
             <div class="list">닉네임</div>
             <input type="text" id="nickname" class="my-info" required
                    maxlength="10" th:field="*{userNick}" />
-            <span id="nickname-error" class="error-message"> 
-              <p style="color: #777777; font-size: 14px;">닉네임은 영문자, 숫자, 한글조합 10글자 이하로 작성해주세요</p>
+            <span id="nickname-error" class="error-message" style="color: grey; font-size: 14px;">
+              닉네임은 영문자, 숫자, 한글조합 10글자 이하로 작성해주세요
             </span>
           </div>
           <div class="list-frm">
@@ -189,6 +189,9 @@
             <div class="myprofile-button">
               <button type="button" class="btn-frm" id="btn_modify" value="confirm">
                 수정
+              </button>
+              <button type="button" class="btn-frm" id="btn_modify_cancel" value="confirm">
+                취소
               </button>
             </div>
           </div>

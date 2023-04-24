@@ -3,6 +3,7 @@ package com.project.zoopiter.web;
 import com.project.zoopiter.domain.common.mail.MailService;
 import com.project.zoopiter.domain.entity.Member;
 import com.project.zoopiter.domain.member.svc.MemberSVC;
+import com.project.zoopiter.web.common.LoginMember;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
@@ -32,6 +33,30 @@ public class RestMemverController {
         boolean exist = memberSVC.isExistNick(nickname);
         res = RestResponse.createRestResponse("00","성공", exist);
 
+        return res;
+    }
+
+    //회원닉네임 체크2
+    @ResponseBody
+    @GetMapping("/nickname2")
+    public RestResponse<Object> isExistNick2(@RequestParam("nickname") String nickname, HttpServletRequest request){
+        log.info("nickname={}",nickname);
+        RestResponse<Object> res = null;
+
+        String userNick = null;
+        HttpSession session = request.getSession(false);
+        if(session != null) {
+            LoginMember loginMember = (LoginMember)session.getAttribute(SessionConst.LOGIN_MEMBER);
+            userNick = loginMember.getUserNick();
+        }
+
+        if(nickname.equals(userNick)){
+            res = RestResponse.createRestResponse("01","실패", "기존 닉네임 입니다.");
+        }else{
+            //아이디 검증
+            boolean exist = memberSVC.isExistNick(nickname);
+            res = RestResponse.createRestResponse("00","성공", exist);
+        }
         return res;
     }
 

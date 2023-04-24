@@ -3,6 +3,7 @@ import { ajax } from '/js/ajax.js';
 const nicknameInput = document.getElementById('nickname');
 const nicknameError = document.getElementById('nickname-error');
 const btnModify = document.getElementById('btn_modify');
+const btnCancel = document.getElementById('btn_modify_cancel');
 
 //<!--사이드메뉴 강조-->
 $(function () {
@@ -20,6 +21,9 @@ const inputImg = document.getElementById('chooseFile');
             method: 'POST',
             body: formData
         })
+        .then(e=>{
+            location.href = '/mypage';
+        })
         .catch(error => {
             console.error(error);
         });
@@ -29,7 +33,7 @@ const inputImg = document.getElementById('chooseFile');
 const updateNick = res => {
   if (res.header.rtcd == '00') {
     if (res.data) {
-      location.href = '/mypage';
+      img_h();
     } else {
       alert('닉네임 저장 실패');
     }
@@ -67,14 +71,37 @@ function modify() {
   });
 }
 
-btnModify.addEventListener('click', e => {
+// 마이페이지 수정버튼
+function modify2() {
+  Swal.fire({
+    title: '수정하시겠습니까?',
+    text: '작성하신 정보가 저장됩니다',
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonColor: '#333',
+    cancelButtonColor: '#ffd88f',
+    confirmButtonText: '수정하기',
+    cancelButtonText: '취소하기',
+  }).then(result => {
+    if (result.isConfirmed) {
       img_h();
-  if (nicknameError.style.color === 'green') {
+    }
+  });
+}
+
+btnModify.addEventListener('click', e => {
+  if (nicknameError.style.color === 'grey') {
+    modify2();
+  }else if (nicknameError.style.color === 'green') {
     modify();
   } else {
-    location.href = '/mypage';
+    alert('양식에 맞게 입력해 주세요');
   }
   return;
+});
+
+btnCancel.addEventListener('click', e => {
+    location.href = '/mypage';
 });
 
 //닉네임 중복체크
@@ -87,6 +114,9 @@ const chkNick = res => {
       nicknameError.style = 'color : green; font-size: 14px';
       nicknameError.textContent = '사용가능한 닉네임 입니다.';
     }
+  }else if(res.header.rtcd == '01'){
+    nicknameError.style = 'color : grey; font-size: 14px';
+    nicknameError.textContent = res.data;
   } else {
     nicknameError.textContent = `${res.header.rtmsg}`;
   }
@@ -94,7 +124,7 @@ const chkNick = res => {
 };
 
 const chkNick_h = () => {
-  const url = `/api/members/nickname?nickname=${nicknameInput.value}`;
+  const url = `/api/members/nickname2?nickname=${nicknameInput.value}`;
   ajax
     .get(url)
     .then(res => res.json())
